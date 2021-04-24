@@ -1,0 +1,25 @@
+<tr>
+		<?php
+			//if ($this->TCM != 0){
+			if (!$this->Exempt){
+		?>
+				<td class="tf"><?php echo $this->cname ?></td>
+				<td class="tb"><?php echo ($this->CWKMax > 0) ? round($this->CWK) : '-' ?></td>
+				<td class="tb"><?php echo ($this->HWKMax > 0) ? round($this->HWK) : '-' ?></td>
+				<td class="tb"><?php echo ($this->UNTMax > 0) ? round($this->UNT) : '-' ?></td>
+				<td class="tb"><?php echo ($this->GPWMax > 0) ? round($this->GPW) : '-' ?></td>
+				<td class="tb"><?php echo ($this->PRJMax > 0) ? round($this->PRJ) : '-' ?></td>
+				<td class="tb"><?php echo round($this->TCM) ?></td>
+				<td class="tb" style="padding-right: 25px;">
+					<?php
+					 if ($this->isExaminable)
+						echo round ( $this->EXM );
+					 else
+						echo '-';
+					?>
+				</td>
+
+				<td class="tb" style="padding-right: 25px;"><?php echo round($this->TM) ?></td>
+				<td class="tl" style="padding-left: 18px;"><?php echo $this->Letter; ?> </td>
+				<?php } ?>
+</tr>

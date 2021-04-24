@@ -1,0 +1,77 @@
+<?php if ($this->termdates != null) {   ?>
+
+<table id="dtb_termdates" class="table table-hover table-bordered tablecloth">
+<thead>
+    <tr>
+        <th width="50">Term</th>
+        <th width="120">Academic Year</th>
+        <th width="225">From</th>
+        <th width="225">To</th>
+        <th>Holidays</th>
+        <th>Weeks</th>
+    </tr>
+</thead>
+<tbody>
+    <?php echo $this->partialLoop('partials/_termdates-row.phtml',$this->termdates)?>
+</tbody>
+</table>
+
+   <?php } else {?>
+     <p>You do not have any term dates yet.</p>
+   <?php }?>
+
+<!-- SCRIPT SECTION  -->
+
+<script type="text/javascript">
+<!--
+$(function(){
+   var termdates = $('#dtb_termdates').dataTable( {
+    	"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+    	"bStateSave": false,
+        "iDisplayLength" : 10,
+        "aaSorting": [],
+		"aoColumnDefs": [
+			                 //{ "sClass": "ct", "aTargets": [ 1 ] },  //used in setting a class to a td
+			                 //{ "sClass": "em", "aTargets": [ 2 ] },  //used in setting a class to a td
+				            ],
+
+		"bPaginate": true,
+
+    	"oTableTools": {
+    		"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+    		"sRowSelect" : "single",
+    		"aButtons": [
+    						"copy",
+    						"print",
+    						"xls",
+    						"pdf",
+    						{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "Update Dates",
+			                    "sButtonClass" : "",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                        $.post('/setupterm',
+			                        	{
+			                               send : false,
+			                        	},
+			                        	function (data){
+			                        	    $('#termdates').html(data);
+			                        	});
+			                    }
+			                }]
+    	},
+
+    	"fnDrawCallback" : function (){
+ 		   $("a[rel=popover]")
+		     .popover()
+		     .click(function(e) {
+		       e.preventDefault();
+		     });
+    	}
+    });
+
+   $(".tablecloth").tablecloth({ theme: "paper" });
+
+});
+//-->
+</script>

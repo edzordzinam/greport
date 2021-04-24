@@ -1,0 +1,74 @@
+<table id="dtb_billgrouplist" class="dTable table table-hover table-bordered table-condensed">
+	<thead>
+		<tr>
+            <th width="150">Description</th>
+            <th>Applicable Classes</th>
+            <th width="100">Manage</th>
+		</tr>
+	</thead>
+	<tbody>
+    </tbody>
+</table>
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_billgrouplist = $('#dtb_billgrouplist').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 10,
+		"bAutoWidth": false,
+		"bProcessing": true,
+		"bStateSave": false,
+		"bServerSide": true,
+		"sAjaxSource": "/groupsource",
+		"sServerMethod": "POST",
+
+	    //"sScrollY": "250px",
+	    "bPaginate": true,
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"aoColumnDefs": [
+			                 { "bSortable": false, "aTargets": [ 2 ] }
+			             ],
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+							{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "New Fee Category",
+			                    "sButtonClass" : "btn-danger whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                        $.post('/groupupdate',
+			                        	{
+			                               send : false,
+			                        	},
+			                        	function (data){
+			                        	    $('#feesgroups').html(data);
+			                        	});
+			                    }
+			                },
+							{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "View Bills by Group",
+			                    "sButtonClass" : "btn-success whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                    	$.loadModal('/viewbills', 'Billables', 1);
+			                    }
+			                }]
+		}
+	});
+
+	$(".table").tablecloth({ theme: "paper" });
+
+});
+//-->
+</script>

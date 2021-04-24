@@ -1,0 +1,115 @@
+	<div class="hero-unit">
+		<h1>
+			<img alt="" src="/ico/auction-hammer-icon.png"
+				style="padding-right: 10px; padding-left: 10px; width: 36px;"
+			>casensuits.com
+		</h1>
+		<p>
+			<span class="label label-info">Are you a barrister or solicitor, a
+				law chamber?</span> Legal Service Providers can now rely on a <span
+				class="label label-warning"
+			>fast</span>, <span class="label label-important">robust</span> and
+			utmost <span class="label label-success">secure</span> "casensuits"
+			platform built on four (4) years of solid research and thorough
+			understanding of legal and judicial systems across the world.
+			Non-negotiable high levels of security and complete confidentiality
+			are at the core of the implementation of casensuits.
+		</p>
+            <form class="form-inline" id="validate">
+                 <input
+    			    type="text"
+    			    id="uid"
+    			    name="username"
+    			    placeholder="Email or Username"
+    			    required
+    			    class="input-medium"  />
+
+    			 <input
+    			    class="input-medium"
+    			    type="password"
+    			    id="pwd"
+    			    name="password"
+    			    placeholder="Password"
+    			    required
+    			    title='a password is required to sign-in' />
+                  <button type="submit" class="btn">Sign in</button>
+                </form>
+	</div>
+
+<!-- =========================================== -->
+
+<script type="text/javascript">
+    <!--
+
+    $(function() {
+   	 $.qData = "";
+
+    	//default form initialization
+    	$('#validate').ajaxForm({
+    		//options of ajaxForm
+
+    		url : '/auth',
+    		data : {}, //data to be submitted along with the form variables json formatted
+    		clearForm : null, // form to be cleared if submit is successfull,
+
+    		dataType : 'json',  // json, xml, or script
+    		type : 'POST', // type of ajax call GET or POST
+
+    		replaceTarget : true,
+    		target : '#response',   //target is only rendered when the dataType has been specified.
+
+    		//callback function to be invoked on error.
+    		error : function (){
+    		},
+
+    		beforeSubmit : function (arr, $form, options){
+    			// return false; to cancel submit action
+    			 arr[1].value = $.MD5(arr[1].value);
+    		},
+
+    		success : function (data){
+    		    if (data.success == 1){
+
+    		    	window.location.replace(data.url);
+    		    }
+    		    else if (data.success == -1) {
+    		    	$.showMessage('Your account has been deactivated, contact admin.');
+    		    }
+    		    else{
+    		    	$.showMessage('Username or Password invalid', 'error');
+    		    }
+    		},
+
+        });
+
+       $('#searchCauseList').typeahead({
+    	   // source can be a function
+   	    source: function (query,process) {
+      	     $.ajax({
+        	       url : '/searchindex',
+        	       type : 'POST',
+        	       data : 'query =' + query,
+        	       dataType : 'JSON',
+        	       async : true,
+        	       success : function(data){
+       	    	     process(data);
+        	       }
+          	     });
+   	   	    },
+   	   	    minLength : 3,
+   	   	    items : 8,
+   	   	    updater : function (item){
+   	   	   	    //item = selected item
+   	   	   	    //do your stuff
+   	   	   	    //$.showMessage(item);
+   	   	   	    return item;
+   	   	    }
+        });
+
+       $('#dp3').datepicker({
+	   });
+
+    });
+
+    //-->
+    </script>

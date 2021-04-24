@@ -1,0 +1,49 @@
+<div class="tabbable tabs-above">
+	<ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#listsubjects" data-toggle="tab">Taught Subjects</a></li>
+        <!--<li><a href="#allassigns" data-toggle="tab">Instructor Assignments</a></li>
+		    <li><a href="#editinstructor" data-toggle="tab">Edit Instructor</a></li> -->
+	</ul>
+
+	<div id="myTabContent" class="tab-content" >
+		<div class="tab-pane fade in active" id="listsubjects">
+			<p>
+
+			</p>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- SCRIPT SECTION -->
+<script type="text/javascript">
+
+      $(function(){
+    	    $('a[href="#listsubjects"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/listsubjects',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#listsubjects').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#allassigns"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/instructor/allsubjects-assigned',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#listsubjects').html(data);
+    	        	    });
+    	    });
+
+
+    	  //make ajax call to list of instructors
+    	    $('a[href="#listsubjects"]').click();
+
+
+     });
+</script>

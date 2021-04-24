@@ -1,0 +1,24 @@
+<div style="padding-right:10px;">
+	<textarea id="comment" maxlength="300"
+		style="text-align: justify; width: 100%; margin-right: 10px; min-height: 100px; resize:none;">
+	</textarea>
+</div>
+<div>
+<button class="btn btn-success pull-right" data-dismiss="modal" aria-hidden="true" style="margin-bottom: 10px;"
+	onclick="$.fn.updateComment(<?php echo $this->examid ?>, <?php echo $this->studentid ?>, $.trim($('#comment').val()));">Update
+	comment</button>
+</div>
+
+<script type="text/javascript">
+<!--
+$(function(){
+	  $('#comment').val("<?php echo $this->cleanString($this->comment);?>")
+	  $("#comment").counter({
+			goal:300,
+			//type: 'word'
+		});
+	$('#ajax-modal').width(600);
+	$('#ajax-modal').css('left','48%');
+});
+//-->
+</script>

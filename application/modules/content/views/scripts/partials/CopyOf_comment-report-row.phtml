@@ -1,0 +1,49 @@
+ <div style="page-break-inside: avoid; ">
+  <table class="detail" style="width: 100%; border-right: 1px solid #4F81BD" cellpadding="0" cellspacing="0">
+     <tr style="height: 20px;">
+      <?php if (!$this->cl_exempt) { ?>
+     	<td style="width: 300px; font-size: 14px;">SUBJECT : <strong><?php echo strtoupper($this->cl_coursename); ?></strong> </td>
+     	<td class="headcell" style="width: 60px;">MARK : </td><td class="headcell"  style="width: 30px;"><?php echo round($this->TM); ?></td>
+     	<td class="headcell" style="width: 70px;">GRADE : </td><td class="headcell"  style="width: 30px;"><?php echo $this->getGradeLetter(round($this->TM)) ?></td>
+		<?php } else {?>
+     	<td style="width: 300px; font-size: 12px;">SUBJECT : <strong><?php echo strtoupper($this->cl_coursename); ?></strong> </td>
+     	<td class="headcell" style="width: 60px;">MARK : </td><td class="headcell"  style="width: 30px;"><?php echo '-'; ?></td>
+     	<td class="headcell" style="width: 70px;">GRADE : </td><td class="headcell"  style="width: 30px;"><?php echo '-' ?></td>
+		<?php } ?>
+     </tr>
+	     <tr style="height: 20px;"><td colspan="5" ></td></tr>
+	     <tr ><td colspan="5" style="font-weight: bold;">WORK COVERED:</td></tr>
+	     <tr  style="height: 100px;">
+	          <td colspan="5" style="font-size: 14px; padding-top: 20px; padding-bottom: 20px;">
+	           <?php if ($this->cl_exempt) echo 'Exempted from subject'; else echo $this->cl_content; ?>
+	         </td>
+	     </tr>
+	     <tr><td colspan="5" style="font-weight: bold;">TEACHER'S COMMENT:</tr>
+	     <tr style="height: 100px;" ><td class="lastcell" colspan="5" style="font-size: 14px; padding-top: 20px; padding-bottom: 20px;  "><?php if ($this->cl_exempt) echo 'Exempted from subject'; else echo $this->cl_comment; ?></td></tr>
+     <tr></tr>
+  </table>
+ </div>
+<div style="height: 20px;"></div>
+
+<?php if (!$this->cl_exempt) { ?>
+ <div style="page-break-inside: avoid; ">
+  <table class="detail" style="width: 100%; border-right: 1px solid #4F81BD" cellpadding="0" cellspacing="0">
+     <tr style="height: 20px;">
+     	<td style="width: 300px; font-size: 14px;">SUBJECT : <strong><?php echo strtoupper($this->cl_coursename); ?></strong> </td>
+     	<td class="headcell" style="width: 60px;">MARK : </td><td class="headcell"  style="width: 30px;"><?php echo round($this->TM); ?></td>
+     	<td class="headcell" style="width: 70px;">GRADE : </td><td class="headcell"  style="width: 30px;"><?php echo $this->getGradeLetter(round($this->TM)) ?></td>
+     </tr>
+	     <tr style="height: 20px;"><td colspan="5" ></td></tr>
+	     <tr ><td colspan="5" style="font-weight: bold;">WORK COVERED:</td></tr>
+	     <tr  style="height: 100px;">
+	          <td colspan="5" style="font-size: 14px; padding-top: 20px; padding-bottom: 20px;">
+	           <?php echo $this->cl_content; ?>
+	         </td>
+	     </tr>
+	     <tr><td colspan="5" style="font-weight: bold;">TEACHER'S COMMENT:</tr>
+	     <tr style="height: 100px;" ><td class="lastcell" colspan="5" style="font-size: 14px; padding-top: 20px; padding-bottom: 20px;  "><?php echo $this->cl_comment; ?></td></tr>
+     <tr></tr>
+  </table>
+ </div>
+<div style="height: 20px;"></div>
+<?php } ?>

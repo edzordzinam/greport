@@ -1,0 +1,21 @@
+<tr>
+<?php if (!$this->Exempt) { ?>
+	<td style="text-align: left;"><?php echo $this->cname ?></td>
+	<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo round($this->TCM) ?></td>
+	<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php
+				  if ($this->isExaminable)
+					   echo round($this->EXM);
+				  else
+				  	   echo '-';
+				?></td>
+	<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo round($this->TM) ?> </td>
+	<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo $this->Letter ?></td>
+	<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo $this->Comment ?></td>
+	<?php } else { ?>
+			<td style="text-align: left;"><?php echo $this->cname ?></td>
+			<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo '-' ?></td>
+			<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo '-' ?></td>
+			<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo '-' ?></td>
+			<td style="font-weight: bold; text-align: center; font-size: 12px;" ><?php echo '-'; ?> </td>
+	<?php } ?>
+</tr>

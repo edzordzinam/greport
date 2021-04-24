@@ -1,0 +1,134 @@
+<div>
+	<ul class="nav nav-pills">
+		<li class="dropdown"><a class="btn dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">View Past Term Bills <b class="caret"></b></a>
+			<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+			<?php
+			$past = Content_Model_TermBill::getPastBills ();
+			foreach ( $past as $bill ) {
+				?>
+					<li><a href='javascript:void(0);' onclick='$.fn.showb(<?php echo $bill->term; ?>,"<?php echo $bill->year; ?>");'>Term <?php echo $bill->term; ?> of <?php echo $bill->year;?> </a></li>
+			<?php } ?>
+			</ul></li>
+		<li class="dropdown"><a class="btn dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#">Import Bills <b class="caret"></b></a>
+			<ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
+				<li><a href='javascript:void(0);' onclick="$.fn.importbills(0);"> Current Term </a></li>
+				<li><a href='javascript:void(0);' onclick="$.fn.importbills(1);"> Next Term </a></li>
+			</ul></li>
+	</ul>
+</div>
+<div class="formSep"></div>
+<table id="dtb_termbill" class="dTable table table-hover table-bordered table-condensed" style="font-size: 12px;">
+	<thead>
+		<tr>
+			<th>Description</th>
+			<th>Group</th>
+			<th>Class</th>
+			<th>Amount</th>
+			<th>Term</th>
+			<th>Year</th>
+			<th>Type</th>
+			<th>M/O</th>
+			<th>Manage</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	$.termyear = {
+			term : null,
+			year : null,
+	}
+
+	var dtb_termbill = $('#dtb_termbill').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 10,
+		"bAutoWidth": false,
+		"bProcessing": true,
+		"bStateSave": false,
+		"bServerSide": true,
+		"sAjaxSource": "/termbillsource",
+		"sServerMethod": "POST",
+
+		"bScrollInfinite": true,
+	    "sScrollY": "250px",
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"aoColumnDefs": [
+			                 { "bSortable": false, "aTargets": [ 8 ] }
+			             ],
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+							{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "New Bill Item",
+			                    "sButtonClass" : "btn-danger whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                    	<?php if ($this->current) { ?>
+			                        $.post('/termbillupdate',
+			                        	{
+			                               send : false,
+			                        	},
+			                        	function (data){
+			                        	    $('#termbill').html(data);
+			                        	});
+			                        <?php } else {?>
+				      				  bootbox.alert('Operation not allowed on past period operations')
+				                    	<?php } ?>
+			                    }
+			                }]
+		}
+	});
+
+/* 	var selectBox = $("select").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 600,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 600
+    }); */
+
+	$.fn.showb = function(term, year){
+		$.termyear.term = term;
+		$.termyear.year = year;
+		dtb_termbill.fnReloadAjax('/termbillsource?term='+term+'&year='+year);
+	};
+
+	$.fn.importbills = function(current){
+		$.post('/importbills',
+			{
+				term : $.termyear.term,
+				year : $.termyear.year,
+				next : current
+			},
+			function(response){
+				if (response.status == 1)
+					$.showMessage('<strong>Bills successfully imported into current term and year </strong>', 'success');
+				else if (response.status == -100)
+					$.showMessage('Failed to import bills, Current Term has not been defined', 'error');
+				else if (response.status == -101)
+					$.showMessage('Failed to import bills, Next Term has not been defined', 'error');
+				else if (response.status == -99)
+					$.showMessage('<strong>Bills already exist for Term '+$.termyear.term+' of '+$.termyear.year+', Delete all bills to proceed with importation</strong>', 'error');
+				else if (response.status == -200)
+					$.showMessage('No Term or Year of importation specified, Click "View Past Term or Year" and select term to import!','information');
+			});
+	}
+
+	$(".table").tablecloth({ theme: "paper" });
+});
+//-->
+</script>

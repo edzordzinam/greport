@@ -1,0 +1,228 @@
+<?php if ($this->allow) {?>
+
+<div align="right"><?php echo $this->subButtons?></div>
+<hr>
+
+<table id="dtb_exams" class="dTable table table-hover table-bordered table-condensed table-mini">
+	<thead>
+		<tr>
+			<th>Student no.</th>
+			<th>Fullname</th>
+			<th width="100">Base</th>
+			<th width="100">Mark</th>
+			<th width="100">Exempt</th>
+			<th width="35" align="center">%</th>
+
+		</tr>
+	</thead>
+	<tbody>
+    </tbody>
+</table>
+
+<div class="btn-group" data-toggle="buttons-radio">
+<?php
+  foreach ($this->classes as $key => $value) {
+      $n = $this->getGradeName($value);
+      echo "<button id='bb$key' class='btn btn-danger btn-small' type='button' onclick='$.fn.filterExams($(\"#c\").text(),$value)'>$n</button>";
+  }
+?>
+</div>
+
+<div align="left"><?php echo $this->subButtonsClasses?></div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_exams = $('#dtb_exams').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 20,
+		"bAutoWidth": false,
+
+		"bProcessing": true,
+		"bStateSave": false,
+		"bServerSide": true,
+		//"sServerMethod": "GET",
+		"sAjaxSource": "/exams/examslist",
+		"fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
+			  aoData.push( { "name": "cid", "value": "<?php echo $this->firstcourse; ?>" } );
+			  aoData.push( { "name": "grade", "value": "<?php echo $this->classes[0];?>" } );
+		      oSettings.jqXHR = $.ajax( {
+		        "dataType": 'json',
+		        "type": "POST",
+		        "url": sSource,
+		        "data": aoData,
+		        "success": fnCallback
+		      });
+		      },
+		"aaSorting": [],
+	    "sScrollY": "250px",
+	    "bScrollInfinite": true,
+	    "bScrollCollapse": true,
+	    "bPaginate": true,
+
+		"oLanguage" : {
+			 "sProcessing": "<img src='/img/loaders/cloader2.gif'> Server processing request...",
+			 "sEmptyTable": "You have not been assigned the selected subject and selected class",
+		    },
+
+		"aoColumnDefs": [
+		                       {"bSortable":false, "aTargets":[2,3,4,5]},
+			                 //{ "bVisible": false, "aTargets": [ 0 ] },
+		                       { "sClass": "markbase", "aTargets": [ 2 ] },
+			                   { "sClass": "markrow", "aTargets": [ 3 ] },
+			                   { "sClass": "exemptrow", "aTargets": [ 4 ] },
+			             ],
+		"fnDrawCallback": function( oSettings ) {
+						<?php if( !$this->locked) {  //disabling editing of marks of archived data?>
+	   			   				$.fn.makeeditable();
+						 <?php } ?>
+				   		  },
+
+		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+		 			            var id = aData[0];
+		 			            	$(nRow).attr("id",id);
+		 		},
+		"oTableTools": {
+			//"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+			                {
+			                    "sExtends":    "text",
+			                    "sButtonText" : "Reset Marks",
+			                    "sButtonClass" : "btn-danger whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                      <?php if( !$this->locked) { ?>
+			                        bootbox.confirm('Are you sure you want to reset exam marks for the selected class and subject?','No','Yes',
+					                    function (confirm){
+					                     if(confirm){
+			                                 $.post('/resetmarks',
+			                                	 {
+			                                	 course : $('#c').text(),
+			                                     grade : $('#g').text(),
+		                                		 },
+		                                		 function (data){
+		                                			 dtb_exams.fnReloadAjax();
+		                                	     });
+					                     }
+				                        });
+			                        <?php } else { ?>
+			            		 	bootbox.alert('Access Denied (Code 101) : Contact Administrator');
+			            		 <?php } ?>
+			                    }
+			                },
+			                {
+			                    "sExtends":    "text",
+			                    "sButtonText" : "Refresh Data",
+			                    "sButtonClass" : "btn-success whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                    	dtb_exams.fnReloadAjax();
+			                    }
+			                }],
+
+
+			"fnRowSelected": function (node){
+			}
+		}
+	});
+
+
+	$.fn.makeeditable = function (){
+            	if ($('#dtb_exams').length  > 0) {
+            		dtb_exams.$('td.markbase').editable( '/examsbase',
+            				{
+            				"callback": function( sValue, y ) {
+                 				if (sValue > 0){
+                 					dtb_exams.fnReloadAjax();
+            					}
+                 				else if (sValue == -1){
+               						dtb_exams.fnReloadAjax();
+            						bootbox.alert('Aborted: Proposed marking base is <strong>less than the highest score/grade <strong>received in this examination');
+                 				}
+            					else{
+            						dtb_exams.fnReloadAjax();
+            						bootbox.alert('Aborted: Proposed marking base is <strong>less than the highest score/grade <strong>received in this examination');
+            					}
+            				},
+            				"submitdata": function ( value, settings ) {
+            					return {
+            						"cid" : $('#c').text(),
+            						"grade" : $('#g').text(),
+            					};
+            				},
+            				placeholder: "",
+            				type : "masked",
+            				mask : "?999",
+            				onblur : "submit",
+            				height: "25px",
+            			    event : "click"
+            		});
+
+            		dtb_exams.$('td.markrow').editable( '/examsmark',
+            				{
+            				"callback": function( sValue, y ) {
+                 				if (sValue != 'Invalid mark'){
+            						//$.showMessage('Update successful');
+            					}
+            					else{
+            						bootbox.alert("Aborted : <strong>Either no marking base (maximum mark allowed) has been provided</strong>. or <strong> the score entered exceed the allowed maximum base")
+            					}
+            				},
+            				"submitdata": function ( value, settings ) {
+            					return {
+            						"cid" : $('#c').text(),
+            						"grade" : $('#g').text(),
+            						"student_id": this.parentNode.getAttribute('id'),
+            						"markover" : dtb_exams.fnGetData(0)[2],
+            						//"column": oTable.fnGetPosition( this )[2],
+            					};
+            				},
+            				placeholder: "",
+            				type : "masked",
+            				mask : "?999",
+            				onblur : "submit",
+            				height: "25px",
+            			    event : "click"
+            		});
+
+            		dtb_exams.$('td.exemptrow').editable( '/exemptstudent',
+            				{
+            				"callback": function( sValue, y ) {
+
+            				},
+            				"submitdata": function ( value, settings ) {
+            					return {
+            						"cid" : $('#c').text(),
+            						"grade" : $('#g').text(),
+            						"student_id": this.parentNode.getAttribute('id'),
+            					};
+            				},
+
+            				type: 'select',
+            				data : {0:"No" , 1:"Yes"},
+            				onblur : "submit",
+            				height: "25px",
+            				width : "100px",
+            			    event : "dblclick"
+            		});
+            	};
+	}; //end of makeEditable
+
+    $.fn.filterExams = function(course, grade){
+        $('#c').text(course);
+        $('#g').text(grade);
+        dtb_exams.fnReloadAjax( '/examscoreslist?cid=' + course + '&grade=' + grade );
+    };//end of filterassignments
+
+	$(".table").not('#astats').tablecloth({ theme: "paper" });
+	$('#btnfirst').button('toggle');
+	$('#bb0').button('toggle');
+
+
+});
+
+</script><?php } else { echo $this->action('noauth', 'error', 'security'); } ?>

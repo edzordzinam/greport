@@ -1,0 +1,61 @@
+<div class="tabbable tabs-above">
+	<ul id="myTab" class="nav nav-tabs">
+		<li class="active"><a href="#statistics" data-toggle="tab">Statistics</a></li>
+		<li><a href="#registries" data-toggle="tab">Registries</a></li>
+        <li><a href="#courts" data-toggle="tab">Courts</a></li>
+        <li><a href="#locations" data-toggle="tab">Locations</a></li>
+	</ul>
+
+	<div id="myTabContent" class="tab-content"  style="min-height: 410px;">
+		<div class="tab-pane fade in active" id="statistics">
+			<p>Statistical Page about registries locations and cases</p>
+		</div>
+		<div class="tab-pane fade" id="registries">
+			<p>List of registries</p>
+		</div>
+		<div class="tab-pane fade" id="courts">
+			<p>Courts .....</p>
+		</div>
+		<div class="tab-pane fade" id="locations">
+			<p>Court Locations.....</p>
+		</div>
+	</div>
+</div>
+<!-- SCRIPTS SECTION -->
+
+
+<script type="text/javascript">
+<!--
+ $(function(){
+	    $('a[href="#registries"]').on('click', function (e) {
+	        $.post(
+	        	    '/listregistries',
+	        	    {
+	        	    },
+	        	    function (data){
+	        	        $('#registries').html(data);
+	        	    });
+	    });
+
+	    $('a[href="#statistics"]').on('click', function (e) {
+	        $.post(
+	        	    '/registrystats',
+	        	    {
+	        	    },
+	        	    function (data){
+	        	        $('#statistics').html(data);
+	        	    });
+	    });
+
+	    $('a[href="#courts"]').on('click', function (e) {
+	        $.post(
+	        	    '/listcourts',
+	        	    {
+	        	    },
+	        	    function (data){
+	        	        $('#courts').html(data);
+	        	    });
+	    });
+ });
+//-->
+</script>

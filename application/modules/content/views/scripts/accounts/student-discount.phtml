@@ -1,0 +1,61 @@
+<table id="dtb_studentdiscount" class="dTable table table-hover table-bordered table-condensed" style="font-size: 12px;">
+	<thead>
+		<tr>
+		    <th>Student ID </th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+	   <?php
+	       foreach ($this->discounts as $discount) { ?>
+            <tr>
+                <td><?php echo $discount->cl_GPSN_ID?></td>
+                <td><?php echo $discount->fullname?></td>
+                <td><?php echo $this->getGradeName($discount->gradelevel)?></td>
+                <td align="right"><?php echo number_format($discount->transamount,2)?></td>
+            </tr>
+	    <?php }  ?>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_studentdiscount = $('#dtb_studentdiscount').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+		"iDisplayLength" : 10,
+
+		"bAutoWidth": false,
+		//"bProcessing": true,
+		"bRetrieve" : true,
+		"bStateSave": false,
+
+	    "bPaginate": true,
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"aoColumnDefs": [
+			                 { "bSortable": false, "aTargets": [ 3 ] }
+			             ],
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf"]
+		}
+	});
+
+	$(".table").tablecloth({ theme: "paper" });
+
+});
+//-->
+</script>

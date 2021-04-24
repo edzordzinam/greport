@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>g-reports mobile welcomes you</title>
+	<link rel="stylesheet"  href="/css/themes/default/jquery.mobile-1.2.0.css" />
+	<link rel="stylesheet" href="/docs/_assets/css/jqm-docs.css" />
+	<script src="/js/jquery.min.js"></script>
+	<script src="/docs/_assets/js/jqm-docs.js"></script>
+	<script src="/js/jquery.mobile-1.2.0.min.js"></script>
+
+</head>
+<body>
+<div data-role="page" class="type-home">
+	<div data-role="content">
+
+
+		<div class="content-secondary">
+
+			<div id="jqm-homeheader">
+				<h1 id="jqm-logo"><img src="/ico/jmobilelogo.png" style="width: 265px !important; height: 59px !important;" alt="jQuery Mobile Framework" /></h1>
+				<p>An academic reporting platform</p>
+			</div>
+
+
+			<p class="intro"><strong>Welcome.</strong> G-REPORTS is a strong and robust platform that makes the job of school administration efficient and effective</p>
+
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+				<li data-role="list-divider">g-reports</li>
+                 <?php echo $this->action('sidebar', 'menu', 'content', array('mobile'=>true))?>
+			</ul>
+
+		</div><!--/content-primary-->
+
+		 <?php echo $this->layout()->content; ?>
+	</div>
+
+	<div data-role="footer" class="footer-docs" data-theme="a">
+			<p align="center">&copy; 2012 : Zf and Openshift Powered</p>
+	</div>
+
+</div>
+</body>
+</html>

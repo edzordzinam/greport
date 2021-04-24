@@ -1,0 +1,18 @@
+<tr>
+<?php if (!$this->Exempt) { ?>
+	<td style="width: 250px;" style="text-align: left;"><?php echo $this->cname ?></td>
+	<td width="10%"  style="text-align:center;font-weight: bold; color: black;"><?php echo round($this->TCM) ?></td>
+	<td width="10%"  style="text-align:center;font-weight: bold; color: maroon;">
+				<?php
+				  if ($this->isExaminable)
+					   echo round($this->EXM);
+				  else
+				  	   echo '-';
+				?>
+	</td>
+	<td width="10%" style="text-align:center;font-weight: bold; color: green;"><?php echo round($this->TM) ?> </td>
+	<td width="10%" style="text-align:center;font-weight: bold; color: blue;"><?php echo $this->Letter ?></td>
+	<td width="50" style="text-align:center;font-weight: bold; color: blue;"><?php echo date('jS',strtotime("$this->Position-12-2000"))?></td>
+	<td width="150" style="text-align:center;"><?php echo $this->Comment ?></td>
+<?php } ?>
+</tr>

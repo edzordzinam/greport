@@ -1,0 +1,132 @@
+<?php echo $this->labels; ?>
+<?php if ($this->allow) {?>
+				       <div class="btn-toolbar" style="width: 100%; margin:0px;">
+							<div class="btn-group" >
+						    	<button class="left btn btn-link"><i class="icon-chevron-left"></i></button>
+						    </div>
+							<div class="scrolling_area btn-group" style="margin: 0px;">
+								 <div class="scroll_content">
+										<div class="btn-group" data-toggle="buttons-radio">
+																	<?php
+																	foreach ($this->classes as $key => $value) {
+																		$n = $this->getGradeName($value);
+																		echo "<button id='bb$key' class='btn btn-danger btn-small' type='button' onclick='$.fn.StudentsInClass($value)'>$n</button>";
+																	}
+																	?>
+										</div>
+								</div>
+							</div>
+												<!--Add top, bottom, left and right link to trigger scrolling -->
+							<div class="btn-group" style="margin-right: 0px;">
+								   <button class="right btn btn-link"><i class="icon-chevron-right"></i></button>
+							</div>
+						</div>
+					<hr style="margin-top:2px; margin-bottom:2px;">
+					<div class="span3">
+						<h5 class="muted" style="margin-bottom: 0px; padding-bottom: 0px; margin-top:0px;">Selected Class' List</h5>
+						<!-- 	 <input type="text" data-provide="typeahead" placeholder="Search for student"> -->
+						<div id="scrolldiv" class="well" style="padding : 1px;">
+									<table id="lst" class="table table-bordered table-condensed table-hover table-stripped table-mini">
+								 		<?php $x=0; foreach ($this->studentlist as $student) { $x += 1; ?>
+								 			<tr><td><?php echo $x." "; ?></td><td><a href="#" onclick="$.fn.loadGraphs(<?php echo $student['cl_GPSN_ID']?>,'<?php echo $student['fullname'];?>',$('#courses option:selected').val()); return false;"><?php echo $student['fullname'];?></a></td></tr>
+								 		<?php } ?>
+									</table>
+						</div>
+					</div>
+
+<div class="span8">
+    <div style="padding: 1px; margin-bottom: 0px;">
+				<img id="picture" alt="" src="http://placehold.it/50x50" width="70" style="position:absolute; top:90px; left:85%;z-index: 1020;" class="img-polaroid"/>
+				<p style="font-size: 12px;"></p>
+			</div>
+ 	<div class="tabbable tabs-above">
+			<ul id="myTab" class="nav nav-pills" style="margin-bottom: 0px;">
+					<li>
+		            	<select id="courses" onchange="$.fn.loadGraphs($('#studentid').text(),$('#stdname').text(),$('#courses option:selected').val());">
+		            		<?php
+								foreach ($this->courses as $course) {
+									$id = $course->cl_courseid;
+									$name = $course->cl_coursename;
+									echo "<option value=$id>$name</option>";
+								}
+							?>
+		            	</select>
+		            </li>
+		            <li>
+		            <h5 class="text-info" style="margin-left : 100px;"><span id="stdname" style="color: maroon;"></span> <small>Biodata & Contact Information <label id="studentid" style="display: none;"></label></small></h5>
+		            </li>
+
+			</ul>
+
+				<div id="myTabContent" class="tab-content" style="min-height: 250px;">
+					<div class="tab-pane fade in active" id="performance"></div>
+
+				</div>
+	</div>
+</div>
+<script type="text/javascript">
+<!--
+$(function(){
+
+/* 	var selectBox = $("#courses").selectBoxIt({
+	    showEffect: "fadeIn",
+	    showEffectSpeed: 200,
+	    hideEffect: "fadeOut",
+	    hideEffectSpeed: 200
+	}).data('selectBoxIt').refresh(); */
+
+	$(".table").not('#astats').tablecloth({ theme: "paper" });
+	$('#bb0').button('toggle');
+
+	$.fn.StudentsInClass = function(grade) {
+		$('#g').text(grade);
+		$.post(
+			'/studentslist',
+			{
+				grade : grade,
+			},
+			function (response){
+				$('#scrolldiv').html(response);
+				$('#lst tr:first td a').click();
+			});
+	};
+
+	$.fn.loadGraphs = function(studentid, studentname, subject){
+		//loading of student analytics .....
+		$('#studentid').text(studentid);
+		$('#stdname').text(studentname);
+		$('#picture').prop('src','/data/student_pixs/'+studentid+'.jpg');
+
+		$.post('/profilechart',
+				{
+					studentid : $('#studentid').text(),
+					courseid : subject,
+					gradeid : $('#g').text(),
+				},
+				function(response){
+					$('#performance').html(response);
+				});
+	};
+
+	$('#scrolldiv').slimScroll({
+	    height: '350px',
+	    size: '5px',
+	    alwaysVisible: true
+	});
+
+	$('.left').click(function() {
+		$('.scrolling_area').animate({
+			scrollLeft:'-=250'
+		}, 'slow');
+	});
+        $('.right').click(function() {
+		$('.scrolling_area').animate({
+			scrollLeft:'+=250'
+		}, 'slow');
+	});
+
+    $('#lst tr:first td a').click();
+});
+//-->
+</script>
+<?php } else { echo $this->action('noauth', 'error', 'security'); } ?>

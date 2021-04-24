@@ -1,0 +1,46 @@
+<div class="alert alert-block alert-white">
+	<h4>STOP: Invalid Term and Academic Year Definition! : <?php echo $this->message ?></h4>
+	School/System Administrator should be contacted to update term and
+	academic term dates to proceed. <br />
+	<hr>
+
+	<h5>REASON:</h5>
+	<pre> Today's date of <?php echo Zend_Date::now()?> could not be associated with any specific term and academic year!</pre>
+
+	<hr>
+	<h5>OR YOU CAN SET ACTIVE CONTEXT TO A PREVIOUS TERM AND ACADEMIC YEAR BELOW</h5>
+
+	<div class="btn-group">
+		<button class="btn"><?php
+		
+$p = Content_Model_School::getCurrentTermYear ( false );
+		if ($p)
+			echo "Active Period :<strong style='color : blue'> Term $p->term of $p->year</strong>";
+		else
+			echo "<strong style='color : blue'> Select a previous term and academic year </strong>";
+		?>
+        					  </button>
+		<button class="btn dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<!-- dropdown menu links -->
+							    <?php if ($p) {?>
+							    	<li><a href="/changecontext?current=1">Activate Current
+					Period (Term and Year)</a></li>
+							    <?php } ?>
+							    <?php
+											$termyears = Content_Model_School::getPastTermYearsArray ();
+											foreach ( $termyears as $term ) {
+												$t = $term ['term'];
+												$y = $term ['year'];
+												$sd = date ( 'M-Y', strtotime ( $term ['cl_startdate'] ) );
+												$ed = date ( 'M-Y', strtotime ( $term ['cl_enddate'] ) );
+												echo "<li><a href='/changecontext?Term=$t&Year=$y'>Term <strong>$t</strong> of <strong>$y</strong> [$sd - $ed] </a></li>";
+											}
+											?>
+							  </ul>
+	</div>
+</div>
+
+

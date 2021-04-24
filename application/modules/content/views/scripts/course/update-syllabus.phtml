@@ -1,0 +1,38 @@
+<h5 align="center" style="color: blue;"><?php echo $this->info; ?></h5>
+<hr style="margin-top : 2px; margin-bottom: 4px;">
+<?php echo $this->form; ?>
+
+<script type="text/javascript">
+<!--
+$(function(){
+	ValidateAjax.initialize("frm_syllabus", "/validateform");
+
+ /*    var selectBox = $("select").not("select[multiple=multiple]").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 600,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 600
+    }); */
+
+    $.fn.updateSyllabus = function (){
+		$.post(
+			'/updatesyllabus',
+			{
+				cl_id : $('#cl_id').val(),
+				cid : $('#c').text(),
+				grade : $('#g').text(),
+				section : $('#section').val(),
+				status : $('#status option:selected').val(),
+				send : '<?php echo $this->sendState; ?>',
+			},
+			function(response){
+				//
+				bootbox.alert(response);
+				$('#ajax-modal').modal('hide');
+				$.fn.dtb_Syllabus();
+			});
+	};
+
+});
+//-->
+</script>

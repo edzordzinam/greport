@@ -1,0 +1,44 @@
+<div align="center">
+			<div class="input-prepend input-append" align="left">
+			    <span class="add-on"><i class="icon-search"></i></span><
+				<input placeholder="StudentID/Number" class="input-large" id="bookAttendance" type="text" required="required">
+				<button class="btn btn-success" type="button" onclick="$.fn.bookAttendance($('#bookAttendance').val());return false;">Book Attendance</button>
+			</div>
+			<div>
+				Today's Attendance : <span id='aStatus' class="label label-important"><?php echo $this->count;?></span>
+			</div>
+</div>
+<hr style="margin-bottom: 0px; margin-top: 4px;">
+
+<?php echo $this->action('index-alternate', 'student', 'content', array('attendance' => true))?>
+
+<script type="text/javascript">
+<!--
+$.fn.bookAttendance = function (std){
+
+	if (std == ''){
+		$.showMessage('No student ID provided');
+		return;
+	}
+	
+	$.post('/bookattendance',
+			{
+				post : true,
+				studentid : std
+			},
+			function (response){
+				$.showMessage(response.message,'success');  
+				$("#bookAttendance").val('');
+				$('#aStatus').text(response.count);
+			});
+};
+
+//monitoring the key event of the add student to attendance studentid box
+$("#bookAttendance").keypress(function(event) {
+	//when the enter key is pressed, then load the student's picture..
+	if (event.which == 13){
+		$.fn.bookAttendance($('#bookAttendance').val());
+	}
+});
+//-->
+</script>

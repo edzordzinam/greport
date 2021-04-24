@@ -1,0 +1,69 @@
+<h4>Class levels configuration</h4>
+<hr>
+
+	<table id="dtb_gradelevels"
+		class="table table-hover table-condensed table-bordered tablecloth" width="100%">
+		<thead>
+			<tr>
+				<th>Class/Level Name</th>
+				<th>Preceeded By</th>
+				<th>Capacity</th>
+			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+
+<script type="text/javascript">
+<!--
+
+$(function(){
+	var dtb_gradelevels = $('#dtb_gradelevels').dataTable( {
+	 	"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+ 		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 10,
+
+		"bAutoWidth": false,
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "/getclasseslist",
+		"sServerMethod": "POST",
+		"bStateSave": false,
+
+	    "bPaginate": true,
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"aoColumnDefs": [
+		                 { "bSortable": false, "aTargets": [ 1, 2 ] }
+		                ],
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+							 {
+			                    "sExtends":    "text",
+			                    "sButtonText" : "New Class",
+			                    "sButtonClass" : "btn-danger whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                        $.fn.newClass();
+			                    }
+			                }]
+		}
+	});
+
+	$(".tablecloth").tablecloth({ theme: "paper" });
+})
+
+
+
+//-->
+</script>

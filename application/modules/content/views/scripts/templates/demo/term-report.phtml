@@ -1,0 +1,198 @@
+<?php if ($this->useTemplate) { ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="stylesheet" href="/css/print.css"></link>
+
+</head>
+
+
+<body style="font-size: 14px; font-weight: normal;">
+<?php
+	 if ($this->report != false) { ?>
+<!--mpdf
+<htmlpageheader name="myheader">
+<table width="100%">
+<tr>
+	<td width="100%" align="center" style="color:#0000BB; border:none;"><img src="<?php echo Content_Model_School::getSchoolLogo();?>" alt="<?php echo Content_Model_School::getSchoolLogo();?>" height="90px;"/><br><br><span style="color:black;font-size: 18px; font-weight:bold; color:#0070C0;">END OF TERM REPORT CARD</span></td>
+</tr>
+</table>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<?php if ($this->useCambridge) { ?>
+<div  style=" margin-top: 5px; margin-bottom: 0px; border: none; float: left; padding-left : 30px; ">
+			   <img src="/img/camlogo.png" alt="" height="55px;" />
+</div>
+<?php } ?>
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+<table width="100%">
+<tr>
+	<td width="50%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="50%" style=" font-size: 9pt; text-align: right;  border:none;">Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+	<div align="center" style="margin-top: 5px; padding-top: 50px;">
+
+		<table cellpadding="3" cellspacing="0" width="100%" style="margin-bottom: 20px;">
+		<tr>
+			<td class="auto-style5" width="20%">Academic Year :<strong style="padding-left: 10px;"><?php echo ' '.$this->year;?></strong></td>
+			<td class="auto-style5"width="40%" style="border: none; background-color: white;"></td>
+			<td  class="auto-style5" width="20%" align="center">Term <strong><?php echo $this->term;?></strong> </td>
+		</tr>
+		<tr>
+			<td  class="auto-style5" width="20%">Report Date: <strong style="padding-left: 32px;"><?php echo date('jS F, Y', strtotime($this->reportDate));?></strong></td>
+			<td  class="auto-style5" width="40%" style="border: none; background-color: white;"></td>
+			<td  class="auto-style5" width="20%" align="right"></td>
+		</tr>
+		<tr>
+			<td class="auto-style5" width="20%"><?php echo $this->attendcomment; ?></td>
+			<td class="auto-style5" width="40%" style="border: none; background-color: white;"></td>
+			<td class="auto-style5" width="20%" align="center"><?php echo $this->gradename;?></td>
+		</tr>
+		</table>
+
+		<table class="auto-style5" cellpadding="3" cellspacing="0" width="100%" style="margin-bottom: 20px;">
+		<tr>
+			<td align="center" width="100%" style="border: none;">
+					 Student's name : <strong style="font-size: 16px;">
+    					<?php if(isset($this->report[0]->stdname))
+					 	     echo strtoupper($this->report[0]->stdname);
+					  	?> </strong>
+			</td>
+		</tr>
+		</table>
+			<table cellpadding="1" cellspacing="0" width="100%" class="auto-style5">
+			<thead>
+
+				<tr>
+					<td class="auto-style4" style="width: 200px">SUBJECTS</td>
+					<td class="auto-style4">CLASS MARK</td>
+					<td class="auto-style4">EXAM MARK</td>
+					<td class="auto-style4">TERM MARK</td>
+					<td width="80" class="auto-style4">GRADE</td>
+					<td width="150" class="auto-style4">REMARK</td>
+				</tr>
+			</thead>
+			<tbody>
+					   <?php
+					         echo $this->partialLoop('partials/_term-report-row-template.phtml', $this->report);
+					    ?>
+			   <tr style="height: 40px;">
+					<td colspan="6" style="text-align: center;">(The Term Mark is calculated as <?php echo $this->examallocate?>% of Exam Mark + <?php echo $this->classallocate;?>% of Class Work Mark)</td>
+				</tr>
+				<tr style="font-weight: bold;">
+					<td class="tdetail" colspan="1">MARK RANGE</td>
+					<td class="tdetail" colspan="1">GRADE</td>
+					<td colspan="4">DESCRIPTION</td>
+				</tr>
+				<tr>
+					<td class="tdetail" colspan="1">90 - 100</td>
+					<td class="tdetail" colspan="1">A*</td>
+					<td colspan="4">EXCELLENT</td>
+				</tr>
+				<tr>
+				 	<td class="tdetail" colspan="1">80 - 89</td>
+					<td class="tdetail" colspan="1">A</td>
+					<td colspan="4">VERY GOOD</td>
+				</tr>
+				<tr>
+					<td class="tdetail" colspan="1">70 - 79</td>
+					<td class="tdetail" colspan="1">B</td>
+					<td colspan="4">GOOD</td>
+				</tr>
+				<tr>
+				 	<td class="tdetail" colspan="1">60 - 69</td>
+					<td class="tdetail" colspan="1">C</td>
+					<td colspan="4">CREDIT</td>
+				</tr>
+				<tr>
+					<td class="tdetail" colspan="1">50 - 59</td>
+					<td class="tdetail" colspan="1">D</td>
+					<td colspan="4">PASS</td>
+				</tr>
+				<tr>
+				 	<td class="tdetail" colspan="1">40 - 49</td>
+					<td class="tdetail" colspan="1">E</td>
+					<td colspan="4">NEEDS IMPROVEMENT</td>
+				</tr>
+				<tr>
+				 	<td class="tdetail" colspan="1">0 - 39</td>
+					<td class="tdetail" colspan="1">F</td>
+					<td colspan="4">FAIL</td>
+				</tr>
+				<tr>
+				 	<td colspan="1"> </td>
+					<td colspan="1"> </td>
+					<td colspan="4"> </td>
+				</tr>
+				 <tr style="height : 25px;">
+				 	<td colspan="1"> </td>
+					<td colspan="1"> </td>
+					<td colspan="4"> </td>
+				</tr>
+
+
+				</tbody>
+		</table>
+
+		<table width="80%" align="right">
+				 <tr>
+				    <td width="200"><span style="color: white;">.</span><br>HEAD OF SCHOOL </td>
+					<td width="70%"><br /><br /></td>
+				</tr>
+		</table>
+
+	</div>
+    <?php
+	 }
+	 else
+	 	echo "No records found matching the parameters provided!! ";
+    ?>
+</body>
+
+</html>
+<?php } else { ?>
+    <table id="hd" class="table table-hover table-bordered table-condensed" style="padding-right: 10px;">
+    <tr >
+     <td width="auto" colspan="10" style="border-top: 1px solid #0070C0;" ><strong>
+    					<?php if(isset($this->report[0]->stdname))
+					 	     echo strtoupper($this->report[0]->stdname);
+
+					  	?> </strong></td>
+
+     </tr>
+	<tr>
+							<td style="width: 250px; !important;">SUBJECTS</td>
+							<td width="15%" style="font-weight: bold; text-align:center; color: black;">CLASS MARK</td>
+							<td width="15%" style="font-weight: bold; text-align:center; color: maroon;">EXAMINATIONS</td>
+							<td  width="15%" style="text-align:center; font-weight:200; color: green;">TERM MARK</td>
+							<td width="15%" style="text-align:center; font-weight:bold; color: blue;">GRADE</td>
+							<td width="100" style="text-align:center; font-weight:bold; color: black;">Remark</td>
+	</tr>
+    </table>
+	<div style="max-height: 250px; overflow: auto;">
+		<table id="bd" class="table table-hover table-bordered table-condensed">
+		 	<tr><td colspan="5"></td></tr>
+					   <?php
+					  	 if ($this->report != false)
+					         echo $this->partialLoop('partials/_term-report-row.phtml', $this->report);
+					     else
+					         	echo "No records found matching the parameters provided!! ";
+					    ?>
+		</table>
+	</div>
+   <script type="text/javascript">
+	<!--
+	$(".table[id=hd]").not('#astats').tablecloth({ theme: "paper" });
+	$(".table[id=bd]").not('#astats').tablecloth({ theme: "paper" });
+	//-->
+	</script>
+<?php } ?>
+

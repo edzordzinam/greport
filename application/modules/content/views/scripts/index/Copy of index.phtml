@@ -1,0 +1,173 @@
+<img class="pull-right img-polaroid"
+	src="<?php echo Content_Model_School::getSchoolLogo()?>"
+	alt="<?php echo Content_Model_School::getSchoolName()?>" width="400"
+	style="margin-top: -10px;" />
+<hr>
+
+<hr style="margin-bottom: 8px;">
+<?php if (!Zend_Auth::getInstance()->hasIdentity()){ ?>
+<div align="center">
+	<form class="form-inline">
+		<label>Student's Login:</label> <input type="text"
+			class="input-medium" placeholder="StudentID"> <input type="password"
+			class="input-medium" placeholder="PIN">
+		<button type="submit" class="btn btn-danger">
+			Sign in <i class="icon-user icon-white"></i>
+		</button>
+	</form>
+</div>
+<?php } else { ?>
+<h3
+	style="color: rgba(100, 100, 0, 0.5);
+	font-size: 40px;
+	margin-top: 2px;
+	margin-bottom: 3px;
+	margin-left: 20px;">
+	   <?php if ($this->currentweek != 0 ){ ?>
+	   	<?php echo $this->currentweek; ?>/<?php echo $this->totalweeks?><small>
+		weeks </small>| <span
+		style="font-family: sans-serif;
+	font-size: 14px;"><span style="color: blue">
+		<?php } else { ?>
+		Vacation Period |
+		<span style="font-family: sans-serif;
+	font-size: 14px;"><span style="color: blue">
+		<?php } ?>
+		Calendar :</span> <span style="font-size: 12px;
+	color: black">no information available for today;</span></span>
+
+</h3>
+<?php } ?>
+<hr style="margin-top: 5px;">
+<div id="myTabContent" class="tab-content" style="min-height: 200px;">
+	<div class="tab-pane fade in active" id="home">
+		<div class="row-fluid">
+			<div class="span4">
+				<h4 class="formSep">Quick Facts</h4>
+				<ul class="ov_boxes">
+					<li style="background-color: white;">
+						<div class="p_bar_up p_canvas">
+							<i class="fa fa-group fa-3x" style="color: #93BF1B;"></i>
+						</div>
+						<div class="ov_text">
+							<strong><?php echo $this->studentno;?></strong> Student
+							Population
+						</div>
+					</li>
+					<li>
+						<div class="p_bar_down p_canvas">
+							<i class="fa fa-credit-card fa-3x" style="color: maroon;"></i>
+						</div>
+						<div class="ov_text">
+							<strong>GH&cent; <?php echo Content_Model_Transactions::daysReceipts(date('Y-m-d',time()));?></strong> Today's Receipts
+						</div>
+					</li>
+					<li>
+						<div class="p_line_up p_canvas">
+							<i class="fa fa-cogs fa-3x" style="color: #EF7301;"></i>
+						</div>
+						<div class="ov_text">
+							<strong>GH&cent; <?php echo Content_Model_Expenses::dayExpenditure(date('Y-m-d',time())); ?></strong> Today's Expenditure
+						</div>
+					</li>
+					<li>
+						<div class="p_line_down p_canvas">
+							 <i class="fa fa-pencil-square-o fa-3x" style="color: #BC8C53;"></i>
+						</div>
+						<div class="ov_text">
+							<strong><?php if (isset($this->axCount)){
+							 	 echo $this->axCount; } else { echo "--"; } ?>
+							</strong> Total Class Assessments
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!--/span-->
+
+			<div class="span4">
+				<dl>
+					<dt><?php echo $this->schoolinfo['schoolname'];?></dt>
+					<dd>Tel: <?php echo $this->schoolinfo['schooltel']?></dd>
+					<dd>
+						E-mail: <a
+							href="mailto:<?php echo $this->schoolinfo['schoolemail']?>"><?php echo $this->schoolinfo['schoolemail']?></a>
+					</dd>
+					<dt>~</dt>
+					<dt>Final Grade Composition</dt>
+					<dd>Final Examination : <?php echo $this->schoolinfo['examallocate']?>%</dd>
+					<dd>Class Assessments : <?php echo $this->schoolinfo['classallocate']?>%</dd>
+				</dl>
+				<a class="btn" href="#"
+					onclick="$.loadModal('/gradingsystem','Grading Scale',1); return false;"><i
+					class="icon-info-sign"></i> Grading Scale &raquo;</a>
+			</div>
+			<!--/span-->
+
+			<div class="span4">
+				<ul class="thumbnails" style="padding-bottom: 0px;
+	margin: 0px;">
+					<li class="span4"><a href="#" class="thumbnail"> <img
+							src="/ico/gear_wheel.png" alt="" width="87" height="63">
+					</a></li>
+				</ul>
+				<address>
+					<strong>Technological base:</strong><br> Zend Framework<br> RedHat
+					Openshift Cloud<br> <strong>Support:</strong><br> <abbr
+						title="Phone">P:</abbr> (+233)-024-346-3320 <br> <abbr
+						title="Phone">P:</abbr> (+233)-024-635-9711 <br> <abbr
+						title="Email">E:</abbr> <a href="mailto:info@greports.com">info@greports.com</a><br>
+					<abbr title="Email">E:</abbr> <a href="mailto:info@greports.com">support@greports.com</a><br>
+					<!-- <abbr title="Website">W:</abbr> <a href="www.greports.com">www.greports.com</a> -->
+				</address>
+
+			</div>
+			<!--/span-->
+		</div>
+		<!--/row-->
+	</div>
+</div>
+
+
+<!--/row-->
+
+<!-- =========================================== -->
+
+<script type="text/javascript">
+<!--
+$(function() {
+
+   	 $.qData = "";
+
+       $('#searchCauseList').typeahead({
+    	   // source can be a function
+   	    source: function (query,process) {
+      	     $.ajax({
+        	       url : '/search/search-index',
+        	       type : 'POST',
+        	       data : 'query=' + query,
+        	       dataType : 'JSON',
+        	       async : false,
+        	       success : function(data){
+       	    	     process(data);
+        	       }
+          	     });
+   	   	    },
+   	   	    minLength : 3,
+   	   	    items : 8,
+   	   	    updater : function (item){
+   	   	   	    //item = selected item
+   	   	   	    //do your stuff
+   	   	   	    //$.showMessage(item);
+   	   	   	    //return item;
+   	   	    },
+
+        });
+
+		$.fn.printStatement = function(){
+			$.loadModal('http://<?php echo $this->pdfhost; ?>/buildpdf?url=http://<?php echo $this->host; ?>/accountstatements?&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=11&grade=0&cid=0','Statement of Accounts',1);
+		};
+
+    });
+
+    //-->
+    </script>

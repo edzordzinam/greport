@@ -1,0 +1,75 @@
+<?php
+	 if (isset($this->maxmarks->Total)) { ?>
+
+		<table id="hd" class="table table-hover table-bordered table-condensed table-mini" style="padding-right: 15px;">
+		   	 <tr style="background-color: white; !important;">
+			  <td colspan="18" style="color : maroon; font-weight: bold; font-size: 14px; text-align: center; "><strong style="color: black;">(STUDENT-SUBJECT PERFORMANCE SUMMARY) <?php echo strtoupper($this->coursename)?> in <?php echo strtoupper($this->gradename); ?> by <?php echo strtoupper($this->instructor)?></strong> </td>
+			 </tr>
+
+		     <tr>
+		       <td></td>
+		       <td colspan="2" style="font-weight: bold; text-align: center;">CWK</td>
+		       <td colspan="2" style="font-weight: bold; text-align: center;">HWK</td>
+		       <td colspan="2" style="font-weight: bold; text-align: center;">UNT</td>
+		       <td colspan="2" style="font-weight: bold; text-align: center;">GPW.</td>
+		       <td colspan="2" style="font-weight: bold; text-align: center;">PRJ</td>
+		       <td colspan="1" style="font-weight: bold; text-align: center;  color: blue;">GT.</td>
+		       <td colspan="2" style="font-weight: bold; text-align: center; background-color: #cceecc">TCM</td>
+		       <td colspan="2" style="font-weight: bold; text-align: center; background-color: #eeee33">EXAM</td>
+		       <td colspan="1" style="font-weight: bold; text-align: center; color: blue;">TM.</td>
+		       <td colspan="1" style="font-weight: bold; text-align: center; color: blue;">GR.</td>
+		     </tr>
+		     <tr>
+		        <td width="250" style="font-weight: bold;">STUDENT NAME</td>
+
+		        <td width="25" style="font-weight: bold; text-align: center;"><?php echo $this->maxmarks->CWK; ?></td>
+		        <td width="25" style="font-weight: bold; text-align: center;">%</td>
+
+		        <td width="25" style="font-weight: bold;text-align: center; "><?php echo $this->maxmarks->HWK; ?></td>
+		        <td width="25" style="font-weight: bold;text-align: center; ">%</td>
+
+		        <td width="25" style="font-weight: bold;text-align: center;"><?php echo $this->maxmarks->UNT; ?></td>
+		        <td width="25">%</td>
+
+		        <td width="25" style="font-weight: bold;text-align: center;"><?php echo $this->maxmarks->GPW; ?></td>
+		        <td width="25" style="font-weight: bold;text-align: center;">%</td>
+
+		        <td width="25" style="font-weight: bold;text-align: center;"><?php echo $this->maxmarks->PRJ; ?></td>
+		        <td width="25" style="font-weight: bold;text-align: center;">%</td>
+
+		      	<td width="25"  style="font-weight: bold;text-align: center;"><?php echo $this->maxmarks->Total;?></td>
+
+		      	<td width="25" style="font-weight: bold;text-align: center;">100</td>
+		      	<td width="25" style="font-weight: bold;text-align: center;">40</td>
+
+		      	<?php if ($this->isExaminable) {?>
+		      	<td width="25" style="font-weight: bold;text-align: center;">100</td>
+		      	<td width="25" style="font-weight: bold;text-align: center;">60</td>
+		      	<?php } else { ?>
+		      		<td width="25" style="font-weight: bold;text-align: center;">-</td>
+		      	    <td width="25" style="font-weight: bold;text-align: center;">-</td>
+		      	<?php } ?>
+
+		      	<td width="70" style="text-align: center;">40+60</td>
+		      	<td style="font-weight: bold;text-align: center;">~</td>
+		     </tr>
+			</table>
+		<div style="max-height: 200px; overflow: auto;">
+			<table id="bd" class="table table-hover table-bordered table-condensed table-mini">
+				<tr><td colspan="18"></td></tr>
+			    <?php echo $this->partialLoop('partials/_get-summary-row.phtml', $this->summary);?>
+    		</table>
+    	</div>
+		  (GT. = GRAND TOTAL; TCM. = TOTAL CLASS MARK; TM. = TERM MARK; GR. = GRADE)
+    <?php
+	 }
+	 else
+	 	echo "No records found matching the parameters provided!! ";
+    ?>
+    
+<script type="text/javascript">
+<!--
+$(".table[id=hd]").not('#astats').tablecloth({ theme: "paper" });
+$(".table[id=bd]").not('#astats').tablecloth({ theme: "paper" });
+//-->
+</script>

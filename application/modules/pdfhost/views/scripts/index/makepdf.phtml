@@ -1,0 +1,60 @@
+<style type="text/css">
+<!--
+#pdf {
+	width: 100%;
+	margin-top: 10px;
+	border: 1px solid white;
+}
+
+#pdf p {
+	padding: 1em;
+}
+
+#pdf object {
+	display: block;
+	border: solid 1px #666;
+}
+
+#statement {
+	padding: 1em;
+	margin: 1em;
+	border: solid 4px #FFF;
+	font-size: medium;
+	font-weight: bold;
+}
+
+.success {
+	background: #00CC33;
+	color: #FFFFFF;
+}
+
+.fail {
+	background: #FF3366;
+	color: #FFFFFF;
+}
+-->
+</style>
+
+
+<script type="text/javascript">
+$(function() {
+	var msg;
+
+	var params = {
+		url: "<?php echo $this->reportname; ?>",
+		pdfOpenParams: {
+		}
+	};
+
+	var myPDF = new PDFObject(params).embed("pdf");
+	$('#ajax-modal').width(900);
+	$('#ajax-modal').css('left','38%');
+});
+
+</script>
+<div id="pdf" style="height: 450px;">
+	It appears you don't have Adobe Reader or PDF support in this web
+	browser.<a href="http://get.adobe.com/reader/"> You can click here to install Adobe Reader</a> <br>or <a href="<?php echo $this->reportname; ?>">Click here to download the PDF</a>
+	
+</div>
+

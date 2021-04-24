@@ -1,0 +1,86 @@
+<ul id="myTab" class="nav nav-pills">
+<!-- <li class="active"><a href="#sylsummary" data-toggle="tab">Syllabus Overview</a></li> -->
+	<li><a id="as" href="#managesyllabi" data-toggle="tab">Manage Syllabus</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+
+	<div class="tab-pane fade in" id="sylsummary">
+	<div style="max-height: 250px; min-height:250px; overflow: auto;">
+	     <div class="tabbable tabs-left">
+	        <ul class="nav nav-tabs">
+	   			<?php 
+	   				$x = 0;
+	   				foreach ($this->subjects as $subject) { ?>
+		   				<?php if ($x == 0) { ?>
+		   					<li class="active"><a href="<?php echo "#".$subject->cl_courseid?>" data-toggle="tab"><?php echo $subject->cl_coursename?></a></li>
+		   				<?php } else { ?>
+		   					<li><a href="<?php echo "#".$subject->cl_courseid?>" data-toggle="tab"><?php echo $subject->cl_coursename?></a></li>
+		   				<?php } ?>
+	   			<?php 
+	   				$x += 1;
+				 }?>
+	   		</ul>
+	   		 <div class="tab-content">
+	   		 	<?php 
+	   		 	$x = 0;
+	   		 	foreach ($this->syllabus as $syllabi) { ?> 
+			   		 	<?php if ($x == 0) { ?>
+			   		 		<div class="tab-pane fade in active" style="position: fixed; text-align: justify; width: 50%" id="<?php echo $comreport->cl_id?>">
+			   		 			<p><span class="label label-important" style="padding:3px;" ><?php //echo strtoupper($comreport->cl_coursename)?></span>
+			   		 				<span class="label label-inverse" style="padding:3px;">Pending</span> 
+			   		 			<span style="font-size: 12px; font-weight: bold;"> <?php if ($comreport->cl_exempt) echo 'Exempted from subject'; else echo $comreport->cl_content; ?></span>
+			   		 			<hr />
+			   		 			Mark Obtained :<span class="badge badge-info" style="margin-left: 20px;"><?php if ($comreport->cl_exempt) echo '-'; else echo round($comreport->TM); ?></span>
+			   		 			<span class="pull-right">Grade Obtained :<span class="badge badge-success" style="padding:5px;margin-right:5px;"><?php if ($comreport->cl_exempt) echo '-'; else echo $this->getGradeLetter(round($comreport->TM)) ?></span></span></p>
+			   		 			<hr />
+			   		 			<?php echo $comreport->cl_comment; ?>
+			   		 		</div>
+			   		 	<?php } else { ?>
+			   		 		<div class="tab-pane fade in" style="position: fixed; text-align: justify; width: 50%" id="<?php echo $comreport->cl_id?>">
+			   		 			<p><span class="label label-important" style="padding:3px;" ><?php //echo strtoupper($comreport->cl_coursename)?></span>
+			   		 			<span class="label label-inverse" style="padding:3px;">Syllabus Covered:</span>  
+			   		 			<span style="font-size: 12px; font-weight: bold;"><?php if ($comreport->cl_exempt) echo 'Exempted from subject'; else echo $comreport->cl_content; ?></span>
+			   		 			<hr />
+			   		 			Mark Obtained :<span class="badge badge-info" style="margin-left: 20px;"><?php if ($comreport->cl_exempt) echo '-'; else echo round($comreport->TM); ?></span>
+			   		 			<span class="pull-right">Grade Obtained :<span class="badge badge-success" style="padding:5px;margin-right:5px;"><?php if ($comreport->cl_exempt) echo '-'; else echo $this->getGradeLetter(round($comreport->TM)) ?></span></span></p>
+			   		 			<hr />
+			   		 			<?php echo $comreport->cl_comment; ?>
+			   		 		</div>		   			
+			   		 	<?php } ?>
+			   	<?php 
+	   		 		$x += 1;
+				 } ?>
+	   		 </div>
+	   	</div>
+   	</div>
+   	
+	</div>	
+	
+	
+	<div class="tab-pane fade in active" id="managesyllabi"></div>
+</div>
+   	<div class="btn-group" data-toggle="buttons-radio">
+		<?php
+		  foreach ($this->classes as $key => $value) {
+		      $n = $this->getGradeName($value);
+		      echo "<button id='bb$key' class='btn btn-danger btn-small' type='button' onclick='$.fn.filterSyllabus($(\"#c\").text(),$value)'>$n</button>";
+		  }
+		?>
+	</div>
+<script type="text/javascript">
+      $(function(){
+
+    	    $('a[href="#managesyllabi"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/syllabus',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#managesyllabi').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#managesyllabi"]').click();   
+      });
+</script>

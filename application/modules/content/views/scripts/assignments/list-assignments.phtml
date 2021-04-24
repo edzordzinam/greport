@@ -1,0 +1,133 @@
+ <?php
+    // setting the controller and action name as title segments:
+
+    $this->headTitle('View of Assigments')
+    	 ->headTitle('MVC Application');
+
+    // setting a separator string for segments:
+    $this->headTitle()->setSeparator(' - ');
+
+	//LOADING OF VIEW SPECIFIC JAVASCRIPT FILES
+    //$this->jQuery()->addJavascriptFile('/js/ui_js/assignment.js');
+
+  ?>
+   <?php
+		if ($this->assignments != null) {
+	?>
+
+<div class="widget">
+	<form action="" class="form">
+		<fieldset>
+			<div class="formRow" style="padding-top: 5px; padding-bottom: 5px;">
+				<label for="filteryear">Filter Assignments </label>
+
+				<div class="loginInput" style="width: auto !important; float: left !important; padding-left: 80px;">
+					<select id="subjects" name="subjects" class="chzn-select"
+						style="width: 100px !important;" onchange="$.fn.getInstSubjectGrades()">
+	                        <?php echo $this->action('inst-subjects', 'instructor')?>
+                       </select>
+				</div>
+				<div class="loginInput" style="width: auto !important; float: left !important;">
+					<select id="classes" name="classes" class="chzn-select"
+						style="width: 100px !important;" onchange="">
+
+					</select>
+				</div>
+
+				 <div class="loginInput" style="width: auto !important;float: right !important; margin-right: 0px !important;">
+						 <button style="width: 100px; padding-bottom: 5px; padding-top: 6px;" class="button blueB" onclick="$.fn.filterAssignment(); return false;">Filter </button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<div class="widget">
+	<div class="title">
+		<img src="/images/icons/dark/timer.png" alt="" class="titleIcon" />
+		<h6>Assignment Marks Entry Section</h6>
+		<div class="num">
+			<a href="/reports/instructor" class="redNum">Assessment Reports</a>
+		</div>
+	</div>
+	<div style="max-height: 250px; min-height: 400px; overflow: auto;">
+		<table cellpadding="0" cellspacing="0" width="100%"
+			class="sTable taskWidget">
+			<thead>
+				<tr>
+					<td>Assignment List</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody id="assignfiltered">
+							    <?php  echo $this->partialLoop('partials/_assignments-row.phtml',  $this->assignments); ?>
+			 </tbody>
+		</table>
+	</div>
+</div>
+
+
+
+<div class="widget"   id="assign-details" style="display: none;">
+	<div class="title">
+		<img src="/images/icons/dark/preview.png" alt="" class="titleIcon" />
+		<h6>Assignment Details</h6>
+		<div class="num">
+			<a id="markurl" class="greyNum">Enter student's marks</a>
+		</div>
+		<div class="num">
+			<a id="delurl" class="greyNum">Delete Assignment</a>
+		</div>
+	</div>
+	<div class="newOrder">
+		<div class="userRow">
+			<a href="#" title=""><img src="/images/icons/sticky.png" alt=""
+				class="floatL" /></a>
+			<ul class="leftList" style="margin-top: 5px;">
+				<li><a href="#" title=""> Course Name </a></li>
+				<li>Assignment Topic</li>
+			</ul>
+			<ul class="rightList" style="margin-top: 5px;">
+				<li><a href="#" title=""> <strong id="lbl_coursename"> .</strong></a></li>
+				<li class="orderIcons"><span class="oFinished"
+					style="margin-top: 5px;"></span><label id="lbl_topic">.</label></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+
+		<div class="cLine"></div>
+
+		<div class="orderRow">
+			<ul class="leftList">
+				<li>Date Assigned</li>
+				<li>Date Dued</li>
+				<li>Maximum Mark</li>
+				<li>Highest Mark</li>
+				<li>Lowest Mark</li>
+				<li>Type of Assignment</li>
+			</ul>
+			<ul class="rightList">
+				<li><strong id="lbl_date"> . </strong></li>
+				<li><strong id="lbl_datedued" class="green">. </strong></li>
+				<li><strong id="lbl_maxmark" class="orange"> . </strong></li>
+				<li><strong class="orange"> .</strong></li>
+				<li><strong class="orange"> .</strong></li>
+				<li><strong id="lbl_type" class="orange">. </strong></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+
+		<div class="cLine"></div>
+		<div class="totalAmount">
+			<h6 class="floatL blue">.</h6>
+			<h6 class="floatR blue">.</h6>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+
+<?php } else {?>
+<p style="padding: 20px; text-align: center;">You do not have access to
+	any assignments. Either you haven't added any assignments or access is
+	denied to assignments.</p>
+<?php }?>

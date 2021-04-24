@@ -1,0 +1,16 @@
+<ul class="unstyled sepH_b item-list" style="font-size: 11px;">
+<?php foreach ($this->recentassignments as $recent) { ?>
+	<li><i class="splashy-document_letter_edit sepV_b"></i>
+	<?php if ( $recent['cl_mark'] != null) {?>
+		<span title="<?php echo $recent['fullname']?>" ><?php echo substr( $recent['fullname'],0,8) ?>...</span><a href="#"> scored </a>
+			<?php if (($recent['cl_mark']/ $recent['cl_maxmark']) >= 0.5){?>
+				<span class="label label-success" style="font-size: 14px;"><?php echo $recent['cl_mark']?>/<?php echo $recent['cl_maxmark']?></span> <span style="font-weight:bold">in <?php echo $recent['cl_topic']; ?> </span>of <code><?php echo $recent['course']?></code>
+			<?php } else { ?>
+				<span class="label label-important" style="font-size: 14px;"><?php echo $recent['cl_mark']?>/<?php echo $recent['cl_maxmark']?></span> <span style="font-weight:bold">in <?php echo $recent['cl_topic']; ?> </span>of <code><?php echo $recent['course']?></code>
+			<?php } ?>
+	<?php } else {?>
+		<span title="<?php echo $recent['fullname']?>"><?php echo substr( $recent['fullname'],0,8) ?>...</span><a href="#" style="color : maroon; font-weight: bold;">not graded in <?php echo $recent['cl_topic']; ?> </a> of <code><?php echo $recent['course']?></code>
+	<?php }?>
+	</li>
+<?php } ?>
+</ul>

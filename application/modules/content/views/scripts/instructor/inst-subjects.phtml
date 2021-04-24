@@ -1,0 +1,7 @@
+<option value="-1"></option>
+<?php
+ if ($this->instSubjects != null)
+    echo $this->partialLoop('partials/_instSubjects.phtml', $this->instSubjects);
+ else
+    echo "<p> No subjects found </p>"
+ ?>

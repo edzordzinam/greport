@@ -1,0 +1,26 @@
+<tr>
+		<?php
+			//if ($this->TCM != 0){
+			if (!$this->Exempt){
+		?>
+				<td style="width: 250px;"><?php echo $this->cname ?></td>
+				<td  width="60" style="text-align:center;"><a href="" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'CWK');return false;"><?php echo ($this->CWKMax > 0) ? round($this->CWK) : '-' ?></a></td>
+				<td width="60" style="text-align:center;"><a href="" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'HWK');return false;"><?php echo ($this->HWKMax > 0) ? round($this->HWK) : '-' ?></a></td>
+				<td width="60" style="text-align:center;"><a href="" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'UNT');return false;"><?php echo ($this->UNTMax > 0) ? round($this->UNT) : '-' ?></a></td>
+				<td width="60" style="text-align:center;"><a href="" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'GPW');return false;"><?php echo ($this->GPWMax > 0) ? round($this->GPW) : '-' ?></a></td>
+				<td width="60" style="text-align:center;"><a href="" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'PRJ');return false;"><?php echo ($this->PRJMax > 0) ? round($this->PRJ) : '-' ?></a></td>
+				<td width="60" style="text-align:center; font-weight : bold; color: black;"><?php echo round($this->TCM) == 0 ? '-' :round($this->TCM) ?></td>
+				<td width="60" style="text-align:center; font-weight:bold; color: maroon;">
+					<?php
+					 if ($this->isExaminable)
+						echo round ( $this->EXM );
+					 else
+						echo '-';
+					?>
+				</td>
+
+				<td width="90" style="text-align:center; font-weight:bold; color: green;"><?php echo round($this->TM) ?></td>
+				<td width="90" style="text-align:center; font-weight:bold; color: black;"><?php echo $this->Letter; ?></td>
+				<td style="text-align:center; font-weight:bold; color: black;"><?php echo date('jS',strtotime("$this->Position-12-2000"))?> </td>
+				<?php } ?>
+</tr>

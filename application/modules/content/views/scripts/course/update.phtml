@@ -1,0 +1,34 @@
+<h6>Update course details</h6>
+<?php  echo $this->form; ?>
+
+<script type="text/javascript">
+<!--
+$(function(){
+	 $('#frm_updatecourse').ajaxForm({
+	 		//options of ajaxForm
+
+	 		url : '/updatesubject',
+	 		data : {
+	 		    send : true
+	     		}, //data to be submitted along with the form variables json formatted
+	 		clearForm : null, // form to be cleared if submit is successfull,
+
+	 		dataType : 'json',  // json, xml, or script
+	 		type : 'POST', // type of ajax call GET or POST
+
+	  		beforeSubmit : function (arr, $form, options){
+	 		    if($('#isValid').val() == "false")
+	     		    return false;
+	 		},
+
+	 		success: function (data){
+	 			$('a[href=\"#listsubjects\"]').click();
+	         }
+
+	     });
+
+	 ValidateAjax.initialize("frm_updatecourse", "/validateform");
+	 $('.chzn-select').chosen();
+});
+//-->
+</script>

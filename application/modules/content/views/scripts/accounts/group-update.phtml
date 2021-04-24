@@ -1,0 +1,35 @@
+<legend>Bill Groups: <?php echo $this->state; ?></legend>
+<?php echo $this->form; ?>
+
+<script type="text/javascript">
+<!--
+$(function(){
+
+	$("#<?php echo $this->formname; ?>").ajaxForm({
+		//options of ajaxForm
+
+		url : '/groupupdate',
+		data : {
+			send : '<?php echo $this->sendState; ?>',
+    		}, //data to be submitted along with the form variables json formatted
+		clearForm : null, // form to be cleared if submit is successfull,
+
+		dataType : 'json',  // json, xml, or script
+		type : 'POST', // type of ajax call GET or POST
+
+ 		beforeSubmit : function (arr, $form, options){
+		    if($('#isValid').val() == "false")
+    		    return false;
+		},
+
+		success: function (data){
+			$('a[href="#feesgroups"]').click();
+        }
+
+    });
+
+
+	ValidateAjax.initialize("<?php echo $this->formname; ?>", "/validateform");
+});
+//-->
+</script>

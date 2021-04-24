@@ -1,0 +1,305 @@
+<?php if (!$this->billsexist) {?>
+<div class="alert alert-error fade in">
+<button type='button' class='close' data-dismiss='alert'>&times</button><h4>No Billables for Term <?php echo $this->term?> of <?php echo $this->year; ?>!</h4>
+	<p>No billables setup for the current term and hence the information on this page may not be accurate!. Please update bills for the term to ensure the accuracy of
+	information on this page</p>
+</div>
+<?php } ?>
+<div class="tabbable tabs-above">
+	<ul id="myTab" class="nav nav-pills">
+		<li class="active"><a id="bba" href="#accountsummary" data-toggle="tab">Summary</a></li>
+		<li><a id="bb1" href="#termbill" data-toggle="tab">Billable items</a></li>
+		<li><a id="bb2" href="#feesgroups" data-toggle="tab">Bill Categories</a></li>
+		<li><a href="#studentdebtors" data-toggle="tab">Student Debtors</a></li>
+		<li><a href="#studentcreditors" data-toggle="tab">Student Creditors</a></li>
+		<li><a href="#transreport" data-toggle="tab">All Term Transactions</a></li>
+		<!-- 		<li><a href="#pastbills" data-toggle="tab">Past Bills</a></li> -->
+	</ul>
+
+	<div id="myTabContent" class="tab-content" style="min-height: 300px;">
+		<div class="tab-pane fade in active" id="accountsummary"></div>
+		<div class="tab-pane fade in" id="feesgroups"></div>
+		<div class="tab-pane fade in" id="termbill"></div>
+		<div class="tab-pane fade in" id="studentcreditors"></div>
+		<div class="tab-pane fade in" id="studentdebtors"></div>
+		<div class="tab-pane fade in" id="transreport"></div>
+		<div class="tab-pane fade in" id="pastbills"></div>
+	</div>
+	<div id="context-menu">
+		<ul class="dropdown-menu" role="menu">
+			<li><a tabindex="-1" href="#" onclick='$.fn.computeBalances(); return false;'><i class="icon-check"></i> Update Account Balances</a></li>
+			<li class="nav-header">BILLING OPTIONS</li>
+			<li><a tabindex="-1" href="#" onclick="$('#bb1').click();"><i class="icon-tags"></i> Billable Items</a></li>
+			<li><a tabindex="-1" href="#" onclick="$('#bb2').click();"><i class="icon-th"></i> Billing Groups</a></li>
+			<li><a tabindex="-1" href="#" onclick="$.loadModal('/viewbills', 'Billables', 1);"><i class="icon-th"></i> View Bills by Groups </a></li>
+			<li><a tabindex="-1" href="#" onclick="$.fn.clearbills();"><i class="icon-th"></i> Clear Bills</a></li>
+			<li class="nav-header">SYSTEM OPTIONS</li>
+			<li><a tabindex="-1" href="#"><i class="icon-info-sign"></i> Messages</a></li>
+			<li><a tabindex="-1" href="#" onclick="window.location.reload(true);"><i class="icon-refresh"></i> Reload Page</a></li>
+			<li><a tabindex="-1" href="/logout"><i class="icon-lock"></i> Log out</a></li>
+			<li class="divider"></li>
+			<li><a tabindex="-1" href="#" onclick='$.loadModal("/index/about","About Us",1); return false;'> About G-Reports</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- SCRIPT SECTION -->
+<script type="text/javascript">
+      $(function(){
+    	    $('a[href="#accountsummary"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/accountsummary',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#accountsummary').html(data);
+
+    	        	    });
+    	    });
+
+
+    	    $('a[href="#feesgroups"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/billgroupslist',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#feesgroups').html(data);
+    	        	    });
+    	    });
+
+
+    	    $('a[href="#termbill"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/termbill',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#termbill').html(data);
+    	        	    });
+    	    });
+
+
+    	    $('a[href="#studentdebtors"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/studentdebtors',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#studentdebtors').html(data);
+
+    	        	    });
+    	    });
+
+    	    $('a[href="#studentcreditors"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/studentcreditors',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#studentcreditors').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#transreport"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/showtrans',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#transreport').html(data);
+    	        	    });
+    	    });
+
+     	    $('a[href="#pastbills"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/pastbills',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#pastbills').html(data);
+    	        	    });
+    	    });
+
+    	    $.fn.toggleGroupUpdate = function (id){
+   	    	 <?php if ($this->current) { ?>
+        		  $.post('/groupupdate',
+                        	{
+                               send : false,
+                               cl_id : id,
+                               update : true,
+                        	},
+                        	function (data){
+                        	    $('#feesgroups').html(data);
+                        	});
+              <?php } else {?>
+				  bootbox.alert('Operation not allowed on past period operations')
+              <?php } ?>
+
+    	    };
+
+    	    $.fn.toggleBillUpdate = function (id){
+    	    	<?php if ($this->current) { ?>
+        		  $.post('/termbillupdate',
+                        	{
+                               send : false,
+                               cl_id : id,
+                               update : true,
+                        	},
+                        	function (data){
+                        	    $('#termbill').html(data);
+                        	});
+        		<?php } else {?>
+				  bootbox.alert('Operation not allowed on past period operations')
+              	<?php } ?>
+    	    };
+
+      	  //javascript:
+    	    <?php if (true /*$this->current*/) { ?>
+    		var interval_id = window.setInterval(function(){
+				$.fn.checkBilling();
+    		}, 5000); //last param is the interval time in ms
+
+      	  //javascript:
+
+			$.fn.initAutoBill = function(term, year){
+    		    $.ajax({
+	    		      type: "POST",
+	    		      url: "/initautobill?t="+term+"&y="+year,
+	    		      success: function(data){
+	    	 		    if (data.success){
+	    			        //$('#sysalert').html("<div class='alert alert-block alert-success fade in'><button type='button' class='close' data-dismiss='alert'>&times</button><h4>System Notice!</h4>Account verification has been initiated on the server...</div>");
+	    			        $.showMessage('Auto billing has been initiated on the server')
+	    	 		    }
+	    	 		    else{
+	    				    $('#btn_billall').removeClass('disabled');
+	    			    	$('#sysalert').html("<div class='alert alert-block alert-error fade in'><button type='button' class='close' data-dismiss='alert'>&times</button><h4>System Notice!</h4>"+ (data.unbilledcount)+" student[s] have not been billed for the current term and year, Auto billing failed. <a href='#'>Click here for manual billing</a></div>");
+	    			    }
+	    		        //$('#td_count').text(data.activecount);
+	    		        //$('#td_unbilled').text(data.activecount - data.unbilledtermly);
+	    		      }
+	    		    });
+	    		};
+
+			$.fn.checkBilling = function(){
+    		    $.ajax({
+        		      type: "POST",
+        		      url: "/checkbilledstudents",
+        		      success: function(data){
+        	 		    if (data.success){
+        			        //$('#sysalert').html("<div class='alert alert-block alert-success fade in'><button type='button' class='close' data-dismiss='alert'>&times</button>Accounts verification completed successfully. No problems detected</div>");
+        			       $.showMessage('Accounts scanning completed with no errors!','success');
+            	 		}
+        			    else{
+        				    $('#btn_billall').removeClass('disabled');
+
+        				    $('#btn_billall').attr('onclick',"$.fn.initAutoBill("+data.term+",'"+data.year+"')");
+        			    	//$('#sysalert').html("<div class='alert alert-block alert-error fade in'><button type='button' class='close' data-dismiss='alert'>&times</button><h4>System Notice!</h4>"+ "</div>");
+    						if (data.unbilledtermly > 0 || data.unbilledmonthly > 0 )
+								var msg ='';
+
+								if (data.unbilledtermly != null)
+									msg += (data.unbilledtermly)+"</span> "
+	    							+"student[s] have not been billed for the current term and year. <span style='font-weight:bold; black : maroon'>";
+
+    							if (data.unbilledmonthly != null)
+    								msg += (data.unbilledmonthly)+"</span> student[s] have not been billed for month of <span style='font-weight:bold; black : blue'>"+data.month +"</span>"
+
+    							console.log("$.fn.initAutoBill("+data.term+",'"+data.year+"'); return false;");
+    							var ss = "$.fn.initAutoBill("+data.term+",'"+data.year+"'); return false;";
+    							$('#sysalert').html("<div class='alert alert-block alert-white fade in' >"
+    	    							+"<button type='button' class='close' data-dismiss='alert'>&times</button>"
+    	    							+"<h4>Accounts Verification Notice!</h4><span style='font-weight:bold; black : maroon'>"
+    	    							+ msg +
+    	    							" <a href='#' class='label label-important' onclick=\""+ ss +"\">Click here to correct inconsistencies</a>");
+
+    							//$.showMessage((data.unbilledtermly)+" student[s] have not been billed for the current term and year, <a href='#' onclick='$.fn.initAutoBill(); return false;'>Click here to correct inconsistencies</a>",'notice');
+    						//if (data.unbilledmonthly > 0)
+    							//$('#sysalert').append("<div class='alert alert-block alert-error fade in' style='font-weight:bold; black : maroon'><button type='button' class='close' data-dismiss='alert'>&times</button>"+(data.unbilledmonthly)+" student[s] have not been billed for month of "+ data.month +", <a href='#' onclick='$.fn.initAutoBill(); return false;'>Click here to correct inconsistencies</a>");
+    							//$.showMessage((data.unbilledmonthly)+" student[s] have not been billed for month of "+ data.month +", <a href='#' onclick='$.fn.initAutoBill(); return false;'>Click here to correct inconsistencies</a>",'notice');
+    	           		}
+
+        		        $('#td_count').text(data.activecount);
+        		        $('#td_unbilled').text(data.activecount - (data.unbilledtermly + data.unbilledmonthly));
+        		        $.fn.cancelTimeout();
+        		      }
+        		    });
+			};
+
+    		$.fn.cancelTimeout = function (){
+    			clearTimeout(interval_id);
+    		};
+
+    		$.fn.offerDiscount = function (sid, sname, grade){
+    		    $.post(
+    	    		    '/offerdiscount',
+    	    		    {
+        	    		    studentname : sname,
+        	    		    studentid : sid,
+        	    		    gradelevel : grade,
+        	    		    update : true,
+    	    		    },
+    	    		    function (data){
+    	    		        $('#studentdebtors').html(data);
+    	    		    });
+    		};
+
+			$.fn.clearbills = function (){
+			    $.post(
+    	    		    '/clearbills',
+    	    		    {
+
+    	    		    },
+    	    		    function (data){
+        	    		    if (data.success){
+    	    		        	$.showMessage('All bills for the term has been cleared. Please re-bill students.');
+	    		        		$.fn.checkBilling();
+        	    		    }
+    	    		    });
+			};
+			<?php } ?>
+
+    		$.fn.computeBalances = function(){
+        		$.post(
+        			    '/initbalances',
+        			    {},
+        			    function (data){
+	    			        $('#sysalert').html("<div class='alert alert-block alert-success fade in'><button type='button' class='close' data-dismiss='alert'>&times</button>Computation of balances have been scheduled on server. Please check after 1 minute.</div>");
+        			    });
+    		};
+
+    		$.fn.payfees = function (sid, sname, grade){
+				$.loadModal('/payfees?studentid='+sid+'&gradelevel='+grade+'&update=true','Fee Payments',1);
+    		};
+    		$.fn.printReceipt = function (receiptid){
+    			$.loadModal('/index/makepdf?url=http://<?php echo $this->host; ?>/printreceipt?receiptid='+receiptid+'&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=RP&grade=0&cid=0&check=500','Transaction Receipt',1);
+    		};
+
+			$.fn.printStatement = function(){
+				$.loadModal('http://<?php echo $this->host;?>/buildpdf?mode=<?php echo $this->mode?>&url=http://<?php echo $this->host; ?>/accountstatements?&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=11&grade=0&cid=0','Statement of Accounts',1);
+			};
+
+			$.fn.adjustAccountShow = function(){
+				$.loadModal('/adjustaccount','Adjust Account Balance',1);
+			};
+
+			$.fn.adjAccount = function(){
+				alert('this');
+			};
+
+    	  //make ajax call to list of instructors
+
+	       <?php if ($this->show == 'debtors') { ?>
+	       		$.post(
+	        	    '/studentdebtors',
+	        	    {
+	        	    },
+	        	    function (data){
+	        	        $('#studentdebtors').html(data);
+	        	 });
+	        <?php } else { ?>
+    	  		$('a[href="#accountsummary"]').click();
+    	  	<?php } ?>
+
+     });
+</script>

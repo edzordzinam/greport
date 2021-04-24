@@ -1,0 +1,47 @@
+<legend>Add a new course</legend>
+<?php echo $this->form; ?>
+
+<script type="text/javascript">
+    $("document").ready(function(){
+        $('#frm_newcourse').ajaxForm({
+    		//options of ajaxForm
+
+    		url : '/newsubject',
+    		data : {
+    		    send : true
+        		}, //data to be submitted along with the form variables json formatted
+    		clearForm : null, // form to be cleared if submit is successfull,
+
+    		dataType : 'json',  // json, xml, or script
+    		type : 'POST', // type of ajax call GET or POST
+
+     		beforeSubmit : function (arr, $form, options){
+    		    if($('#isValid').val() == "false")
+        		    return false;
+    		},
+
+    		success: function (data){
+   		     $.post('/newsubject',
+                  	{
+                         send : false,
+                  	},
+                  	function (data){
+                  	    $('#listsubjects').html(data);
+                  	    $.showMessage('Course successfully added');
+                  	});
+            }
+
+        });
+
+        ValidateAjax.initialize("frm_newcourse", "/validateform");
+
+/*         var selectBox = $("select").not(".chzn-select").selectBoxIt({
+            showEffect: "fadeIn",
+            showEffectSpeed: 200,
+            hideEffect: "fadeOut",
+            hideEffectSpeed: 200
+        }); */
+
+      	 $('.chzn-select').chosen();
+        });
+</script>

@@ -1,0 +1,855 @@
+<?xml version="1.0"?>
+<projectProfile type="default" version="1.11.11">
+  <projectDirectory>
+    <projectProfileFile filesystemName=".zfproject.xml"/>
+    <applicationDirectory classNamePrefix="Application_">
+      <apisDirectory enabled="false"/>
+      <configsDirectory>
+        <applicationConfigFile type="ini"/>
+      </configsDirectory>
+      <controllersDirectory>
+        <controllerFile controllerName="Index">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Error"/>
+        <controllerFile controllerName="instructor"/>
+      </controllersDirectory>
+      <formsDirectory enabled="false"/>
+      <layoutsDirectory>
+        <layoutScriptsDirectory>
+          <layoutScriptFile layoutName="layout"/>
+        </layoutScriptsDirectory>
+      </layoutsDirectory>
+      <modelsDirectory/>
+      <modulesDirectory>
+        <moduleDirectory moduleName="security">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory enabled="false">
+            <formFile formName="Test"/>
+          </formsDirectory>
+          <layoutsDirectory enabled="false">
+            <layoutScriptsDirectory enabled="false"/>
+          </layoutsDirectory>
+          <modelsDirectory/>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="content">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="makepdf"/>
+              <actionMethod actionName="viewpdf"/>
+              <actionMethod actionName="validateform"/>
+              <actionMethod actionName="schoolConfig"/>
+              <actionMethod actionName="about"/>
+              <actionMethod actionName="examsController"/>
+              <actionMethod actionName="keepAlive"/>
+              <actionMethod actionName="feedback"/>
+              <actionMethod actionName="download"/>
+              <actionMethod actionName="progressJson"/>
+              <actionMethod actionName="dashboard"/>
+              <actionMethod actionName="receivebackup"/>
+              <actionMethod actionName="uploadbackup"/>
+              <actionMethod actionName="dbackup"/>
+              <actionMethod actionName="sseResponse"/>
+            </controllerFile>
+            <controllerFile controllerName="Error">
+              <actionMethod actionName="noTerm"/>
+            </controllerFile>
+            <controllerFile controllerName="Menu">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="pdflinkVURI"/>
+              <actionMethod actionName="pdflinkHURI"/>
+              <actionMethod actionName="sidebar"/>
+            </controllerFile>
+            <controllerFile controllerName="Search">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="buildIndex"/>
+              <actionMethod actionName="searchIndex"/>
+            </controllerFile>
+            <controllerFile controllerName="Student">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="currentStudents"/>
+              <actionMethod actionName="listcurrentstudents"/>
+              <actionMethod actionName="pastStudents"/>
+              <actionMethod actionName="listpaststudents"/>
+              <actionMethod actionName="toggleStatus"/>
+              <actionMethod actionName="recordUpdate"/>
+              <actionMethod actionName="oldStudents"/>
+              <actionMethod actionName="listoldstudents"/>
+              <actionMethod actionName="indexAlternate"/>
+              <actionMethod actionName="academicProfile"/>
+              <actionMethod actionName="studentsList"/>
+              <actionMethod actionName="bookAttendance"/>
+              <actionMethod actionName="attendanceHistory"/>
+              <actionMethod actionName="attendanceDetail"/>
+              <actionMethod actionName="academicProfileChart"/>
+              <actionMethod actionName="classStudentsListJson"/>
+            </controllerFile>
+            <controllerFile controllerName="Instructor">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="deleteSubjectClass"/>
+              <actionMethod actionName="availableClasses"/>
+              <actionMethod actionName="resetPassword"/>
+              <actionMethod actionName="allgradelevels"/>
+              <actionMethod actionName="updateDetails"/>
+              <actionMethod actionName="allsubjectsAssigned"/>
+              <actionMethod actionName="dtballassignsource"/>
+              <actionMethod actionName="studentList"/>
+              <actionMethod actionName="generatepwd"/>
+              <actionMethod actionName="profile"/>
+              <actionMethod actionName="mailbox"/>
+            </controllerFile>
+            <controllerFile controllerName="Course">
+              <actionMethod actionName="deleteClass"/>
+              <actionMethod actionName="courseSyllabus"/>
+              <actionMethod actionName="updateSyllabus"/>
+              <actionMethod actionName="syllabiSource"/>
+              <actionMethod actionName="syllabiSummary"/>
+            </controllerFile>
+            <controllerFile controllerName="School">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="setupTerm"/>
+              <actionMethod actionName="listTermDates"/>
+              <actionMethod actionName="schoolConfig"/>
+              <actionMethod actionName="setPeriodContext"/>
+              <actionMethod actionName="setupClasses"/>
+              <actionMethod actionName="getClassesList"/>
+              <actionMethod actionName="newGradelevel"/>
+              <actionMethod actionName="markGrading"/>
+              <actionMethod actionName="uploadlogo"/>
+            </controllerFile>
+            <controllerFile controllerName="Store">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="listStoreItems"/>
+              <actionMethod actionName="listStoreSource"/>
+              <actionMethod actionName="updateStore"/>
+              <actionMethod actionName="listStoreTranx"/>
+            </controllerFile>
+            <controllerFile controllerName="Accounts">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="billGroupsList"/>
+              <actionMethod actionName="groupUpdate"/>
+              <actionMethod actionName="groupListSource"/>
+              <actionMethod actionName="termBill"/>
+              <actionMethod actionName="termBillSource"/>
+              <actionMethod actionName="termBillUpdate"/>
+              <actionMethod actionName="accountSummary"/>
+              <actionMethod actionName="checkBillStudents"/>
+              <actionMethod actionName="billStudents"/>
+              <actionMethod actionName="initiateAutoBilling"/>
+              <actionMethod actionName="listUnbilledStudents"/>
+              <actionMethod actionName="processAccountBalances"/>
+              <actionMethod actionName="studentDebtors"/>
+              <actionMethod actionName="studentCreditors"/>
+              <actionMethod actionName="studentBalSource"/>
+              <actionMethod actionName="offerDiscount"/>
+              <actionMethod actionName="initComputeBalances"/>
+              <actionMethod actionName="studentDiscount"/>
+              <actionMethod actionName="viewBills"/>
+              <actionMethod actionName="viewBillSource"/>
+              <actionMethod actionName="showTransaction"/>
+              <actionMethod actionName="showTransSource"/>
+              <actionMethod actionName="payFees"/>
+              <actionMethod actionName="printReceipt"/>
+              <actionMethod actionName="accountsStatement"/>
+              <actionMethod actionName="adjustAccount"/>
+              <actionMethod actionName="billableslist"/>
+              <actionMethod actionName="printbills"/>
+              <actionMethod actionName="clearbills"/>
+              <actionMethod actionName="entrybill"/>
+              <actionMethod actionName="termlybill"/>
+              <actionMethod actionName="termlybillstudents"/>
+            </controllerFile>
+            <controllerFile controllerName="Assignments">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="assignSummary"/>
+              <actionMethod actionName="assessments"/>
+              <actionMethod actionName="assessmentlist"/>
+              <actionMethod actionName="assessmentScores"/>
+              <actionMethod actionName="exemptFromAssessment"/>
+              <actionMethod actionName="ungradedAssessments"/>
+              <actionMethod actionName="ungradedAssessSource"/>
+              <actionMethod actionName="zerogradedAssessments"/>
+              <actionMethod actionName="termOverview"/>
+              <actionMethod actionName="outlook"/>
+              <actionMethod actionName="getCourseReport"/>
+              <actionMethod actionName="showSummary"/>
+              <actionMethod actionName="studentDetails"/>
+              <actionMethod actionName="monitorAssessments"/>
+              <actionMethod actionName="getRecentStudentAssignment"/>
+              <actionMethod actionName="exemptgraded"/>
+            </controllerFile>
+            <controllerFile controllerName="Exams">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="examsummary"/>
+              <actionMethod actionName="examslist"/>
+              <actionMethod actionName="addExamMark"/>
+              <actionMethod actionName="resetMarks"/>
+            </controllerFile>
+            <controllerFile controllerName="Performance">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="Comments">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="loadComment"/>
+              <actionMethod actionName="commentSource"/>
+              <actionMethod actionName="updateComment"/>
+            </controllerFile>
+            <controllerFile controllerName="Reports">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="cumReport"/>
+              <actionMethod actionName="buildReport"/>
+              <actionMethod actionName="termReport"/>
+              <actionMethod actionName="progressReport"/>
+              <actionMethod actionName="commentReport"/>
+              <actionMethod actionName="cumJson"/>
+              <actionMethod actionName="termJson"/>
+              <actionMethod actionName="commentJson"/>
+              <actionMethod actionName="progressJson"/>
+              <actionMethod actionName="batchPrint"/>
+            </controllerFile>
+            <controllerFile controllerName="Disciplinary">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+            <controllerFile controllerName="Notifications">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory>
+            <formFile formName="NewRegistry"/>
+            <formFile formName="NewCourt"/>
+            <formFile formName="SchoolConfig"/>
+            <formFile formName="Student"/>
+            <formFile formName="UpdateItemStore"/>
+            <formFile formName="RestockItemStore"/>
+            <formFile formName="FeeGroup"/>
+            <formFile formName="TermBillUpdate"/>
+            <formFile formName="Discount"/>
+            <formFile formName="ViewBill"/>
+            <formFile formName="Assignemts"/>
+            <formFile formName="GradeLevels"/>
+            <formFile formName="Syllabus"/>
+          </formsDirectory>
+          <layoutsDirectory enabled="false">
+            <layoutScriptsDirectory enabled="false"/>
+          </layoutsDirectory>
+          <modelsDirectory>
+            <modelFile modelName=""/>
+            <dbTableDirectory>
+              <dbTableFile dbTableName="Menu"/>
+              <dbTableFile dbTableName="Roles"/>
+              <dbTableFile dbTableName="Resources"/>
+              <dbTableFile dbTableName="Registry"/>
+              <dbTableFile dbTableName="Courts"/>
+            </dbTableDirectory>
+            <modelFile modelName="Menu"/>
+            <modelFile modelName="Acl"/>
+            <modelFile modelName="Registry"/>
+            <modelFile modelName="Courts"/>
+            <modelFile modelName="School"/>
+            <modelFile modelName="Store"/>
+            <modelFile modelName="Reports"/>
+            <modelFile modelName="Calendar"/>
+            <modelFile modelName="Notification"/>
+            <modelFile modelName="Relations"/>
+          </modelsDirectory>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="makepdf"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Menu">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Menu">
+                <viewScriptFile forActionName="pdflinkVURI"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Menu">
+                <viewScriptFile forActionName="pdflinkHURI"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Menu">
+                <viewScriptFile forActionName="sidebar"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Search">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="viewpdf"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="addCase"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="archiveCase"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="publishCase"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="uploadCase"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="updateCase"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="relistCase"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="sendMessage"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Chamber">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Docket">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Attorney">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="newRegistry"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="updateRegistry"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="deleteRegistry"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="addRegistrar"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="updateRegistrar"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="deleteRegistrar"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="listRegistries"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="statistics"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Courts">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="validateform"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Registry">
+                <viewScriptFile forActionName="validateform"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Courts">
+                <viewScriptFile forActionName="newCourt"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Courts">
+                <viewScriptFile forActionName="updateCourt"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Courts">
+                <viewScriptFile forActionName="listCourts"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Courts">
+                <viewScriptFile forActionName="validateform"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Search">
+                <viewScriptFile forActionName="buildIndex"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Search">
+                <viewScriptFile forActionName="searchIndex"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Courts">
+                <viewScriptFile forActionName="courtsdtbSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Courts">
+                <viewScriptFile forActionName="loadSelectOptions"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="deleteSubjectClass"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="availableClasses"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="resetPassword"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="allgradelevels"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="updateDetails"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="allsubjectsAssigned"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="dtballassignsource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Course">
+                <viewScriptFile forActionName="deleteClass"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="setupTerm"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="listTermDates"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="schoolConfig"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="schoolConfig"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="currentStudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="listcurrentstudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="pastStudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="listpaststudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="toggleStatus"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="recordUpdate"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="oldStudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="listoldstudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Store">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Store">
+                <viewScriptFile forActionName="listStoreItems"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Store">
+                <viewScriptFile forActionName="listStoreSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Store">
+                <viewScriptFile forActionName="updateStore"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Store">
+                <viewScriptFile forActionName="listStoreTranx"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="billGroupsList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="groupUpdate"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="groupListSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="termBill"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="termBillSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="termBillUpdate"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="accountSummary"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="checkBillStudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="billStudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="initiateAutoBilling"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="listUnbilledStudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="processAccountBalances"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="studentDebtors"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="studentCreditors"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="studentBalSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="offerDiscount"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="initComputeBalances"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="studentDiscount"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="viewBills"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="viewBillSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="about"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="showTransaction"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="showTransSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="assignSummary"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="assessments"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="assessmentlist"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="assessmentScores"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="exemptFromAssessment"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="ungradedAssessments"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="ungradedAssessSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="zerogradedAssessments"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="examsController"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Exams">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Exams">
+                <viewScriptFile forActionName="examsummary"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Exams">
+                <viewScriptFile forActionName="examslist"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Exams">
+                <viewScriptFile forActionName="addExamMark"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Performance">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Comments">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Exams">
+                <viewScriptFile forActionName="resetMarks"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Comments">
+                <viewScriptFile forActionName="loadComment"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Error">
+                <viewScriptFile forActionName="noTerm"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="setPeriodContext"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Comments">
+                <viewScriptFile forActionName="commentSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Comments">
+                <viewScriptFile forActionName="updateComment"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="termOverview"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="outlook"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="getCourseReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="showSummary"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="cumReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="buildReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="termReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="progressReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="commentReport"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="studentDetails"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="monitorAssessments"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="indexAlternate"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="studentList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="payFees"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="keepAlive"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="printReceipt"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="accountsStatement"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="adjustAccount"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="setupClasses"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="getClassesList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="newGradelevel"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="feedback"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="generatepwd"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="markGrading"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="profile"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Course">
+                <viewScriptFile forActionName="courseSyllabus"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Course">
+                <viewScriptFile forActionName="updateSyllabus"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Course">
+                <viewScriptFile forActionName="syllabiSource"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Course">
+                <viewScriptFile forActionName="syllabiSummary"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="academicProfile"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="studentsList"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="bookAttendance"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="attendanceHistory"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="attendanceDetail"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="academicProfileChart"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="download"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="cumJson"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="termJson"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="commentJson"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="progressJson"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="progressJson"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Reports">
+                <viewScriptFile forActionName="batchPrint"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Student">
+                <viewScriptFile forActionName="classStudentsListJson"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="dashboard"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Instructor">
+                <viewScriptFile forActionName="mailbox"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="School">
+                <viewScriptFile forActionName="uploadlogo"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="getRecentStudentAssignment"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Assignments">
+                <viewScriptFile forActionName="exemptgraded"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="billableslist"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="receivebackup"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="uploadbackup"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="dbackup"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="printbills"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="clearbills"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="entrybill"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="termlybill"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Accounts">
+                <viewScriptFile forActionName="termlybillstudents"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="sseResponse"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Disciplinary">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Notifications">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="pdfhost">
+          <controllersDirectory/>
+          <modelsDirectory>
+            <modelFile modelName="Schedule"/>
+          </modelsDirectory>
+          <viewsDirectory/>
+        </moduleDirectory>
+      </modulesDirectory>
+      <viewsDirectory>
+        <viewScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Error">
+            <viewScriptFile forActionName="error"/>
+          </viewControllerScriptsDirectory>
+        </viewScriptsDirectory>
+        <viewHelpersDirectory/>
+        <viewFiltersDirectory enabled="false"/>
+      </viewsDirectory>
+      <bootstrapFile filesystemName="Bootstrap.php"/>
+    </applicationDirectory>
+    <dataDirectory enabled="false">
+      <cacheDirectory enabled="false"/>
+      <searchIndexesDirectory enabled="false"/>
+      <localesDirectory enabled="false"/>
+      <logsDirectory enabled="false"/>
+      <sessionsDirectory enabled="false"/>
+      <uploadsDirectory enabled="false"/>
+    </dataDirectory>
+    <docsDirectory>
+      <file filesystemName="README.txt"/>
+    </docsDirectory>
+    <libraryDirectory>
+      <zfStandardLibraryDirectory enabled="false"/>
+    </libraryDirectory>
+    <publicDirectory>
+      <publicStylesheetsDirectory enabled="false"/>
+      <publicScriptsDirectory enabled="false"/>
+      <publicImagesDirectory enabled="false"/>
+      <publicIndexFile filesystemName="index.php"/>
+      <htaccessFile filesystemName=".htaccess"/>
+    </publicDirectory>
+    <projectProvidersDirectory enabled="false"/>
+    <temporaryDirectory enabled="false"/>
+    <testsDirectory>
+      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
+      <testPHPUnitBootstrapFile filesystemName="bootstrap.php"/>
+      <testApplicationDirectory>
+        <testApplicationControllerDirectory>
+          <testApplicationControllerFile forControllerName="Index"/>
+        </testApplicationControllerDirectory>
+      </testApplicationDirectory>
+      <testLibraryDirectory/>
+    </testsDirectory>
+  </projectDirectory>
+</projectProfile>

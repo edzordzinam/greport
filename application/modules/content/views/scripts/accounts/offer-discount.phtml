@@ -1,0 +1,47 @@
+<legend><?php echo $this->state; ?></legend>
+<?php echo $this->form; ?>
+
+<script type="text/javascript">
+<!--
+$(function(){
+
+	$("#frm_discount").ajaxForm({
+		//options of ajaxForm
+
+		url : '/offerdiscount',
+		data : {
+			send : '<?php echo $this->sendState; ?>',
+			gradelevel : $('#gradelevel').val(),
+    		}, //data to be submitted along with the form variables json formatted
+		clearForm : null, // form to be cleared if submit is successfull,
+
+		dataType : 'json',  // json, xml, or script
+		type : 'POST', // type of ajax call GET or POST
+
+ 		beforeSubmit : function (arr, $form, options){
+		    if($('#isValid').val() == "false")
+    		    return false;
+		},
+
+		success: function (data){
+		   if (data.status == 1)
+			 $('a[href="#studentdebtors"]').click();
+		   else
+			 $.showMessage('This student already has a discount');
+        }
+
+    });
+
+	ValidateAjax.initialize("frm_discount", "/validateform");
+
+   /*  var selectBox = $("select").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 600,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 600
+    }); */
+
+    $('.number').autoNumeric('init', {mDec :'0'});
+});
+//-->
+</script>

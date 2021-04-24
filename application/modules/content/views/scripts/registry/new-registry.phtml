@@ -1,0 +1,52 @@
+<div class="row-fluid">
+        <h5>Add new Registry</h5>
+        <?php echo $this->form; ?>
+</div>
+
+
+
+<script type="text/javascript">
+    $("document").ready(function(){
+        $('#registryForm').ajaxForm({
+    		//options of ajaxForm
+
+    		url : '/updateregistry',
+    		data : {}, //data to be submitted along with the form variables json formatted
+    		clearForm : null, // form to be cleared if submit is successfull,
+
+    		dataType : 'json',  // json, xml, or script
+    		type : 'POST', // type of ajax call GET or POST
+
+    		//replaceTarget : true,
+    		//target : '#response',
+
+    		beforeSubmit : function (arr, $form, options){
+    		    if($('#isValid').val() == "false")
+        		    return false;
+    		},
+
+    		success: function (data){
+    		    $.showMessage("Registry details successfully updated");
+    		}
+
+
+
+        });
+
+        $.fn.loadCourts = function(courtType){
+            $.post('/loadcsoptions',
+                {
+                  cType : courtType
+                },
+                function (data){
+                    $('#registryCourts').html(data);
+                    $('.chzn-select').trigger('liszt:updated');
+                });
+        };
+
+
+        ValidateAjax.initialize("registryForm", "/validateform");
+
+        $('.chzn-select').chosen();
+    });
+</script>

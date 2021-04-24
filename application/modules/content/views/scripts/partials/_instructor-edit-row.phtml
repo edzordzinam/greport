@@ -1,0 +1,8 @@
+<tr>
+<td><?php echo $this->cl_coursename;  ?></td>
+<td><span style="font-size: 12px;"><?php echo $this->getGradeList($this->cl_gradelevels,$this->cl_courseid, $this->cl_instructor); ?></span></td>
+<td><span class="label label-inverse label-mini">
+    <a href=""		onclick="$.fn.deleteSubject(<?php echo $this->cl_courseid; ?>,'<?php echo $this->cl_coursename;  ?>',<?php echo $this->cl_instructor; ?>); return false;" title="delete subject">unassign</a>
+	</span>
+	</td>
+</tr>

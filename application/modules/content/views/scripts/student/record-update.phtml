@@ -1,0 +1,528 @@
+<h4>
+	Student Data Update Form <small>Please make sure you enter all required information</small>
+</h4>
+
+<hr style="margin: 0px;">
+<div class="row-fluid">
+	<div class="span6">
+		<form id="frm_picture" enctype="multipart/form-data" action="/uploadpicture" method="POST" onsubmit="return false;">
+			<input type="hidden" name="MAX_FILE_SIZE" value="100000" /> <label for="fileinput" class="control-label">Student's Picture</label>
+			<code>.jpg; .png; .gif; .jpeg; maximum size: 100KB</code>
+			<div class="row-fluid">
+				<div class="controls span9">
+					<div data-provides="fileupload" class="fileupload fileupload-new">
+						<input type="hidden" />
+						<div class="fileupload-new thumbnail">
+							<img class="img-polaroid" src="<?php echo $this->studentpix; ?>" alt="" />
+						</div>
+						<div style="width: 160px; height: 120px; line-height: 80px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+
+						<span class="btn btn-file btn-xs btn-primary"><span class="fileupload-new">Select Picture</span><span class="fileupload-exists">Change</span> <input type="file" id="studentpicture2" /></span><br>
+						<a data-dismiss="fileupload" class="btn btn-danger btn-xs fileupload-exists" href="#">Remove</a>
+						<?php if ($this->sendState == 'old') { ?>
+							<input type="button" class="btn btn-success btn-xs btn-file fileupload-exists" onclick="$.fn.sendPicture($('#cl_GPSN_ID').val());" value="Upload" />
+						<?php } ?>
+					</div>
+				</div>
+				<div  class="span3 pull-right" align="right" style="height: 100px;">
+	 				<div id="webcam" class="polaroid" style="position: relative;"></div>
+	 				<div class="btn-group" style="margin-right: 3px;position: relative; left: -2px;" >
+						 <button class="btn btn-small btn-success" onclick="$.fn.showCam(); return false;">On</button>
+						 <button class="btn btn-small btn-default" onclick="$.fn.snapPhotograph(webcam);  return false;">Take Pix</button>
+						 <button class="btn btn-small btn-danger" onclick="$.fn.closeCam();  return false;">Off</button>
+					</div>
+				</div>
+		 	</div>
+
+ 		</form>
+
+		<fieldset>
+			<h4>
+				Additional & Parental Information <small>Provide where applicable</small>
+			</h4>
+			<?php
+
+			if (isset ( $this->relations )) {
+				echo "<script>$('#billStudent').val(1);$('#billStudent').css('display','none');</script>";
+				if ($this->relations->count () > 0) {
+					echo "<script>$('#billStudent').val(1);$('#billStudent').css('display','none');</script>";
+					$father = new stdClass ();
+					$mother = new stdClass ();
+					$guardian = new stdClass ();
+					foreach ( $this->relations as $relation ) {
+						switch ($relation->relationtype) {
+							case 1 :
+								$father->name = $relation->fullname;
+								$father->address = $relation->address;
+								$father->telno1 = $relation->telno1;
+								$father->telno2 = $relation->telno2;
+								$father->email = $relation->email;
+								break;
+
+							case 2 :
+								$mother->name = $relation->fullname;
+								$mother->address = $relation->address;
+								$mother->telno1 = $relation->telno1;
+								$mother->telno2 = $relation->telno2;
+								$mother->email = $relation->email;
+								break;
+
+							case 3 :
+								$guardian->name = $relation->fullname;
+								$guardian->address = $relation->address;
+								$guardian->telno1 = $relation->telno1;
+								$guardian->telno2 = $relation->telno2;
+								$guardian->email = $relation->email;
+								break;
+
+							default :
+								;
+								break;
+						}
+					}
+				}
+			}
+		?>
+ 			<div class="tabbable" style="padding-left: 50px; border: 1px solid silver;border-radius:2px;">
+				<ul class="nav nav-pills">
+					<li class="active"><a href="#ftab" data-toggle="tab">Father</a></li>
+					<li class=""><a href="#mtab" data-toggle="tab">Mother</a></li>
+					<li class=""><a href="#gtab" data-toggle="tab">Guardian</a></li>
+					<!-- <li class=""><a href="#medical" data-toggle="tab">Medicals</a></li> -->
+				</ul>
+ 				<div class="tab-content">
+					<div class="tab-pane active" id="ftab">
+						<form class="form-horizontal form-horizontal-alt" name="father_form" id="father_form" style="width: 90%;">
+							<div class="control-group">
+								<label for="father" class="control-label" style="width: auto;">Fullname</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="father" name="father" type="text" required="required" class="span12" placeholder="Father's fullname" value="<?php echo (isset($father->name))? $father->name : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="faddress" class="control-label" style="width: auto;">Address</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="faddress" name="faddress" type="text" required="required" class="span12" placeholder="Address" value="<?php echo (isset($father->address))? $father->address : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="ftelno1" class="control-label" style="width: auto;">Tel no</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="ftelno1" name="ftelno1" data-mask="(099)-9999999" required="required" class="input-medium" type="text" placeholder="Phone number 1" value="<?php echo (isset($father->telno1))? $father->telno1 : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="ftelno2" class="control-label" style="width: auto;">Tel no 2</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="ftelno2" name="ftelno2" data-mask="(099)-9999999" class="input-medium" type="text" placeholder="Phone number 2" value="<?php echo (isset($father->telno2))? $father->telno2 : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="femail" class="control-label" style="width: auto;">E-mail</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="femail" name="femail" class="input-medium" type="text" placeholder="email address" value="<?php echo (isset($father->email))? $father->email : ''; ?>">
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="tab-pane" id="mtab">
+						<form class="form-horizontal form-horizontal-alt" name="mother_form" id="mother_form" style="width: 90%;">
+							<div class="control-group">
+								<label for="mother" class="control-label" style="width: auto;">Fullname</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="mother" required="required" name="mother" type="text" class="span12" placeholder="Mother's fullname" value="<?php echo (isset($mother->name))? $mother->name : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="maddress" class="control-label" style="width: auto;">Address</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="maddress" required="required" name="maddress" type="text" class="span12" placeholder="Address" value="<?php echo (isset($mother->address))? $mother->address : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="mtelno1" class="control-label" style="width: auto;">Tel no</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="mtelno1" name="mtelno1" data-mask="(099)-9999999" class="input-medium" type="text" placeholder="Phone number 1" value="<?php echo (isset($mother->telno1))? $mother->telno1 : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="mtelno2" class="control-label" style="width: auto;">Tel no 2</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="mtelno2" name="mtelno2" data-mask="(099)-9999999" class="input-medium" type="text" placeholder="Phone number 2" value="<?php echo (isset($mother->telno2))? $mother->telno2 : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="memail" class="control-label" style="width: auto;">E-mail</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="memail" name="memail" class="input-medium" type="text" placeholder="email address" value="<?php echo (isset($mother->email))? $mother->email : ''; ?>">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="tab-pane" id="gtab">
+						<form class="form-horizontal form-horizontal-alt" name="guardian_form" id="guardian_form" style="width: 90%;">
+							<div class="control-group">
+								<label for="guardian" class="control-label" style="width: auto;">Name</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="guardian" name="guardian" type="text" class="span12" placeholder="Guardian's fullname" value="<?php echo (isset($guardian->name))? $guardian->name : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="gaddress" class="control-label" style="width: auto;">Address</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="gaddress" name="gaddress" type="text" class="span12" placeholder="Address" value="<?php echo (isset($guardian->address))? $guardian->address : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="gtelno1" class="control-label" style="width: auto;">Tel no</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="gtelno1" name="gtelno1" data-mask="(099)-9999999" class="input-medium" type="text" placeholder="Phone number 1" value="<?php echo (isset($guardian->telno1))? $guardian->telno1 : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="gtelno1" class="control-label" style="width: auto;">Tel no 2</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="gtelno2" name="gtelno2" data-mask="(099)-9999999" class="input-medium" type="text" placeholder="Phone number 2" value="<?php echo (isset($guardian->telno2))? $guardian->telno2 : ''; ?>">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label for="gemail" class="control-label" style="width: auto;">E-mail</label>
+								<div class="controls" style="margin-left: 80px;">
+									<input id="gemail" name="gemail" class="input-medium" type="text" placeholder="email address" value="<?php echo (isset($guardian->email))? $guardian->email : ''; ?>">
+								</div>
+							</div>
+
+						</form>
+					</div>
+					<div class="tab-pane" id="medical">
+						<p></p>
+					</div>
+				</div>
+
+			</div>
+		</fieldset>
+	</div>
+	<div class="span6">
+		<?php echo $this->form; ?>
+ 	</div>
+</div>
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+
+	window.addEventListener("load", function() {
+
+ 		var canvas = $("#content").find("#canvas");
+
+		if (canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, 160, 120);
+
+			var img = new Image();
+			//img.src = "/static/logo.gif";
+			img.onload = function() {
+				ctx.drawImage(img, 129, 89);
+			};
+			image = ctx.getImageData(0, 0, 320, 240);
+		}
+
+	}, false);
+
+
+	  $.fn.snapPhotograph = function (wbc){
+		  wbc.capture();
+		  void(0);
+		  //load the photograph into the appropriate folder.... and preview on canvas...
+	  };
+
+	  $.fn.closeCam = function (){
+		  $("#webcam").hide();
+	  };
+
+	  $.fn.showCam =  function (){
+		   $("#webcam").show();
+		  };
+
+	  $.fn.createCam = function(){
+		  //$("#camPanel").show();
+		  ;
+	  };
+
+	$('#frm_student').ajaxForm({
+		//options of ajaxForm
+		url : '/studentrecord',
+		data : {
+			send : '<?php echo $this->sendState; ?>',
+			father : '',
+			faddress : '',
+			ft1 : '',
+			ft2 : '',
+			femail : '',
+			//mother
+			mother : '',
+			maddress : '',
+			mt1 : '',
+			mt2 : '',
+			memail : '',
+
+			//guardian
+			guardian : '',
+			gaddress : '',
+			gt1 : '',
+			gt2 : '',
+			gemail :'',
+    		}, //data to be submitted along with the form variables json formatted
+		clearForm : null, // form to be cleared if submit is successfull,
+
+		dataType : 'json',  // json, xml, or script
+		type : 'POST', // type of ajax call GET or POST
+
+ 		beforeSubmit : function (arr, $form, options){
+		    if($('#isValid').val() == "false")
+    		    return false;
+
+		    if (!$('#father_form').valid()){
+		    	$('a[href="#ftab"]').click();
+		    	return false;
+		    }
+
+		    if (!$('#mother_form').valid()){
+		    	$('a[href="#mtab"]').click();
+		    	return false;
+		    }
+
+		    arr[15].value = $('#father').val();
+		    arr[16].value = $('#faddress').val();
+		    arr[17].value = $('#ftelno1').val();
+		    arr[18].value = $('#ftelno2').val();
+		    arr[19].value = $('#femail').val();
+			//mother
+		    arr[20].value = $('#mother').val();
+		    arr[21].value = $('#maddress').val();
+		    arr[22].value = $('#mtelno1').val();
+		    arr[23].value = $('#mtelno2').val();
+		    arr[24].value = $('#memail').val();
+
+			//guardian
+		    arr[25].value = $('#guardian').val();
+		    arr[26].value = $('#gaddress').val();
+		    arr[27].value = $('#gtelno1').val();
+		    arr[28].value = $('#gtelno2').val();
+		    arr[29].value = $('#gemail').val();
+		},
+		success: function (data){
+			if ($('#studentpicture2').val() != "")
+				$.fn.SendPicture(data.studentid);
+        }
+
+    });
+
+	ValidateAjax.initialize("frm_student", "/validateform");
+
+/*    var selectBox = $("select").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 200,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 200
+    }); */
+
+    $.fn.sendPicture = function(studentid){
+    	// The Javascript
+    	var fileInput = document.getElementById('studentpicture2');
+    	var file = fileInput.files[0];
+    	var formData = new FormData();
+    		formData.append('file', file);
+
+    	$.ajax({
+    	  url: '/uploadpicture?studentid='+studentid,
+    	  data: formData,
+    	  processData: false,
+    	  contentType: false,
+    	  type: 'POST',
+    	  success: function(data){
+    	    $.showMessage(data);
+    	  }
+    	});
+
+    	return false;
+    };
+
+	$('#cl_DOB').datepicker();
+
+	$('#father_form').validate({
+		ignore: "",
+			rules: {
+				father: {
+				minlength: 2,
+				required: true
+				},
+			},
+			highlight: function(element) {
+				$(element).closest('.control-group').removeClass('success').addClass('error');
+			},
+			success: function(element) {
+				element
+				.addClass('valid')
+				.closest('.control-group').removeClass('error').addClass('success');
+			}
+	});
+
+	$('#mother_form').validate({
+		 		ignore: "",
+				rules: {
+					mother: {
+					minlength: 2,
+					required: true
+					},
+				},
+				highlight: function(element) {
+					$(element).closest('.control-group').removeClass('success').addClass('error');
+					},
+					success: function(element) {
+					element
+					.addClass('valid')
+					.closest('.control-group').removeClass('error').addClass('success');
+				}
+	});
+
+	var pos = 0, ctx = null, saveCB, image = [];
+
+    var canvas = document.createElement("canvas");
+    canvas.setAttribute('width', 160);
+    canvas.setAttribute('height', 120);
+
+    if (canvas.toDataURL) {
+
+            ctx = canvas.getContext("2d");
+            image = ctx.getImageData(0, 0, 320, 240);
+            saveCB = function(data) {
+                    var col = data.split(";");
+                    var img = image;
+
+                    for(var i = 0; i < 320; i++) {
+                            var tmp = parseInt(col[i]);
+                            img.data[pos + 0] = (tmp >> 16) & 0xff;
+                            img.data[pos + 1] = (tmp >> 8) & 0xff;
+                            img.data[pos + 2] = tmp & 0xff;
+                            img.data[pos + 3] = 0xff;
+                            pos+= 4;
+                    }
+
+                    if (pos >= 4 * 320 * 240) {
+                            ctx.putImageData(img, 0, 0);
+                            $.post("/webcam/upload.php", {
+	                          	 type: "data",
+	                          	 image: canvas.toDataURL("image/png"),
+	                          	 //PKID: $('#Ptxt_ProspectiveGPKN').text(),
+	                          	 //isHHPicture : $.globals.isHHPicture,
+	                          	// studentID : $('#lbl_ID').text()
+                          	 },
+                          	 function(data) {
+
+                          		 var JSONObject = jQuery.parseJSON(data);
+                          		 $.studentID = JSONObject.studentID;
+
+                          		 d = new Date();
+                          		 if ($.globals.isHHPicture)
+                          			 file_location = '/webcam/pixs/';
+                          		 else
+                          		     file_location = '/webcam/pixs/';
+
+
+                          		 //var filename = $.studentID + '.jpg?'+d.getTime();
+
+                                  /*  $('#studentRegImage').hide();
+
+             	    		         var i = $('#studentRegImage').attr('src', file_location + filename ).load(
+             	    		                        function() {
+             	    		                            $('#studentRegImage').attr(
+             	    		                                    'src',
+             	    		                                    i.attr('src'));
+             	    		                            $('#previewWrap').css(
+             	    		                                    'background-image',
+             	    		                                    'none');
+             	    		                            $('#studentRegImage').fadeIn();
+             	    		                        }); */
+
+
+                          	 }
+                            );
+                            pos = 0;
+                    }
+
+            };
+
+    } else {
+
+            saveCB = function(data) {
+                    image.push(data);
+
+                    pos+= 4 * 320;
+
+                    if (pos >= 4 * 320 * 240) {
+                            $.post("../webcam/upload.php", {
+                          	  type: "pixel",
+                          	  image: image.join('|')});
+                            pos = 0;
+                    }
+
+
+            };
+    }
+
+
+    $("#webcam").webcam({
+        width: 160,
+        height: 120,
+        mode: "callback",
+        swffile: "../webcam/jscam.swf",
+
+        //onSave: saveCB,
+
+       /*  onCapture: function () {
+                webcam.save();
+        }, */
+        onSave : function(data) {
+
+            var col = data.split(";");
+            var img = image;
+
+            for(var i = 0; i < 320; i++) {
+                var tmp = parseInt(col[i]);
+                img.data[pos + 0] = (tmp >> 16) & 0xff;
+                img.data[pos + 1] = (tmp >> 8) & 0xff;
+                img.data[pos + 2] = tmp & 0xff;
+                img.data[pos + 3] = 0xff;
+                pos+= 4;
+            }
+
+            if (pos >= 4 * 320 * 240) {
+                ctx.putImageData(img, 0, 0);
+                pos = 0;
+            }
+        },
+
+        debug: function (type, string) {
+               // $.msg (type + ": " + string);
+        }
+	});
+
+
+});
+//-->
+</script>

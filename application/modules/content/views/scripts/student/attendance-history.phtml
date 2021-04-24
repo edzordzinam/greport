@@ -1,0 +1,30 @@
+<div class="tabbable tabs-above">
+	<ul class="nav nav-pills" id="myTab">
+		<li class="active"><a href="#summary" data-toggle="tab">Student Attendance Reporting</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="summary">
+			<div class="span7">
+				<div id="container"></div>
+			</div>
+			<div class="span5">
+				<div id="container_piechart"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/min/g=highcharts.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	
+			// Apply the theme
+	<?php echo $this->distribution_chart->render();?>
+
+	//var highchartsOptions = Highcharts.setOptions(Highcharts.theme.back);
+	<?php echo $this->chart->render();?>
+			
+});
+</script>

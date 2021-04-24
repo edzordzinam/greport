@@ -1,0 +1,21 @@
+<div class="widgets">
+<div style="width : 30% !important; float: left; min-width: 300px;">
+	<div class="widget"
+		title="You can put cursor on grades to see more details"
+		id="reg-courses">
+			<?php
+				$this->courses = $this->action ( 'listpanel', 'course' );
+				echo $this->courses;
+			?>
+	</div>
+
+</div>
+<div style="width : 65% !important; float: right ">
+	<div class="widget">
+		<div id="exam-content">
+			<p style="padding: 20px; text-align: center; font-size: 16px; color: maroon; font-weight: bold;">Select a
+				course from the list of courses on this page to enter exam marks and subject comments for students  </p>
+		</div>
+	</div>
+</div>
+</div>

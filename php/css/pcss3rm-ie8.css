@@ -1,0 +1,307 @@
+/**/
+/* basic styles */
+/**/
+.pcss3rm input {
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+
+/**/
+/* postions */
+/**/
+.pcss3rm-pos-tl {
+	top: 20px;
+	left: 20px;
+}
+.pcss3rm-pos-tl input.checked + a + ul li:first-child {
+	left: 350%;
+}
+.pcss3rm-pos-tl input.checked + a + ul li:first-child + li {
+	top: 165.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-tl input.checked + a + ul li:first-child + li + li {
+	top: 262.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-tl input.checked + a + ul li:first-child + li + li + li {
+	top: 328.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-tl input.checked + a + ul li:first-child + li + li + li + li {
+	top: 350%;
+	left: 50%;
+}
+
+.pcss3rm-pos-t input.checked + a + ul li:first-child {
+	left: 350%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li {
+	top: 165.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li + li {
+	top: 262.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li + li + li {
+	top: 328.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li + li + li + li {
+	top: 350%;
+	left: 50%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li + li + li + li + li {
+	top: 328.125%;
+	left: -65.625%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li + li + li + li + li + li {
+	top: 262.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li + li + li + li + li + li + li {
+	top: 165.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-t input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li {
+	left: -250%;
+}
+
+.pcss3rm-pos-tr input.checked + a + ul li:first-child {
+	top: 350%;
+	left: 50%;
+}
+.pcss3rm-pos-tr input.checked + a + ul li:first-child + li {
+	top: 328.125%;
+	left: -65.625%;
+}
+.pcss3rm-pos-tr input.checked + a + ul li:first-child + li + li {
+	top: 262.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-tr input.checked + a + ul li:first-child + li + li + li {
+	top: 165.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-tr input.checked + a + ul li:first-child + li + li + li + li {
+	left: -250%;
+}
+
+.pcss3rm-pos-r input.checked + a + ul li:first-child {
+	top: 350%;
+	left: 50%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li {
+	top: 328.125%;
+	left: -65.625%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li + li {
+	top: 262.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li + li + li {
+	top: 165.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li + li + li + li {
+	left: -250%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li + li + li + li + li {
+	top: -65.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li + li + li + li + li + li {
+	top: -162.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li + li + li + li + li + li + li {
+	top: -228.125%;
+	left: -65.625%;
+}
+.pcss3rm-pos-r input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li {
+	top: -250%;
+	left: 50%;
+}
+
+.pcss3rm-pos-br input.checked + a + ul li:first-child {
+	left: -250%;
+}
+.pcss3rm-pos-br input.checked + a + ul li:first-child + li {
+	top: -65.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-br input.checked + a + ul li:first-child + li + li {
+	top: -162.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-br input.checked + a + ul li:first-child + li + li + li {
+	top: -228.125%;
+	left: -65.625%;
+}
+.pcss3rm-pos-br input.checked + a + ul li:first-child + li + li + li + li {
+	top: -250%;
+	left: 50%;
+}
+
+.pcss3rm-pos-b input.checked + a + ul li:first-child {
+	left: -250%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li {
+	top: -65.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li + li {
+	top: -162.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li + li + li {
+	top: -228.125%;
+	left: -65.625%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li + li + li + li {
+	top: -250%;
+	left: 50%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li + li + li + li + li {
+	top: -228.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li + li + li + li + li + li {
+	top: -162.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li + li + li + li + li + li + li {
+	top: -65.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-b input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li {
+	left: 350%;
+}
+
+.pcss3rm-pos-bl input.checked + a + ul li:first-child {
+	top: -250%;
+	left: 50%;
+}
+.pcss3rm-pos-bl input.checked + a + ul li:first-child + li {
+	top: -228.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-bl input.checked + a + ul li:first-child + li + li {
+	top: -162.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-bl input.checked + a + ul li:first-child + li + li + li {
+	top: -65.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-bl input.checked + a + ul li:first-child + li + li + li + li {
+	left: 350%;
+}
+
+.pcss3rm-pos-l input.checked + a + ul li:first-child {
+	top: -250%;
+	left: 50%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li {
+	top: -228.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li + li {
+	top: -162.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li + li + li {
+	top: -65.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li + li + li + li {
+	left: 350%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li + li + li + li + li {
+	top: 165.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li + li + li + li + li + li {
+	top: 262.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li + li + li + li + li + li + li {
+	top: 328.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-l input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li {
+	top: 350%;
+	left: 50%;
+}
+
+.pcss3rm-pos-c input.checked + a + ul li:first-child {
+	top: -250%;
+	left: 50%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li {
+	top: -228.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li {
+	top: -162.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li {
+	top: -65.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li {
+	left: 350%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li {
+	top: 165.625%;
+	left: 328.125%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li {
+	top: 262.5%;
+	left: 262.5%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li {
+	top: 328.125%;
+	left: 165.625%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li {
+	top: 350%;
+	left: 50%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li + li {
+	top: 328.125%;
+	left: -65.625%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li + li + li {
+	top: 262.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li + li + li + li {
+	top: 165.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li + li + li + li + li {
+	left: -250%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li + li + li + li + li + li {
+	top: -65.625%;
+	left: -228.125%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li + li + li + li + li + li + li {
+	top: -162.5%;
+	left: -162.5%;
+}
+.pcss3rm-pos-c input.checked + a + ul li:first-child + li + li + li + li + li + li + li + li + li + li + li + li + li + li + li {
+	top: -228.125%;
+	left: -65.625%;
+}
+
+
+/**/
+/* tooltips */
+/**/
+.pcss3rm em {
+	background: #333;
+}

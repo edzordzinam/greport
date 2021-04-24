@@ -1,0 +1,78 @@
+	<div align="left" style="display: inline;" class="pull-right"><?php echo $this->subButtons?></div>
+		<span class="label label-important" id="aType" style="display: inline;">CWK</span>
+		<hr style="margin-bottom:5px; margin-top:10px;">
+	<ul id="myTab" class="nav nav-pills">
+		<li class="active"><a href="" data-toggle="tab" onclick="$.fn.changeType('CWK');">Class Work</a></li>
+		<li><a id="as" href="" data-toggle="tab" onclick="$.fn.changeType('HWK');">Home Work</a></li>
+		<li><a id="ug" href="" data-toggle="tab" onclick="$.fn.changeType('GPW');">Group Work</a></li>
+		<li><a id="ug" href="" data-toggle="tab" onclick="$.fn.changeType('UNT');">Unit Test</a></li>
+		<li><a id="zg" href="" data-toggle="tab" onclick="$.fn.changeType('PRJ');">Project Work</a></li>
+		<li><a href="" data-toggle="tab" onclick="$.fn.changeType('SUM');">Summary</a></li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="1"></div>
+		<div class="tab-pane fade in" id="2"></div>
+		<div class="tab-pane fade in" id="3"></div>
+		<div class="tab-pane fade in" id="4"></div>
+		<div class="tab-pane fade in" id="5"></div>
+		<div class="tab-pane fade in" id="6"></div>
+	</div>
+		<div id="outlookdiv" style="border-bottom: 1px solid silver; margin-bottom: 4px;"></div>
+
+		<div class="btn-group" data-toggle="buttons-radio">
+			<?php
+			  foreach ($this->classes as $key => $value) {
+			      $n = $this->getGradeName($value);
+			      echo "<button id='bbb$key' class='btn btn-danger btn-small' type='button' onclick='$.fn.filterOutlook($(\"#cc\").text(),$value)'>$n</button>";
+			  }
+			?>
+		</div>
+
+      <!-- sample modal content -->
+
+
+<button class="btn btn-link btn-small" onclick="$.fn.print();"><i class="icon-print"></i>Print Version (PDF)</button>
+
+<script type="text/javascript">
+<!--
+		$.fn.changeType = function(type){
+			$('#aType').text(type);
+			$.fn.filterOutlook($("#cc").text(),$('#gg').text());
+		};
+
+
+		$.fn.loadMarkDetails = function(course,type,sid){
+			studentid = sid;
+			courseid = course;
+			grade = $('#gg').text();
+
+			 GlobalModalManager.loading();
+			    $('#modal-title').html('Student Report Content Details');
+			    $('#ajax-modal .modal-body').load('/outlookstudent',
+					 {
+						cid : course,
+						grade : grade,
+						t : type,
+						sid : studentid,
+						i : <?php echo $this->ins; ?>,
+						term : <?php echo $this->term; ?>,
+						year : '<?php echo $this->year; ?>',
+				     }, function(){
+				 $('#ajax-modal').modal();
+			    });
+		};
+
+		$('#btnfirst1').button('toggle');
+		$('#bbb0').button('toggle');
+		$.fn.filterOutlook($("#cc").text(),$('#gg').text());
+
+		$.fn.print = function (){
+		if ($('#aType').text() == "SUM")
+			$.loadModal('/index/makepdf?url=http://<?php echo $this->host; ?>/outlooksummary&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=<?php echo $this->ins?>&cid='+$("#cc").text()+'&grade='+$('#gg').text()+'&t='+$('#aType').text(),'Report Viewer',1);
+		else
+			$.loadModal('/index/makepdf?url=http://<?php echo $this->host; ?>/outlookview&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=<?php echo $this->ins?>&cid='+$("#cc").text()+'&grade='+$('#gg').text()+'&t='+$('#aType').text(),'Report Viewer',1);
+
+			//$.loadModal('/buildpdf?url=http://beta.greports.com/outlooksummary&cid='+$("#cc").text()+'&grade='+$('#gg').text(),'tt',1);
+		};
+//-->
+</script>

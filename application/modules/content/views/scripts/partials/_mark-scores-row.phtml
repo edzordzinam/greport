@@ -1,0 +1,26 @@
+ <tr id="<?php echo $this->cl_studentid ?>">
+
+	<td id="assign_id"><?php echo $this->cl_assignmentid; ?></td>
+	<td><?php echo $this->cl_studentid; ?></td>
+
+    <?php if ($this->cl_exempt) { ?>
+        <td><strong style="color : green"><?php echo ($this->cl_FirstName.' '.$this->cl_LastName); ?></strong> <i>^e</i> </td>
+	<?php } else if ($this->cl_mark == null) { ?>
+        <td><strong style="color : blue"><?php echo ($this->cl_FirstName.' '.$this->cl_LastName); ?></strong> <i>^u</i> </td>
+	<?php } else if ($this->cl_mark == 0) { ?>
+        <td><strong style="color : maroon;"><?php echo ($this->cl_FirstName.' '.$this->cl_LastName); ?></strong> <i>+z</i> </td>
+     <?php } else { ?>
+        <td><?php echo ($this->cl_FirstName.' '.$this->cl_LastName); ?></td>
+	<?php }?>
+
+	<td class="markrow"><?php echo $this->cl_mark ?></td>
+	<td class="exemptrow">
+	   <?php if ($this->cl_exempt)
+				echo 'Yes';
+			else
+				echo 'No'; ?>
+	</td>
+
+
+
+</tr>

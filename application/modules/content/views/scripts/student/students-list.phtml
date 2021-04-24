@@ -1,0 +1,43 @@
+<?php if (!$this->fordashboard) {?>
+<table id="lst"
+	class="table table-bordered table-condensed table-hover table-mini">
+			 		<?php $x=0; foreach ($this->studentlists as $student) { $x += 1;?>
+			 			<tr>
+		<td><?php echo $x." "; ?></td>
+		<td><a href="#" onclick="$.fn.loadGraphs(<?php echo $student['cl_GPSN_ID']?>,'<?php echo $student['fullname'];?>',$('#courses option:selected').val()); return false;"><?php echo $student['fullname'];?></a></td>
+	</tr>
+			 		<?php } ?>
+</table>
+<?php } else {?>
+
+								<?php foreach ($this->studentlists as $student) { ?> 
+									<li>
+									   <a href="#"><?php $sid = $student['cl_GPSN_ID']; echo ($student['present'])?
+												'<span class="label label-success pull-right sl_status">present</span>':
+												"<span class='label label-important pull-right sl_status' id='$sid' onclick='$.fn.bookAttendance($sid);'>absent</span>"?></a> 
+										<a href="#" class="sl_name" onclick="$.fn.loadClassTeacherComment(<?php echo $student['cl_GPSN_ID']?>,'<?php echo $student['fullname']?>');"><?php echo $student['fullname']?></a><br />
+										<small class="s_color sl_email"><?php echo $student['cl_GPSN_ID']?><span class="label label-info pull-left"><?php echo $s = "Total attendance: ". $student['totalattendance']." out of ".round($this->schooldays);?></span></small>
+									</li>
+
+ 
+								<?php } ?>
+<?php }?>
+
+
+<script type="text/javascript">
+<!--
+$(".table").not('#astats').tablecloth({ theme: "paper" });
+<?php if ($this->classteacher) {?>
+	$('#classteacher').val('');
+	$('#classteacher').prop('readonly','');
+	$('#sstdname').text('');
+	$('#btn_edit').removeClass('disabled');
+<?php } else { ?>
+	$('#sstdname').text('');
+	$('#classteacher').prop('readonly','readonly');
+	$('#classteacher').val('');
+	$('#btn_edit').addClass('disabled');
+<?php }?>
+	
+//-->
+</script>

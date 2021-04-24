@@ -1,0 +1,69 @@
+<?php if ($this->allow) {?>
+<div class="span8 row-fluid">
+	<div class="span12 alert alert-block alert-white fade in"
+		style="margin-left: 0px;">
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th colspan="2">Classes and Subjects Info <small style="color: green;">(Hovering on subjects shows their complete names)</small> </th>
+				</tr>
+				<tr>
+					<th width="200">Item</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Assigned Classes</td>
+					<td><?php echo $this->getGradeListRaw($this->assignedClasses);?></td>
+				</tr>
+				<tr>
+					<td>Assigned Subjects</td>
+					<td><?php echo $this->assignedSubs;?></td>
+				</tr>
+				<tr>
+					<td>Total number of students</td>
+					<td><?php echo $this->totalStudents;?></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="table table-hover table-striped table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th colspan="2">Examination Summary and Monitoring</th>
+				</tr>
+			</thead>
+			<tbody>
+	        </tbody>
+		</table>
+	</div>
+</div>
+<div class="span4 alert alert-block alert-info fade in">
+	<button type="button" class="close" data-dismiss="alert"></button>
+	<h5 class="alert-heading">Examination Stats</h5>
+	 <table  id="astats" class="table table-condensed table-hover table-mini" >
+	     <tr>
+    	     <th><span class='label label-inverse label-mini'>Subject</span></th>
+    	     <th><span class='label label-inverse label-mini'>Stds exempt</span></th>
+    	     <th><span class='label label-inverse label-mini'>Total</span></th>
+    	 </tr>
+
+          <tr><td colspan="2"><span class='label label-important label-mini'></span></td><td><span class='label label-important label-mini'> </span></td></tr>
+     </table>
+</div>
+
+<!-- SCRIPTS SECTION -->
+<script type="text/javascript">
+<!--
+$(function (){ //document ready function call
+
+
+	$(".table").not('#astats').tablecloth({ theme: "paper" });
+	$("a[rel=tooltip]").tooltip({placement : "bottom"});
+
+
+});
+//-->
+</script>
+<?php } else { echo $this->action('noauth', 'error', 'security'); } ?>

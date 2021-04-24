@@ -1,0 +1,12 @@
+<script type="text/javascript">
+        $(function(){
+
+        <?php if ($this->identity != null) {?>
+          		$('#profileName').text("<?php echo  ' '.$this->identity->firstname .' '. $this->identity->lastname.' '; ?>");
+        <?php }; ?>
+
+    	$('#schoolname').append("<?php echo $this->schoolname; ?>");
+        });
+</script>
+
+

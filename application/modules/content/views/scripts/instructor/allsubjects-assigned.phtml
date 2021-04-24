@@ -1,0 +1,51 @@
+<table cellpadding="0" cellspacing="0" border="0"
+    class="table table-hover table-bordered table-condensed" id="dtb_subjectAssign">
+	<thead>
+		<tr>
+			<th width="200">Subject</th>
+			<th width="40%">Applicable classes</th>
+			<th width="180">Instructor</th>
+			<th width="20">Shared</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	</tbody>
+</table>
+
+<!-- JAVASCRIPTS SECTION -->
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_subjects = $('#dtb_subjectAssign').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 10,
+		"bAutoWidth": false,
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "/instructor/dtballassignsource",
+		"sServerMethod": "POST",
+		"bStateSave": false,
+
+		"bPaginate": true,
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf"
+							]
+		}
+	});
+	  $(".table").tablecloth({ theme: "paper" });
+});
+//-->
+</script>

@@ -1,0 +1,316 @@
+@CHARSET "ISO-8859-1";
+
+input[type="text"]+label.error,input[type="password"]+label.error,select+label.error,textarea+label.error
+	{
+	font-size: 12px;
+	color: maroon;
+}
+
+.form-horizontal-alt .control-group {
+	margin-bottom: 5px;
+}
+
+.form-horizontal-alt input[type="text"]+label.error,input[type="password"]+label.error,select+label.error,textarea+label.error
+	{
+	margin-top: -1px;
+}
+
+.form-inline .btn {
+	position: relative;
+	top: 2px;
+}
+
+.navbar-form input,.navbar-form select,.navbar-form .radio,.navbar-form .checkbox,.navbar-form button
+	{
+	margin-top: 5px;
+	border-radius: 0px;
+	/* box-shadow: none; */
+	border-color: #E4EFF7;
+}
+
+.navbar-form input[type='text'],.navbar-form input[type='password'] {
+	height: 19px;
+}
+
+.input-prepend .add-on:first-child,.input-prepend .btn:first-child {
+	margin-top: 0px;
+	border-radius: 0;
+	height: 19px;
+	box-shadow: none;
+	border-color: #E4EFF7;
+}
+
+.input-append select {
+	margin-top: 0px;
+	border-radius: 0;
+	height: 19px;
+	box-shadow: none;
+	border-color: #E4EFF7;
+}
+
+.pbspan .input-append .add-on:last-child,.pbspan .input-append .btn:last-child,.pbspan .input-append .btn-group:last-child>.dropdown-toggle
+	{
+	margin-top: 0px;
+	border-radius: 0;
+	box-shadow: none;
+	border-color: #E4EFF7;
+	height: 30px;
+}
+
+.input-prepend.input-append .add-on:first-child,.input-prepend.input-append .btn:first-child {
+	margin-right: -1px;
+	border-radius: 0;
+	height: 19px;
+	box-shadow: none;
+	border-color: #E4EFF7;
+}
+
+.input-prepend.input-append .add-on:last-child,.input-prepend.input-append .btn:last-child {
+	margin-left: -1px;
+	border-radius: 0;
+	box-shadow: none;
+	border-color: #E4EFF7;
+}
+
+input[type='text'],input[type='password'],select {
+	border-radius: 0px;
+	border-color: #E4EFF7;
+	box-shadow: none;
+}
+
+.btn {
+	border-radius: 0px;
+	box-shadow: none;
+}
+
+.btn-group>.btn:first-child {
+	border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+.btn-group>.btn:last-child,.btn-group>.dropdown-toggle {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.nav-pills>li>a {
+	border-radius: 0;
+}
+
+.nav-pills .dropdown-menu {
+	border-radius: 0;
+}
+
+.dropdown-menu {
+	border-radius: 0px;
+}
+
+.quick-info {
+	border: 1px solid #DBE9EA;
+	width: 300px;
+}
+
+.form-actions input[type='submit'] {
+	height: 30px;
+}
+
+.form-actions button.btn.btn-small {
+	margin-top: 4px;
+}
+
+.label {
+	border-radius: 0px;
+}
+
+.infobox-red {
+	color: rgb(213, 63, 64);
+	border-color: rgb(213, 63, 64);
+}
+
+.infobox {
+	display: inline-block;
+	width: 180px;
+	height: 52px;
+	color: rgb(85, 85, 85);
+	background-color: rgb(255, 255, 255);
+	box-shadow: none;
+	border-radius: 0px 0px 0px 0px;
+	margin: -1px 0px 0px -1px;
+	padding: 8px 3px 6px 9px;
+	border-width: 1px;
+	border-style: dotted;
+	-moz-border-top-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	border-image: none;
+	border-color: rgb(216, 216, 216) !important;
+	vertical-align: middle;
+	text-align: left;
+	position: relative;
+}
+
+.ov_boxes li {
+	box-shadow: 0px 1px 0px 0px rgb(255, 255, 255) inset;
+	line-height: 18px;
+	background: none;
+	/*   border: 1px solid rgb(226, 226, 226); */
+	border: 1px solid #D0E0ED;
+	display: inline-block;
+	margin: 0px 10px 10px;
+	border-radius: 0px;
+	padding: 0px 10px;
+	background-color: white;
+}
+
+.ov_boxes li {
+    color: rgba(0,0,0,0.6);
+}
+
+.ov_boxes {
+	list-style: none outside none;
+	display: inline-block;
+	text-align: justify;
+	margin: 0px 0px -20px;
+}
+
+.p_canvas {
+	width: 40px;
+}
+
+.input-prepend.input-append input + .btn-group .btn, .input-prepend.input-append select + .btn-group .btn, .input-prepend.input-append .uneditable-input + .btn-group .btn {
+    border-radius: 0px;
+}
+
+.cartridge-block.cartridge-embedded {
+    border-top: 1px dashed rgb(221, 221, 221);
+}
+
+.gear-group {
+    background: rgb(254, 254, 254) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgb(48, 48, 48);
+    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 3px 0px;
+    color: rgb(48, 48, 48);
+    font: normal normal normal 14px/20px 'Open Sans', 'Helvetica Neue', Helvetica, 'Liberation Sans', Arial, sans-serif;
+    line-height: 20px;
+    margin: 0px 0px 20px;
+    outline: rgb(48, 48, 48) none 0px;
+    overflow-wrap: break-word;
+	width: 98%;
+    word-break: break-word;
+    word-wrap: break-word;
+}/*#DIV_1*/
+
+.cartridge-block {
+    border: 0px none rgb(48, 48, 48);
+    color: rgb(48, 48, 48);
+    font: normal normal normal 14px/20px 'Open Sans', 'Helvetica Neue', Helvetica, 'Liberation Sans', Arial, sans-serif;
+    height: 62px;
+    line-height: 20px;
+    outline: rgb(48, 48, 48) none 0px;
+    overflow-wrap: break-word;
+    position: relative;
+    word-break: break-word;
+    word-wrap: break-word;
+}/*#DIV_2*/
+
+.cartridge-border {
+    border: 1px none rgb(48, 48, 48);
+    color: rgb(48, 48, 48);
+    font: normal normal normal 14px/20px 'Open Sans', 'Helvetica Neue', Helvetica, 'Liberation Sans', Arial, sans-serif;
+    height: 62px;
+    line-height: 20px;
+    outline: rgb(48, 48, 48) none 0px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    word-wrap: break-word;
+}/*#DIV_3*/
+
+.cartridge-inset {
+    border: 0px none rgb(48, 48, 48);
+    color: rgb(48, 48, 48);
+    font: normal normal normal 14px/20px 'Open Sans', 'Helvetica Neue', Helvetica, 'Liberation Sans', Arial, sans-serif;
+    height: 32px;
+    line-height: 20px;
+    outline: rgb(48, 48, 48) none 0px;
+    overflow-wrap: break-word;
+    padding: 15px 20px;
+    word-break: break-word;
+    word-wrap: break-word;
+}/*#DIV_4*/
+
+.flow {
+    display: table;
+    font: normal normal normal 17px/17px 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 32px;
+    line-height: 17px;
+    margin: 0px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    word-wrap: break-word;
+}/*#H3_5*/
+
+.blockname {
+    display: table-cell;
+    font: normal normal normal 17px/24px 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 32px;
+    line-height: 24px;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+
+    word-break: break-word;
+    word-wrap: break-word;
+}/*#DIV_6*/
+
+.blockdetails{
+	width: 200px;
+	padding-left: 20px;
+}
+
+.blockdetails strong{
+	font-size : 20px;
+}
+
+.cartlogo {
+    display: inline-block;
+    font: normal normal normal 22px/30px 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 30px;
+    left: 0px;
+    line-height: 30px;
+    margin: 0px 15px 0px 0px;
+    opacity: 0.3799999952316284;
+    overflow-wrap: break-word;
+    position: relative;
+    text-align: center;
+    top: 0px;
+    vertical-align: middle;
+    width: 25px;
+    word-break: break-word;
+    word-wrap: break-word;
+    z-index: 0;
+}/*#SPAN_7*/
+
+.cartlogo:before {
+    content: ;
+    font: normal normal normal 22px/22px openshift-logos-icon;
+    line-height: 22px;
+    overflow-wrap: break-word;
+    speak: none;
+    text-align: center;
+    word-break: break-word;
+    word-wrap: break-word;
+}/*#SPAN_7:after*/
+
+#DIV_8 {
+    display: table-cell;
+    font: normal normal normal 12px/16px 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 32px;
+    line-height: 16px;
+    overflow-wrap: break-word;
+    text-align: right;
+    vertical-align: middle;
+
+}/*#DIV_8*/
+
+
+

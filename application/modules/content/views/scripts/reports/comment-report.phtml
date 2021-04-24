@@ -1,0 +1,203 @@
+<?php if ($this->useTemplate) { ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="stylesheet" href="/css/comment.css"></link>
+</head>
+<body>
+<?php
+	 if ($this->comreport != false) { ?>
+<!--mpdf
+<htmlpageheader name="myheader">
+<span style="font-size: 9pt;">Compilation of subjects teachers' remarks on <?php echo $this->studentname?></span>
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; "></div>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+<table width="100%">
+<tr>
+	<td width="32%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="32%" style=" font-size: 9pt; border:none;"><?php echo $this->studentname?></td>
+	<td width="32%" style=" font-size: 9pt; text-align: right;  border:none;">Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+	   <table  cellpadding="0" cellspacing="0" style=" width: 100%; border: 0px;">
+	     <tr >
+	       <td class="commentcell bleft">NAME OF STUDENT</td><td class="commentcell"><strong>
+    					<?php if(isset($this->studentname))
+					 	     echo strtoupper($this->studentname); ?></strong></td>
+	     </tr>
+	   </table>
+	 	 <?php echo $this->partialLoop('partials/_comment-report-row.phtml', $this->comreport) ?>
+	    <div style="height: 10px;">   </div>
+	   	 <div style="page-break-inside: avoid; ">
+                          		<table cellpadding="0" cellspacing="0" style=" width: 100%; ">
+                          		  <tr style="height: 100px;">
+                          		   <td style="width: 170px; vertical-align: middle; text-align: center; border: 1px solid #4F81BD; border-bottom:1px; border-right:1px;" ><span style="color: white;">.</span><br>Class Teacher's Remark<span style="color: white;">.</span></td>
+                          		   <td  style="border: 1px solid #4F81BD; border-bottom:1px;  vertical-align: middle; font-size: 12px; padding-top: 10px; padding-bottom: 10px; "> <?php echo $this->ctcomment; ?></td></tr>
+                          		  <tr style=" height: 30px;">
+                          		  <td style="width: 150px; vertical-align: middle; text-align: center; border: 1px solid #4F81BD; border-right:1px;"><span style="color: white;">.</span><br>Signature</td>
+                          		  <td  style="vertical-align: middle; text-align: center; border: 1px solid #4F81BD; font-weight: bold;"></td></tr>
+                          		</table>
+
+                          		<table cellpadding="0" cellspacing="0" style=" width: 100%; margin-top: 20px;">
+                          		  <tr style="height: 70px;">
+                          		   <td style="width: 170px; vertical-align: middle; text-align: center; border: 1px solid #4F81BD; border-bottom:1px; border-right:1px;" ><br>Head of School's Remark<br><span style="color: white;">.</span></td>
+                          		   <td  style="border: 1px solid #4F81BD; border-bottom:1px; font-size: 12px; vertical-align: middle; padding-top: 10px; padding-bottom: 10px; "><?php echo $this->prcomment; ?> </td></tr>
+                          		  <tr style=" height: 30px;">
+                          		  <td style="width: 150px; vertical-align: middle; text-align: center; border: 1px solid #4F81BD; border-right:1px;"><span style="color: white;">.</span><br>Signature</td>
+                          		  <td  style="vertical-align: middle; text-align: center;  border: 1px solid #4F81BD; font-weight: bold;"></td></tr>
+                          		</table>
+         </div>
+
+ <?php
+	 }
+	 else
+	 	echo "No records found matching the parameters provided!! ";
+    ?>
+</body>
+</html>
+<?php } else {
+ if ($this->comreport != false) { ?>
+    <label id="ccm" style="display: none;"></label>
+    <table id="hd" class="table table-hover table-bordered table-condensed">
+    <tr >
+     <td width="auto" colspan="10" style="border-top: 1px solid #0070C0;" ><strong>
+    					<?php if(isset($this->studentname))
+					 	     echo strtoupper($this->studentname);
+
+					  	?> </strong></td><td><a href="#" rel="popover" data-trigger="hover" data-placement="bottom" data-html="true" title="Classteacher's Remark" data-content="<?php echo $this->ctcomment?>"><i class="icon-comment"></i>Classteacher's Remarks</a></td>
+					  			<td><a href="#" rel="popover" data-trigger="hover" data-placement="left"  title="Principal's Remark" data-content="<?php echo $this->prcomment?>"><i class="icon-check"></i>Principal's Remarks</a></td>
+
+     </tr>
+    </table>
+	<div style="max-height: 250px; min-height:250px; overflow: auto;">
+	     <div class="tabbable tabs-left">
+	        <ul class="nav nav-tabs">
+	   			<?php
+	   				$x = 0;
+	   				foreach ($this->comreport as $comreport) { ?>
+		   				<?php if ($x == 0) { ?>
+		   					<li class="active"><a href="<?php echo "#".$comreport->cl_id?>" onclick="$.fn.setCourseid(<?php echo $comreport->cl_courseid?>);" data-toggle="tab"><?php echo $comreport->cl_coursename?></a></li>
+		   					<script>$('#ccm').text(<?php echo $comreport->cl_courseid; ?>)</script>
+		   				<?php } else { ?>
+		   					<li><a href="<?php echo "#".$comreport->cl_id?>" onclick="$.fn.setCourseid(<?php echo $comreport->cl_courseid?>);" data-toggle="tab"><?php echo $comreport->cl_coursename?></a></li>
+		   				<?php } ?>
+	   			<?php
+	   				$x += 1;
+				 }?>
+	   		</ul>
+	   		 <div class="tab-content">
+	   		 	<?php
+	   		 	$x = 0;
+	   		 	foreach ($this->comreport as $comreport) { ?>
+			   		 	<?php if ($x == 0) { ?>
+			   		 		<div class="tab-pane fade in active" style="position: fixed; text-align: justify; width: 50%" id="<?php echo $comreport->cl_id?>">
+			   		 			<p><span class="label label-important" style="padding:3px;" ><?php //echo strtoupper($comreport->cl_coursename)?></span>
+			   		 				<span class="label label-inverse" style="padding:3px;">Syllabus Covered:</span>
+			   		 			<span style="font-size: 12px; font-weight: bold;"> <?php if ($comreport->cl_exempt) echo 'Exempted from subject'; else echo $comreport->cl_content; ?></span>
+			   		 			<hr />
+			   		 			Mark Obtained :<span class="badge badge-info" style="margin-left: 20px;"><?php if ($comreport->cl_exempt) echo '-'; else echo round($comreport->TM); ?></span>
+			   		 			<span class="pull-right">Grade Obtained :<span class="badge badge-success" style="padding:5px;margin-right:5px;"><?php if ($comreport->cl_exempt) echo '-'; else echo $this->getGradeLetter(round($comreport->TM)) ?></span></span></p>
+			   		 			<hr />
+			   		 			<?php echo $comreport->cl_comment; ?>
+
+								<?php if ($this->classteacher == $this->grade || Zend_Auth::getInstance()->getIdentity()->role >= 100) {?>
+				   		 			<?php if($comreport->cl_examid == null) { ?>
+				   		 			  <a class="btn btn-mini btn-info" href="#" onclick='$.fn.loadComments(-1,"Comment : <?php echo $comreport->Fullname ?>", <?php echo $comreport->cl_studentid ?>); return false;'>Edit Comment</a>
+				   		 			<?php } else { ?>
+				   		 			  <a class="btn btn-mini btn-info" href="#" onclick='$.fn.loadComments(<?php echo $comreport->cl_examid?>,"Comment : <?php echo $comreport->Fullname ?>", <?php echo $comreport->cl_studentid ?>); return false;'>Edit Comment</a>
+				   		 			<?php } ?>
+								<?php } ?>
+
+			   		 		</div>
+			   		 	<?php } else { ?>
+			   		 		<div class="tab-pane fade in" style="position: fixed; text-align: justify; width: 50%" id="<?php echo $comreport->cl_id?>">
+			   		 			<p><span class="label label-important" style="padding:3px;" ><?php //echo strtoupper($comreport->cl_coursename)?></span>
+			   		 			<span class="label label-inverse" style="padding:3px;">Syllabus Covered:</span>
+			   		 			<span style="font-size: 12px; font-weight: bold;"><?php if ($comreport->cl_exempt) echo 'Exempted from subject'; else echo $comreport->cl_content; ?></span>
+			   		 			<hr />
+			   		 			Mark Obtained :<span class="badge badge-info" style="margin-left: 20px;"><?php if ($comreport->cl_exempt) echo '-'; else echo round($comreport->TM); ?></span>
+			   		 			<span class="pull-right">Grade Obtained :<span class="badge badge-success" style="padding:5px;margin-right:5px;"><?php if ($comreport->cl_exempt) echo '-'; else echo $this->getGradeLetter(round($comreport->TM)) ?></span></span></p>
+			   		 			<hr />
+			   		 			<?php echo $comreport->cl_comment; ?>
+
+								<?php if ($this->classteacher == $this->grade || Zend_Auth::getInstance()->getIdentity()->role >= 100) {?>
+				   		 			<?php if($comreport->cl_examid == null) { ?>
+				   		 			  <a class="btn btn-mini btn-info" href="#" onclick='$.fn.loadComments(-1,"Comment : <?php echo $comreport->Fullname ?>", <?php echo $comreport->cl_studentid ?>); return false;'>Edit Comment</a>
+				   		 			<?php } else { ?>
+				   		 			  <a class="btn btn-mini btn-info" href="#" onclick='$.fn.loadComments(<?php echo $comreport->cl_examid?>,"Comment : <?php echo $comreport->Fullname ?>", <?php echo $comreport->cl_studentid ?>); return false;'>Edit Comment</a>
+				   		 			<?php } ?>
+				   		 		<?php } ?>
+			   		 		</div>
+			   		 	<?php } ?>
+			   	<?php
+	   		 		$x += 1;
+				 } ?>
+	   		 </div>
+	   	</div>
+   	</div>
+
+    <script type="text/javascript">
+	<!--
+
+	$.fn.setCourseid = function (cid){
+		$('#ccm').text(cid);
+	}
+
+	$.fn.loadComments = function (examsid, title, std){
+		<?php if($this->current) { ?>
+		$.loadModal('/loadcomment?studentid='+std,title,examsid);
+		 <?php } else { ?>
+		 	bootbox.alert('Access Denied (Code 101) : Contact Administrator');
+		 <?php } ?>
+	};
+
+	$.fn.updateComment = function (examid, sid, cm){
+		<?php if($this->current) { ?>
+		bootbox.confirm('Are you sure you want to save updated comments?', function(response){
+			if(response){
+				$.post('/updatecomment',
+						{
+						eid : examid,
+						cm : cm,
+						course : $('#ccm').text(),
+						grade : $('#gg').text(),
+						studentid : sid
+						},
+						function(){
+							$.showMessage('Comment successfully updated');
+				});
+			}
+		});
+		 <?php } else { ?>
+		 	bootbox.alert('Access Denied (Code 101) : Contact Administrator');
+		 <?php } ?>
+	};
+
+	$(".table[id=hd]").not('#astats').tablecloth({ theme: "paper" });
+	$(".table[id=bd]").not('#astats').tablecloth({ theme: "paper" });
+
+	 $("a[rel=popover]")
+     .popover()
+     .click(function(e) {
+       e.preventDefault();
+     });
+    // -->
+	</script>
+<?php
+	 }
+	 else
+	 	echo "No records found matching the parameters provided!! ";
+}
+?>
+
+
+

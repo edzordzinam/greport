@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="stylesheet" href="/css/print_alternate.css"></link>
+</head>
+<body style="font-size: 14px; font-weight: normal;">
+
+<!--mpdf
+<htmlpageheader name="myheader">
+<div align="center" style='margin-left: auto; margin-right: auto'>
+	<span style="font-size: 30px; font-family:serif; color: rgba(0,0,0,0.8); text-transform: uppercase;"><?php echo Content_Model_School::getSchoolName(); ?></span><br />
+	<span style="font-size: 16px; text-transform:uppercase;"><?php echo Content_Model_School::getSchoolAddress(); ?></span>
+	<hr size="1" style="margin-bottom:0px;">
+	<table width="100%" border="0" style="font-size:12px; margin-top :0px; padding-top:0px;">
+	 <tr>
+		<td align="left" style="width:30%; border:none;"><strong>Tel:</strong> <?php echo Content_Model_School::getSchoolTel(); ?></td>
+		<td align="center" style="width:35%; border:none;"><strong>e-mail:</strong> <?php echo Content_Model_School::getSchoolEmail(); ?></td>
+		<td align="right" style="width:35%; border:none;"><strong>website:</strong> <?php echo Content_Model_School::getSchoolWebsite(); ?></td>
+	 </tr>
+	</table>
+	<hr size="1" style="margin-top:0px;">
+	<span style="font-size:15px; font-weight:bold; text-transform:uppercase;">student mid-term report</span>
+</div>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<?php if ($this->useCambridge) { ?>
+<div  style=" margin-top: 5px; margin-bottom: 0px; border: none; float: left; padding-left : 30px; ">
+			   <img src="/img/camlogo.png" alt="" height="55px;" />
+</div>
+<?php } ?>
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+<table width="100%">
+<tr>
+	<td width="50%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="50%" style=" font-size: 9pt; text-align: right;  border:none;">Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+<div>
+     <table class="auto-style5" align="left" cellpadding="5" cellspacing="0" style="margin-right: 0px;" >
+     <tr>
+     	<td width="100">Report Date</td>
+     	<td width="200"><strong><?php echo date('jS F Y')?></strong></td></tr>
+     <tr>
+        <td width="100">Class</td>
+     	<td width="200"><strong><?php echo $this->gradename; ?></strong></td>
+     </tr>
+     	</table>
+</div>
+
+<div align="center" style=" padding-top: 1px;">
+      <div align="center"  style="padding-bottom: 10px; margin-right: auto; margin-left:auto;">
+	         <span style="font-size:18px; font-weight:bold; color: maroon;"><?php echo $this->report[0]->stdname; ?></span>
+	 </div>
+	<table cellpadding="1" cellspacing="0" width="100%" class="auto-style5">
+					<thead>
+						<tr>
+							<td class="auto-style4" style="width: 250px; !important;">SUBJECTS</td>
+							<td class="auto-style4">Class Work Mark</td>
+							<td class="auto-style4">Home Work Mark</td>
+							<td class="auto-style4">Unit Test Mark</td>
+							<td class="auto-style4">Group Work Mark </td>
+							<td class="auto-style4">PROJECT Mark</td>
+							<td class="auto-style4">total class mark</td>
+							<td class="auto-style4">POTENTIAL GRADE</td>
+						</tr>
+					</thead>
+					<tbody>
+					   <?php
+					         echo $this->partialLoop('partials/_progress-report-row-template.phtml', $this->report);
+					    ?>
+					   <tr><td colspan="10" style="padding : 5px; font-weight: bold;" > This report shows the marks gained by <?php echo strtoupper($this->report[0]->stdname); ?> up to the Report Date. The Potential Grade is what <?php echo strtoupper($this->report[0]->stdname); ?> could achieve at the end of the term continuing the same level of progress as shown to date.  </td> </tr>
+
+					  <tr style="height : 20px;" >  <td colspan="2" ></td><td colspan="8"></td> </tr>
+
+
+					  <tr style="font-weight: bold;">  <td colspan="2" >HEADINGS</td><td colspan="8">INTERPRETATION</td> </tr>
+					  <tr>  <td colspan="2" >CLASSWORK </td><td colspan="8">Sum of all class exercises</td> </tr>
+					  <tr>  <td colspan="2" >HOMEWORK </td><td colspan="8" >Sum of all homework assignments</td> </tr>
+					  <tr>  <td colspan="2" >UNIT TEST </td><td colspan="8">Sum of marks from topic tests</td> </tr>
+					  <tr>  <td colspan="2" >GROUP WORK </td><td colspan="8">Sum of marks of group work presented</td> </tr>
+					  <tr>  <td colspan="2" >PROJECT </td><td colspan="8">Marks obtained from project work</td> </tr>
+					  <tr style=" ">  <td colspan="2" >TOTAL CLASS MARK </td><td colspan="8">The percentage of all class work, homework, group work, projects and unit tests</td> </tr>
+					</tbody>
+	</table>
+</div>
+
+</body>
+
+</html>
+
+

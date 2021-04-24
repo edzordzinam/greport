@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="stylesheet" href="/css/print_alternate.css"></link>
+</head>
+<body style="font-size: 14px; font-weight: normal;">
+
+<!--mpdf
+<htmlpageheader name="myheader">
+<div align="center" style='margin-left: auto; margin-right: auto'>
+	<span style="font-size: 30px; font-family:serif; color: rgba(0,0,0,0.8); text-transform: uppercase;"><?php echo Content_Model_School::getSchoolName(); ?></span><br />
+	<span style="font-size: 16px; text-transform:uppercase;"><?php echo Content_Model_School::getSchoolAddress(); ?></span>
+	<hr size="1" style="margin-bottom:0px;">
+	<table width="100%" border="0" style="font-size:12px; margin-top :0px; padding-top:0px;">
+	 <tr>
+		<td align="left" style="width:30%; border:none;"><strong>Tel:</strong> <?php echo Content_Model_School::getSchoolTel(); ?></td>
+		<td align="center" style="width:35%; border:none;"><strong>e-mail:</strong> <?php echo Content_Model_School::getSchoolEmail(); ?></td>
+		<td align="right" style="width:35%; border:none;"><strong>website:</strong> <?php echo Content_Model_School::getSchoolWebsite(); ?></td>
+	 </tr>
+	</table>
+	<hr size="1" style="margin-top:0px;">
+	<span style="font-size:15px; font-weight:bold; text-transform:uppercase;">student terminal report</span>
+</div>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<?php if ($this->useCambridge) { ?>
+<div  style=" margin-top: 5px; margin-bottom: 0px; border: none; float: left; padding-left : 30px; ">
+			   <img src="/img/camlogo.png" alt="" height="55px;" />
+</div>
+<?php } ?>
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+<table width="100%">
+<tr>
+	<td width="50%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="50%" style=" font-size: 9pt; text-align: right;  border:none;">Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+<table width="100%" cellpadding="3" class="tdot">
+  <tr><td align="right">Name:</td><td> <strong><?php echo $this->studentname; ?></strong></td><td align="right">Student ID:</td><td> <strong><?php echo $this->studentid; ?></strong></td></tr>
+  <tr><td align="right">Class:</td><td> <strong><?php echo $this->gradename; ?></strong></td><td align="right">Academic Year:</td><td> <strong><?php echo $this->year; ?></strong></td></tr>
+  <tr><td align="right">Term:</td><td> <strong><?php echo $this->term; ?></strong></td><td align="right">Student Average Mark:</td><td> </td></tr>
+  <tr><td align="right">No. on Roll:</td><td> <strong><?php echo $this->rollcount; ?></strong>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Position in Class :<strong></strong></td><td align="right">Next Term Begins:</td><td> </td></tr>
+</table>
+			<table cellpadding="3" cellspacing="0" width="100%" style="margin-top: 20px;" class="table-dotted">
+			<thead style="font-size: 11px;">
+				<tr>
+					<td style="width: 200px">SUBJECT</td>
+					<td>CLASS SCORE</td>
+					<td>EXAM SCORE</td>
+					<td>TOTAL SCORE</td>
+					<td width="80">GRADE</td>
+					<td>POS.</td>
+					<td width="150">REMARK</td>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($this->report as $report) { ?>
+				<tr>
+				<?php if (!$report->Exempt) { ?>
+					<td style="text-align: left;"><?php echo $report->cname ?></td>
+					<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo round($report->TCM) ?></td>
+					<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php
+								  if ($report->isExaminable)
+									   echo round($report->EXM);
+								  else
+								  	   echo '-';
+								?></td>
+					<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo round($report->TM) ?> </td>
+					<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo $report->Letter ?></td>
+					<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo date('jS',strtotime("$report->Position-12-2001"));?></td>
+					<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo $report->Comment ?></td>
+					<?php } else { ?>
+							<td style="text-align: left;"><?php echo $report->cname ?></td>
+							<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo '-' ?></td>
+							<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo '-' ?></td>
+							<td style="font-weight: bold; text-align: center; font-size: 12px;"><?php echo '-' ?></td>
+							<td style="font-weight: bold; text-align: center; font-size: 12px;" ><?php echo '-'; ?> </td>
+					<?php } ?>
+				</tr>
+			 <?php } ?>
+			</tbody>
+		</table>
+		<div align="center" style="font-size: 11px; font-weight: bold; margin-left:auto; margin-right:auto;  margin-bottom:30px;">(Total Score is calculated as <?php echo $this->examallocate?>% of Exam Score + <?php echo $this->classallocate;?>% of Class Score)</div>
+
+		<table width="50%">
+		<thead >
+			<tr>
+				<th align="left">Grade</th>
+				<th align="left"></th>
+				<th align="left">Grade Scale</th>
+			</tr>
+		</thead>
+		 <?php foreach ($this->grading as $g) { ?>
+		   <tr>
+		 	<td><?php echo $g->gradeletter;?></td><td><?php echo $g->interpretation?></td><td><?php echo $g->lowerlimit.'-'.$g->upperlimit; ?>
+		   </tr>
+		 <?php } ?>
+		</table>
+
+<table width="100%" cellpadding="3" class="tdot" style="margin-top:30px;">
+  <tr><td align="left">Attendance:</td><td> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Out of:<strong> <?php echo $this->days?></strong></td><td align="right">Promoted to:</td><td width="50"> </td></tr>
+  <tr><td colspan="4" align="left">Conduct:</td></tr>
+  <tr><td colspan="4" align="left">Class Teacher's Remarks:</td></tr>
+  <tr><td colspan="4" align="left">Basic Head's Remarks:</td></tr>
+  <tr><td colspan="2" align="left">Basic Head's Signature:</td>
+  <td colspan="2" align="right">Report Date: <strong><?php echo date('jS F, Y', strtotime($this->reportDate));?></strong></td></tr>
+</table>
+</body>
+</html>
+

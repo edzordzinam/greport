@@ -1,0 +1,53 @@
+<div class="tabbable tabs-above">
+	<ul id="myTab" class="nav nav-pills">
+            <li class="active"><a href="#liststoreitems" data-toggle="tab">Store Inventory</a></li>
+            <li><a href="#liststoretranx" data-toggle="tab">Store Transactions</a></li>
+	</ul>
+
+	<div id="myTabContent" class="tab-content" style="min-height: 480px;">
+		<div class="tab-pane fade in active" id="liststoreitems"></div>
+		<div class="tab-pane fade in active" id="liststoretranx"></div>
+	</div>
+</div>
+
+<!-- SCRIPT SECTION -->
+<script type="text/javascript">
+      $(function(){
+    	    $('a[href="#liststoreitems"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/liststoreitems',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#liststoreitems').html(data);
+    	        	    });
+    	    });
+
+
+    	    $('a[href="#liststoretranx"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/liststoretranx',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#liststoretranx').html(data);
+    	        	    });
+    	    });
+
+
+    	    $.fn.toggleStoreUpdate = function (id){
+        		  $.post('/updatestore',
+                        	{
+                               send : false,
+                               cl_id : id,
+                               update : true,
+                        	},
+                        	function (data){
+                        	    $('#liststoreitems').html(data);
+                        	});
+    	    };
+
+    	  //make ajax call to list of instructors
+    	  $('a[href="#liststoreitems"]').click();
+     });
+</script>

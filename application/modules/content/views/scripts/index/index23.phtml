@@ -1,0 +1,95 @@
+
+<h2
+	style="color: rgba(100, 100, 0, 0.5);
+	font-size: 40px;
+	margin-top: 2px;
+	margin-bottom: 3px;
+	margin-left: 20px;">
+	   <?php echo $this->currentweek; ?>/<?php echo $this->totalweeks?><small>
+		weeks </small>| <span
+		style="font-family: sans-serif;
+	font-size: 14px;"><span style="color: blue"> Calendar :</span> <span
+		style="font-size: 12px;
+	color: black">no information available for today;</span></span>
+</h2>
+
+<div class="span4">
+	<ul class="ov_boxes">
+		<li>
+			<div class="p_bar_up p_canvas">
+				 <i class="fa fa-crosshairs fa-3x"></i>
+			</div>
+			<div class="ov_text">
+				<strong>$3 458,00</strong> Weekly Sale
+			</div>
+		</li>
+		<li>
+			<div class="p_bar_down p_canvas">
+				<i class="fa fa-bar-chart-o fa-3x"></i>
+			</div>
+			<div class="ov_text">
+				<strong>$43 567,43</strong> Monthly Sale
+			</div>
+		</li>
+		<li>
+			<div class="p_line_up p_canvas">
+				<i class="fa fa-calendar-o fa-3x"></i>
+			</div>
+			<div class="ov_text">
+				<strong>2304</strong> Unique visitors (last 24h)
+			</div>
+		</li>
+		<li>
+			<div class="p_line_down p_canvas">
+				<span style="display: none;">20,16,14,18,15,14,14,13,12,10,10,8</span>
+				<canvas height="32" width="50"></canvas>
+			</div>
+			<div class="ov_text">
+				<strong>30240</strong> Unique visitors (last week)
+			</div>
+		</li>
+	</ul>
+</div>
+<!--/row-->
+
+<!-- =========================================== -->
+
+<script type="text/javascript">
+<!--
+$(function() {
+
+   	 $.qData = "";
+
+       $('#searchCauseList').typeahead({
+    	   // source can be a function
+   	    source: function (query,process) {
+      	     $.ajax({
+        	       url : '/search/search-index',
+        	       type : 'POST',
+        	       data : 'query=' + query,
+        	       dataType : 'JSON',
+        	       async : false,
+        	       success : function(data){
+       	    	     process(data);
+        	       }
+          	     });
+   	   	    },
+   	   	    minLength : 3,
+   	   	    items : 8,
+   	   	    updater : function (item){
+   	   	   	    //item = selected item
+   	   	   	    //do your stuff
+   	   	   	    //$.showMessage(item);
+   	   	   	    //return item;
+   	   	    },
+
+        });
+
+		$.fn.printStatement = function(){
+			$.loadModal('http://<?php echo $this->pdfhost; ?>/buildpdf?url=http://<?php echo $this->host; ?>/accountstatements?&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=11&grade=0&cid=0','Statement of Accounts',1);
+		};
+
+    });
+
+    //-->
+    </script>

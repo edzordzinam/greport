@@ -1,0 +1,8 @@
+
+<?php 
+ if ( $this->classes != null) 
+ 	echo $this->partialLoop('partials/instSubjectClasses.phtml', $this->classes);
+ else
+ 	echo "<p> No classes found </p> "
+ 
+ ?>

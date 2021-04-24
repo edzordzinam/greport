@@ -1,0 +1,187 @@
+<ul id="myTab" class="nav nav-pills">
+	<li class="active"><a href="#assignsummary" data-toggle="tab">Summary</a></li>
+	<li><a id="as" href="#assessments" data-toggle="tab">Assessments</a></li>
+	<li><a id="ug" href="#ungraded" data-toggle="tab">Ungraded Assessments&nbsp; <span id ="ul" style="font-size: 11px;"></span></a></li>
+	<li><a id="zg" href="#zerograded" data-toggle="tab">Zero Graded&nbsp; <span id ="zl" style="font-size: 11px;"></span></a></li>
+	<li><a id="eg" href="#exemptgraded" data-toggle="tab">Exemptions&nbsp; <span id ="el" style="font-size: 11px;"></span></a></li>
+	<li><a href="#outlook" data-toggle="tab">Term Overview</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade in active" id="assignsummary"></div>
+	<div class="tab-pane fade in" id="assessments"></div>
+	<div class="tab-pane fade in" id="ungraded"></div>
+	<div class="tab-pane fade in" id="zerograded"></div>
+	<div class="tab-pane fade in" id="exemptgraded"></div>
+	<div class="tab-pane fade in" id="outlook"></div>
+</div>
+<div id="context-menu">
+              <ul class="dropdown-menu" role="menu">
+                <li class="nav-header">ASSIGNMENT OPTIONS</li>
+               <!--  <li><a tabindex="-1" href="#" onclick="$.fn.newAssessment(); return false;"><i class="icon-info-sign"></i> New Assessment</a></li>-->
+                <li><a tabindex="-1" href="#" onclick="$('#as').click(); return false;"><i class="icon-info-sign"></i> Assessments List</a></li>
+                <li class="nav-header">SYSTEM OPTIONS</li>
+                <li><a tabindex="-1" href="#"><i class="icon-info-sign"></i> Messages</a></li>
+                <li><a tabindex="-1" href="#" onclick="window.location.reload(true);"><i class="icon-refresh"></i> Reload Page</a></li>
+                <li><a tabindex="-1" href="/logout"><i class="icon-lock"></i> Log out</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="#" onclick='$.loadModal("/index/about","About Us",1); return false;'> About G-Reports</a></li>
+              </ul>
+</div>
+
+   <!-- SCRIPT SECTION -->
+<script type="text/javascript">
+      $(function(){
+
+    	    $('a[href="#assignsummary"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/assignments/assign-summary',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#assignsummary').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#assessments"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/assessments',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#assessments').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#ungraded"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/ungradedassess',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#ungraded').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#zerograded"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/zerograded',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#zerograded').html(data);
+    	        	    });
+    	    });
+
+
+    	    $('a[href="#outlook"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/termoutlook',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#outlook').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#exemptgraded"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/exemptgraded',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#exemptgraded').html(data);
+    	        	    });
+    	    });
+
+
+    	    $.fn.loadScores = function (assignmentid, title){
+    	        $.loadModal('/assessmentscores','Assessment Grading - ' + title, assignmentid);
+    	    };
+
+	  		$.fn.newAssessment = function (){
+        		<?php if (!$this->locked) { ?>
+    		 	$.post('/newassessment',
+    					{
+    		 	          send : false,
+    		 	        },
+    					function (data){
+    						$('#assignsummary').html(data);
+    					});
+    		 	<?php } else { ?>
+    		 		bootbox.alert('Access Denied (Code 101) : Contact Administrator');
+    		 	<?php } ?>
+    		};
+
+
+
+    		$.fn.GetClassCourses = function(ins, grade){
+    		    $.post('/course/grade-course',
+    	    		{
+    		          instructor : ins,
+    		          grade : grade
+	    		    },
+	    		    function (data){
+	    		       $('#cl_course').html(data);
+		    		});
+    		};
+
+
+    		$.fn.generateTopic = function (value){
+    		$.post(
+  				  '/assignments/topicnumber',
+  				   {
+  			 		 course :  $('#cl_course option:selected').val(),
+  				     term : $('#cl_term option:selected').val(),
+  				     year : $('#cl_year').val(),
+  				     grade : $('#cl_grade option:selected').val(),
+  				     type : value
+  				  },
+  				  function (data){
+  					  //call back function  -- could receive html
+  					  $('#cl_topic').val(data);
+  				  });
+    		};
+
+			$.fn.filterOutlook = function (course, grade){
+		        $('#cc').text(course);
+		        $('#gg').text(grade);
+
+		        if ($('#aType').text() != 'SUM'){
+			 		$.post('/outlookview',
+			 				{
+		 						cid : course,
+		 						grade : grade,
+		 						t : $('#aType').text(),
+		 						i : <?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>,
+		 						term : <?php echo $this->term; ?>,
+		 						year : '<?php echo $this->year; ?>',
+			 				},
+			 				function(data){
+				 				$('#outlookdiv').html(data);
+			 		});
+		        }
+		        else{
+		        	$.post('/outlooksummary',
+			 				{
+		 						cid : course,
+		 						grade : grade,
+		 						t : $('#aType').text(),
+		 						i : <?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>,
+		 						term : <?php echo $this->term; ?>,
+		 						year : '<?php echo $this->year; ?>',
+			 				},
+			 				function(data){
+				 				$('#outlookdiv').html(data);
+			 		});
+		        };
+			};
+
+    		$('a[href="#assignsummary"]').click();
+      });
+</script>

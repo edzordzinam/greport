@@ -1,0 +1,180 @@
+<ul class="team">
+	<li><span class="crt" style="background-color:#E78730"><?php echo date('d',time());?></span><span class="strong" style="font-weight: bold;"><?php echo date('l', time());?></span><span
+		class="muted" style="font-weight: bold;"><?php echo date('M, Y', time());?></span></li>
+	<li><span class="crt" style="background-color: #BC8C53">
+			<?php if ($this->currentweek != 0 ){ ?>
+	   			<?php echo $this->currentweek; }?></span>
+	   	 <span class="strong">Current Week</span><span
+		class="muted">Since Reopening</span></li>
+	<li><span class="crt"  style="background-color: #3276B1">
+			<?php echo $this->totalweeks?>
+		</span><span class="strong">Total Weeks</span><span
+		class="muted">School Calendar</span></li>
+	<li><span class="crt" style="background-color: #93BF1B"><?php echo intval($this->studentno/$this->icount);?>
+		</span><span class="strong">Students/Teacher</span><span
+		class="muted">No. of std/teacher</span></li>
+</ul>
+<img class="pull-right img-polaroid"
+	src="<?php echo Content_Model_School::getSchoolLogo()?>"
+	alt="<?php echo Content_Model_School::getSchoolName()?>" width="200"
+	style="margin-top: 0px; opacity:0.9; filter:alpha(opacity=40); /* For IE8 and earlier */" />
+<hr style="margin-top: 5px;	clear: both;">
+
+<div id="myTabContent" class="tab-content" style="min-height: 200px;">
+	<div class="tab-pane fade in active" id="home">
+		<div class="row-fluid">
+			<div class="span3">
+				<h4 class="formSep">Quick Facts</h4>
+				<div class="gear-group">
+					<div class="cartridge-block">
+						<div class="cartridge-border">
+							<div class="cartridge-inset">
+								<h3 class="flow">
+									<i class="fa fa-group fa-2x" style="color: #93BF1B;"></i>
+									<div class="blockname"></div>
+									<div class="blockdetails right" id="DIV_8">
+										<strong style="font-size: 20px;"><?php echo $this->studentno;?></strong><br>
+										<span id="SPAN_28">Student Population:</span>
+									</div>
+								</h3>
+							</div>
+						</div>
+					</div>
+					<?php if (Zend_Auth::getInstance()->getIdentity()->role == 100 || Zend_Auth::getInstance()->getIdentity()->role == 110 ) {?>
+					<div class="cartridge-block cartridge-embedded" id="DIV_21">
+						<div class="cartridge-border">
+							<div class="cartridge-inset">
+								<h3 class="flow">
+									<i class="fa fa-credit-card fa-2x" style="color: maroon;"></i>
+									<div class="blockname"></div>
+									<div class="blockdetails right" id="DIV_8">
+										<strong><a><span style="font-size:14px;">GH&cent;</span> <?php echo Content_Model_Transactions::daysReceipts(date('Y-m-d',time()));?></a></strong><br>
+										<span id="SPAN_28">Today's Receipts:</span>
+									</div>
+								</h3>
+							</div>
+						</div>
+					</div>
+					<div class="cartridge-block cartridge-embedded" id="DIV_21">
+						<!--<div class="cartridge-border">
+							<div class="cartridge-inset">
+								<h3 class="flow">
+ 									<i class="fa fa-money fa-2x" style="color: #3276B1"></i>
+ 									<div class="blockname"></div>
+									<div class="blockdetails right" id="DIV_8">
+										<strong><a>
+											<?php
+/*												$imprest = Content_Model_Imprest::getMonthlyImprest(date('m',time()), date('Y',time()));
+												$expense = Content_Model_Expenses::monthExpenditure(date('m',time()));
+												$diff = $imprest-$expense;
+												echo ($imprest != null) ? '<span style="font-size:14px;">GH&cent;</span>'. (($diff > 0) ? number_format($diff, 2) : "(".number_format(abs($diff), 2).")" ): 'N/A';
+												*/?></a></strong><br>
+										<span id="SPAN_28">Monthly Imprest Balance</span>
+									</div>
+								</h3>
+							</div>
+						</div>-->
+					</div>
+					<div class="cartridge-block cartridge-embedded" id="DIV_21">
+						<!--<div class="cartridge-border">
+							<div class="cartridge-inset">
+								<h3 class="flow">
+									<i class="fa fa-cogs fa-2x" style="color: #EF7301;"></i>
+									<div class="blockname"></div>
+									<div class="blockdetails right" id="DIV_8">
+										<strong><a><span style="font-size:14px;">GH&cent;</span> <?php /*echo Content_Model_Expenses::monthExpenditure(date('m',time())); */?></a></strong><br>
+										<span id="SPAN_28">Monthly Expense (<?php /*echo date('M',time());*/?>)</span>
+									</div>
+								</h3>
+							</div>
+						</div>-->
+					</div>
+					<div class="cartridge-block cartridge-embedded" id="DIV_21">
+						<!--<div class="cartridge-border">
+							<div class="cartridge-inset">
+								<h3 class="flow">
+									<i class="fa fa-shopping-cart fa-2x" style="color: #3276B1;"></i>
+									<div class="blockname"></div>
+									<div class="blockdetails right" id="DIV_8">
+										<strong><a><span style="font-size:14px;">GH&cent;</span> <?php /*echo Content_Model_Expenses::dayExpenditure(date('Y-m-d',time())); */?></a></strong><br>
+										<span id="SPAN_28">Today's Expenditure</span>
+									</div>
+								</h3>
+							</div>
+						</div>-->
+					</div>
+					<?php } ?>
+					<div class="cartridge-block cartridge-embedded" id="DIV_21">
+						<div class="cartridge-border">
+							<div class="cartridge-inset">
+								<h3 class="flow">
+									<i class="fa fa-pencil-square-o fa-2x" style="color: #BC8C53;"></i>
+									<div class="blockname"></div>
+									<div class="blockdetails right" id="DIV_8">
+										<strong><?php
+										if (isset ( $this->axCount )) {
+											echo $this->axCount;
+										} else {
+											echo "--";
+										}
+										?>
+									</strong><br> <span id="SPAN_28">Total Assessments</span>
+									</div>
+								</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="span9">
+					<?php echo $this->action('studentdistro', 'student','content')?>
+			</div>
+		</div>
+		<!--/span-->
+	</div>
+	<!--/row-->
+</div>
+<!--/row-->
+
+<!-- =========================================== -->
+
+<script type="text/javascript">
+<!--
+$(function() {
+
+   	 $.qData = "";
+
+       $('#searchCauseList').typeahead({
+    	   // source can be a function
+   	    source: function (query,process) {
+      	     $.ajax({
+        	       url : '/search/search-index',
+        	       type : 'POST',
+        	       data : 'query=' + query,
+        	       dataType : 'JSON',
+        	       async : false,
+        	       success : function(data){
+       	    	     process(data);
+        	       }
+          	     });
+   	   	    },
+   	   	    minLength : 3,
+   	   	    items : 8,
+   	   	    updater : function (item){
+   	   	   	    //item = selected item
+   	   	   	    //do your stuff
+   	   	   	    //$.showMessage(item);
+   	   	   	    //return item;
+   	   	    },
+
+        });
+
+		$.fn.printStatement = function(){
+			$.loadModal('http://<?php echo $this->pdfhost; ?>/buildpdf?url=http://<?php echo $this->host; ?>/accountstatements?&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=11&grade=0&cid=0','Statement of Accounts',1);
+		};
+
+    });
+
+    //-->
+    </script>

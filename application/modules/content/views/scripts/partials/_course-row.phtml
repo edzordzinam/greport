@@ -1,0 +1,22 @@
+<?php
+    $details = "Examinable : <span class='label label-important label-mini'>". (($this->cl_examinable) ? 'Yes' : 'No') ."</span> <br/> ";
+    $details .="Exempt from exams : ".$this->getGradeListRaw($this->cl_gradeexempt)." <br/> ";
+    $details .="Multi-instructors/Class : <span class='label label-important label-mini'>".(($this->cl_shared) ? 'Yes' : 'No') ."</span> <br/> ";
+    $details .="Report Order : <span class='label label-important label-mini'>".(($this->cl_courseorder)) ."</span> <br/> ";
+?>
+<tr>
+    <td width="180">
+       <a href="#"
+           rel="popover" title="<?php echo $this->cl_coursename ?>"
+           data-trigger="hover" data-html="true" data-content="<?php echo $details; ?>">
+           <?php echo $this->cl_coursename ?>
+       </a>
+    </td>
+    <td><span style="font-size: 12px;"><?php echo $this->getGradeListSubject($this->cl_gradelevels, $this->cl_courseid); ?></span></td>
+    <td>
+    <span class="label label-success label-mini"><a href='' onclick="$.fn.updateSubject(<?php echo $this->cl_courseid; ?>); return false;">update</a></span>
+    </td>
+
+</tr>
+
+<!--<td width="10"><?php //echo $this->cl_courseorder ?></td> <span class="label label-important label-mini"><a href='/course/delete/id/<?php //echo $this->cl_courseid; ?>'>delete</a></span> -->

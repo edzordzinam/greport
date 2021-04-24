@@ -1,0 +1,15 @@
+<table class="table table-bordered table-striped table-hover table-condensed">
+<thead>
+	<tr>
+		<th>Grade</th>
+		<th>Remark</th>
+		<th>Grade Scale</th>
+	</tr>
+</thead>
+ <?php foreach ($this->grading as $g) { ?> 
+   <tr>
+ 	<td><?php echo $g->gradeletter;?></td><td><?php echo $g->interpretation?></td><td><?php echo $g->lowerlimit.'-'.$g->upperlimit; ?>
+   </tr>	
+ <?php } ?>
+</table>
+<p class="text-info">Administrators should request change to reflect school policy.</p>
