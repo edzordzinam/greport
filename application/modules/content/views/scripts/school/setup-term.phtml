@@ -1,0 +1,47 @@
+<h6>School Management - Academic Calender Setup</h6>
+<?php echo $this->form; ?>
+
+<!-- SCRIPT SECTION  -->
+<script type="text/javascript">
+<!--
+$(function(){
+
+    $('#frm_termdates').ajaxForm({
+		//options of ajaxForm
+
+		url : '/setupterm',
+		data : {
+		    send : true
+    		}, //data to be submitted along with the form variables json formatted
+		clearForm : null, // form to be cleared if submit is successfull,
+
+		dataType : 'json',  // json, xml, or script
+		type : 'POST', // type of ajax call GET or POST
+
+ 		beforeSubmit : function (arr, $form, options){
+		    if($('#isValid').val() == "false")
+    		    return false;
+		},
+
+		success: function (data){
+			$('a[href="#termdates"]').click();
+        }
+
+    });
+
+    ValidateAjax.initialize("frm_termdates", "/validateform");
+
+  /*   var selectBox = $("select").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 200,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 200
+    }); */
+
+	$('#cl_startdate').datepicker();
+	$('#cl_enddate').datepicker();
+
+});
+
+//-->
+</script>

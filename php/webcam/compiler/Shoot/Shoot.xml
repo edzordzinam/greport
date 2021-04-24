@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	
+<movie version="8" width="600" height="300" framerate="30">
+  <background color="#ffffff"/>
+  <frame>
+    <clip import="Classes.swf"/>
+    <clip id="Background" import="source_assets/scrollingBackground.jpg"/>
+
+    <library>
+      <clip id="Ship" class="Ship" import="source_assets/ship.png"/>
+
+      <clip id="joinedBackground" class="Background">
+        <frame>
+	  <place id="Background" name="background0" depth="16384"/>
+	  <place id="Background" name="background1" x="2110" depth="16385"/>
+	</frame>
+      </clip>
+    </library>
+
+    <place id="Ship" name="ship" depth="16385"/>
+    <place id="joinedBackground" name="background" depth="16384"/>
+  </frame>
+</movie>
+

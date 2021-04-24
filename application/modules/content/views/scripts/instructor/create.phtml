@@ -1,0 +1,48 @@
+<legend>Add a new instructor</legend>
+<?php echo $this->form; ?>
+
+<script type="text/javascript">
+    $("document").ready(function(){
+        $('#frm_newinstructor').ajaxForm({
+    		//options of ajaxForm
+
+    		url : '/newinstructor',
+    		data : {
+    		    send : true
+        		}, //data to be submitted along with the form variables json formatted
+    		clearForm : null, // form to be cleared if submit is successfull,
+
+    		dataType : 'json',  // json, xml, or script
+    		type : 'POST', // type of ajax call GET or POST
+
+    		beforeSubmit : function (arr, $form, options){
+    		    if($('#isValid').val() == "false")
+        		    return false;
+    		},
+
+    		success: function (data){
+   		     $.post('/newinstructor',
+                  	{
+                         send : false,
+                  	},
+                  	function (data){
+                  	    $('#listinstructors').html(data);
+                  	    $.showMessage('Instructor successfully added');
+                  	});
+             }
+
+        });
+
+        ValidateAjax.initialize("frm_newinstructor", "/validateform");
+
+   /*      var selectBox = $("select").selectBoxIt({
+            showEffect: "fadeIn",
+            showEffectSpeed: 200,
+            hideEffect: "fadeOut",
+            hideEffectSpeed: 200
+        });
+ */
+        $('.chzn-select').chosen();
+
+        });
+</script>

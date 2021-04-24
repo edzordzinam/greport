@@ -1,0 +1,157 @@
+<div class="span8 row-fluid">
+<div class="span12 alert alert-block alert-white fade in" style="margin-left: 0px;">
+	<button type="button" class="close" data-dismiss="alert"></button>
+	<h4 class="alert-heading"></h4>
+	    <table id="veritable" class="table table-bordered table-condensed">
+	       <tr>
+         	<td colspan="2">
+         	<div class="btn-group">
+         		<button class="btn btn-small btn-info" onclick="$.fn.printStatement();"><i class="icon-print icon-white"></i> Statement of Accounts (PDF)</button>
+<!--     			<button class="btn btn-info btn-small" onclick="$.fn.print();"><i class="icon-print"></i> Debtors (PDF)</button>
+    			<button class="btn btn-info btn-small" onclick="$.fn.print();"><i class="icon-print"></i> Creditors (PDF)</button>
+   -->  			<button class="btn btn-small btn-danger " onclick="$.fn.adjustAccountShow();"><i class="icon-edit icon-white"></i> Adjust Account</button>
+  					 <button class="btn btn-small btn-default " onclick="$.loadModal('/viewbills', 'Billables', 1);"><i class="icon-eye-open"></i> Preview Bills</button>
+    		</div>
+    		</td>
+    	</tr>
+         <tr> <td>Total no. of student in attendance</td><td id="td_count">0</td> </tr>
+         <tr> <td>Students billed for the current term or month where applicable</td><td id="td_unbilled">0</td></tr>
+    </table>
+	<table class="table table-bordered">
+	    <thead>
+	         <tr>
+              <th colspan="3">Accounting summary for the current term and year. </th>
+            </tr>
+	        <tr>
+    	        <th>Description</th>
+    	        <th>Dr</th>
+    	        <th>Cr</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>Total Fees Payable</td>
+	            <td width="100" align="right"><span class='label label-important label-mini'>GHC <?php echo number_format($this->accountSummary['payable'],2,'.',',')?></span></td>
+	            <td width="100" align="right"></td>
+	        </tr>
+	        <tr>
+	            <td>Total Fees Paid</td>
+	            <td align="right"></td>
+	            <td align="right"><span class='label label-success label-mini'>GHC <?php echo number_format($this->accountSummary['paid'],2,'.',',')?></span></td>
+	        </tr>
+
+	        <tr>
+	            <td><a href="#" onclick="$.loadModal('/studentdiscount', 'Discounts Offered', 1);">Total Discounts Offered</a></td>
+	            <td align="right"></td>
+	            <td align="right"><span class='label label-info label-mini'>GHC <?php echo number_format($this->accountSummary['discount'],2,'.',',')?></span></td>
+	        </tr>
+	        </tbody>
+	        <tfoot>
+    	        <tr>
+    	            <th>Total Fees Outstanding</th>
+    	            <th align="right"></th>
+    	            <th align="right"><span class='label label-inverse'>GHC <?php echo number_format($this->accountSummary['outstanding'],2,'.',',')?></span></th>
+    	        </tr>
+    	   </tfoot>
+	</table>
+
+
+<!--     	<p> -->
+<!-- 		    <a class="btn btn-primary disabled pull-right" href="#" id="btn_billall">Bill all students</a> -->
+<!-- 	    </p> -->
+</div>
+</div>
+
+<div class="span4 alert alert-block alert-error fade in">
+	<button type="button" class="close" data-dismiss="alert"></button>
+	<h4 class="alert-heading">Billing Summary</h4>
+	 <table>
+    	 <tr>
+    	     <th colspan="2"><span class='label label-inverse label-mini'>Entry Fees by Bill Categories</span></th>
+    	 </tr>
+    	 <?php
+              foreach ($this->termEntryFeeTotals as $total) {
+                  if($total->value != 0)
+                  	echo "<tr><td width='150px'>
+                  	<a href='#' rel='tooltip' data-html='true' data-content='$total->list' data-title='$total->name' data-trigger='hover'>
+                  $total->name</a> </td><td> <span class='label label-success label-mini'>GHC $total->value </span></td></tr>";
+              }
+         ?>
+
+     </table>
+		<div class="formSep"></div>
+     <table>
+    	 <tr>
+    	     <th colspan="2"><span class='label label-inverse label-mini'>Term Fees by Bill Categories</span></th>
+    	 </tr>
+    	 <?php
+              foreach ($this->termFeeTotals as $total) {
+                if($total->value != 0)
+					echo "<tr><td width='150px'>
+					<a href='#' rel='tooltip' data-html='true' data-content='$total->list' data-title='$total->name' data-trigger='hover'>
+					$total->name</a> </td><td> <span class='label label-info label-mini'>GHC $total->value </span></td></tr>";
+				}
+         ?>
+     </table>
+		<div class="formSep"></div>
+     <table>
+    	 <tr>
+    	     <th colspan="2"><span class='label label-inverse label-mini'>Monthly Fees by Bill Categories</span></th>
+    	 </tr>
+    	 <?php
+              foreach ($this->monthlyTotals as $total) {
+				if($total->value != 0)
+					echo "<tr><td width='150px'>
+					<a href='#' rel='tooltip' data-html='true' data-content='$total->list' data-title='$total->name' data-trigger='hover'>
+					$total->name</a> </td><td> <span class='label label-important label-mini'>GHC $total->value </span></td></tr>";
+				}
+         ?>
+     </table>
+     <div class="formSep"></div>
+     <table>
+    	 <tr>
+    	     <th colspan="2"><span class='label label-inverse label-mini'>Yearly Fees by Bill Categories</span></th>
+    	 </tr>
+    	 <?php
+              foreach ($this->yearlyTotals as $total) {
+				if($total->value != 0)
+						echo "<tr><td width='150px'>
+						<a href='#' rel='tooltip' data-html='true' data-content='$total->list' data-title='$total->name' data-trigger='hover'>
+						$total->name</a> </td><td> <span class='label label-default label-mini'>GHC $total->value </span></td></tr>";
+	 			}
+         ?>
+     </table>
+</div>
+
+<!-- SCRIPT SECTION -->
+
+<script type="text/javascript">
+<!--
+$(function(){
+	  //javascript:
+	//var itv = window.setInterval(function(){
+	    $.ajax({
+	      type: "POST",
+	      url: "/checkbilledstudents",
+	      success: function(data){
+ 		    if (data.success){
+	 		}
+		    else{
+			    $('#btn_billall').removeClass('disabled');
+			    $('#btn_billall').removeAttr('onclick');
+			}
+
+	        $('#td_count').text(data.activecount);
+	        $('#td_unbilled').text(data.activecount - (data.unbilledtermly + data.unbilledmonthly));
+
+	        //$.fn.cancelTimeout2(itv);
+	      }
+	    });
+	//}, 5000); //last param is the interval time in ms
+
+	$(".table").not('#veritable').tablecloth({ theme: "paper" });
+	$("a[rel=tooltip]").popover({placement : "left"});
+});
+//-->
+</script>
+

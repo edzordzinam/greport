@@ -1,0 +1,35 @@
+CACHE MANIFEST
+#caching the following files
+CACHE:
+/min/g=styles.css
+/min/g=scripts.js
+/ico/favicon.png
+/ico/logothumb.png
+/js/jquery.min.js
+/js/jquery-ui.min.js
+/ico/favicon-mini.png
+/img/glyphicons-halflings-white.png
+/img/glyphicons-halflings.png
+/ico/gear_wheel.png
+/img/pingdom_button_80x15.gif
+/fonts/quartzms-webfont.woff
+/fonts/quartzms-webfont.ttf
+/fonts/quartzms-webfont.svg
+/img/sort_asc.png
+/js/locale/datatables.english.txt
+/js/tabletools/swf/copy_csv_xls_pdf.swf
+/img/loaders/loader.gif
+/img/loaders/loader6.gif
+
+#network section - these files must not be cached
+NETWORK:
+*
+http://*
+https://*
+
+#fallback section fdgd
+
+
+
+
+

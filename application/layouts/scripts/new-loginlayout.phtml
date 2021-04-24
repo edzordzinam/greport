@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" class="login_page no-js">
+    <head>
+    <meta charset="utf-8">
+    <title><?php echo Content_Model_School::getSchoolName()?> welcomes you</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We provide an innovative academic reporting generation system">
+    <meta name="author" content="<?php echo Content_Model_School::getSchoolName()?>">
+
+    <link rel="stylesheet" href="/layout/css/main.css">
+         <?php
+    	echo $this->headTitle();
+    	$this->headLink()->exchangeArray(array());
+    	$this->headLink()->appendStylesheet('/min/g=login.css');
+    	echo $this->headLink();
+    	echo $this->jQuery();
+
+     ?>
+
+
+        <!--[if lt IE 9]>
+         <script src="/layout/js/html5shiv.js"></script>
+        <![endif]-->
+
+         <!-- Bootstrap framework -->
+
+        <!-- Favicon -->
+            <link rel="shortcut icon" href="favicon.ico" />
+
+
+        <!--[if lte IE 8]>
+            <script src="js/ie/html5.js"></script>
+			<script src="js/ie/respond.min.js"></script>
+        <![endif]-->
+	 <style type="text/css">
+	    html {overflow-y: scroll}
+	    body {color: #222; }
+
+		html,body {height:90%}
+
+/* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+     </style>
+
+    </head>
+
+
+    <body>
+
+        <!-- SITE CONTENT -->
+
+        <header>
+            <div class="parentContainer">
+                <div id="socialButtons">
+
+
+                </div>
+            </div>
+            <div>
+
+                <div id="menu">
+                    <section>
+                        <a href="index-2.html"><img src="/layout/img/logo.png" alt=""></a>
+
+                    </section>
+                </div>
+                <div id="tagline">
+                    <section>
+                        <a href="#">“ Admission Open for 2012 click here to <strong>Get Form</strong> ”</a>
+                    </section>
+                </div>
+                <div id="info">
+                    <section>
+                        <div>
+                            <img src="/layout/img/phone.png" alt="">
+                            <h2>1-800-643-4300</h2>
+                            <h4>E104  Dharti II, Ahmedabad,Gujarat, India.</h4>
+                        </div>
+                        <span class="element leftElement"></span>
+                        <span class="triangle">triangle</span>
+                    </section>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+
+        <div id="contentBk">
+            <div id="content" class="clearfix">
+
+                <div id="homeSlider" class="clearfix flexslider">
+
+                    <div class="thumbs"></div>
+
+                    <ul class="slides">
+                        <li data-thumb="/layout/img/slider/1st_thumb.jpg"><img src="/layout/img/slider/1st.jpg" alt="A Classroom"></li>
+                     </ul>
+
+                    <ul class="captions">
+                        <li>
+                            <h3>A student <strong>reading</strong></h3>
+                            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo, perspiciatis unde omnis.</p>
+                        </li>
+                        <li>
+                            <h3>Just a different <em>perspective</em> over this new issue</h3>
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </li>
+                        <li>
+                            <h3>Look at <strong>the baloon!</strong></h3>
+                            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo, perspiciatis unde omnis.</p>
+                        </li>
+                        <li>
+                            <h3>90% of the people have back issues</h3>
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+
+
+
+        <!-- END SITE CONTENT -->
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/layout/js/jquery.flexslider-min.js"></script>
+        <script src="/layout/js/lightbox.js"></script>
+        <script src="/layout/js/scripts.js"></script>
+
+
+
+</body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQuery Mobile: Demos and Documentation</title>
+     <?php
+    	echo $this->headTitle();
+    	$this->headLink()->exchangeArray(array());
+    	$this->headLink()->appendStylesheet('/min/g=mobile.css');
+    	echo $this->headLink();
+     ?>
+</head>
+<body>
+<div data-role="page" class="type-home">
+	<div data-role="content">
+
+
+		<div class="content-secondary">
+
+			<div id="jqm-homeheader">
+				<h1 id="jqm-logo"><img src="/ico/jmobilelogo.png" style="width: 265px !important; height: 59px !important;" alt="jQuery Mobile Framework" /></h1>
+				<p>An academic reporting platform</p>
+			</div>
+
+			<p class="intro"><strong>Welcome.</strong> G-REPORTS is a strong and robust platform that makes the job of school administration efficient and effective</p>
+
+            <form class="form-inline" id="validate">
+                 <input
+    			    type="text"
+    			    id="uid"
+    			    name="username"
+    			    placeholder="username"
+    			    required
+    			    class="input-medium"  />
+
+    			 <input
+    			    class="input-medium"
+    			    type="password"
+    			    id="pwd"
+    			    name="password"
+    			    placeholder="password"
+    			    required
+    			    title='a password is required to sign-in' />
+                  <button type="submit" data-theme="b" onclick="$.fn.auth(); return false;">Sign in</button>
+            </form>
+
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+				<li data-role="list-divider">g-reports</li>
+				<li><a href="docs/about/intro.html">Online Reports</a></li>
+				<li><a href="docs/about/getting-started.html">Record Management</a></li>
+				<li><a href="docs/about/features.html">Stores Management</a></li>
+				<li><a href="docs/about/accessibility.html">Billing and Payments</a></li>
+			</ul>
+
+		</div><!--/content-primary-->
+
+		<div class="content-primary">
+			<?php echo $this->layout()->content; ?>
+		</div>
+
+
+
+	</div>
+
+	<div data-role="footer" class="footer-docs" data-theme="c">
+            <p class="jqm-version"></p>
+			<p align="center">&copy; 2012 : Powered by Twitter Bootstrap, ZendFramework and Openshift Cloud [ <?php echo $this->translate('All rights reserved.') ?>]</p>
+	</div>
+
+</div>
+<script src="/min/g=mobile.js"></script>
+ <script type="text/javascript">
+         $(function() {
+          	//default form initialization
+
+        	$.fn.auth = function (){
+            	    $.post('/auth',
+            	    		{
+            	               username : $('#uid').val(),
+            	               password : $.MD5($('#pwd').val())
+            	            },
+                    	    function(data){
+                        	    console.log(data);
+                        	    jq = jQuery.parseJSON(data);
+            	            	window.location.replace(jq.url);
+            	            });
+        	};
+
+          	$('#validatess').ajaxForm({
+          		//options of ajaxForm
+
+          		url : '/auth',
+          		data : {}, //data to be submitted along with the form variables json formatted
+          		clearForm : null, // form to be cleared if submit is successfull,
+
+          		dataType : 'json',  // json, xml, or script
+          		type : 'POST', // type of ajax call GET or POST
+
+          		replaceTarget : true,
+          		target : '#response',   //target is only rendered when the dataType has been specified.
+
+          		//callback function to be invoked on error.
+          		error : function (){
+          		},
+
+          		beforeSubmit : function (arr, $form, options){
+          			// return false; to cancel submit action
+          			 arr[1].value = $.MD5(arr[1].value);
+          		},
+
+          		success : function (data){
+          		    if (data.success == 1){
+
+          		    	window.location.replace(data.url);
+          		    }
+          		    else if (data.success == -1) {
+          		    	$.showMessage('Your account has been deactivated, contact admin.');
+          		    }
+          		    else{
+          		    	$.showMessage('Username or Password invalid', 'error');
+          		    }
+          		},
+
+              });
+         });
+     </script>
+</body>
+</html>

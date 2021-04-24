@@ -1,0 +1,68 @@
+
+<div class="row-fluid">
+	<div class="span6">
+		<table id="dtb_pastbills" class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th>Term</th>
+					<th>Academic Year</th>
+					<th>Options</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					foreach ($this->pastbills as $bill) { ?>
+						<tr>
+							<td><?php echo $bill->term; ?></td>
+							<td><?php echo $bill->year; ?></td>
+							<td><span class="label label-success"><a onclick="$.fn.loadBills(<?php echo $bill->term ?>, '<?php echo $bill->year; ?>');" href="javascript:void(0);" style="color: white;">View</a></span><span class="label label-important pull-right" style="margin-left: 5px;"><a href="javascript:void(0);" onclick="$.fn.importbills(<?php echo $bill->term ?>, '<?php echo $bill->year; ?>');" style="color: white;">Import Bill</a></span></td>
+						</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+<!--
+ $(function(){
+	var dtb_pastbills = $('#dtb_pastbills').dataTable({
+			"sDom": "<'row-fluid'<'span6'T><'span6'>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+			"sPaginationType": "bootstrap",
+		    "iDisplayLength" : 10,
+			"bAutoWidth": false,
+			"bStateSave": false,
+			"oLanguage" : {
+				 "sUrl" : "/js/locale/datatables.english.txt"
+			    },
+
+			"aoColumnDefs": [
+ 				             ],
+
+			"oTableTools": {
+				"sRowSelect": "single",
+				"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+				"aButtons": [
+								"copy",
+								"print",
+								"xls",
+								"pdf"
+							]},
+	});
+
+	$(".table").tablecloth({ theme: "paper" });
+
+    $.fn.loadBills3 = function(groupkey, ft){
+        $.post('/termbill',
+        	{
+        		view : 0,
+                group : groupkey,
+                feetype : ft
+            },
+            function(data){
+                $('#loadbill2').html(data);
+            });
+    };
+});
+//-->
+</script>

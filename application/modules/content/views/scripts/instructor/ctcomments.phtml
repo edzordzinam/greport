@@ -1,0 +1,110 @@
+
+<div class="widget"
+	style="width: 60%; margin-left: auto; margin-right: auto;">
+	<div class="title">
+		<img src="/images/icons/dark/list.png" alt="" class="titleIcon" />
+		<h6>Class Teacher's Comments :<strong style="text-transform: uppercase; color: blue"> (<?php echo $this->ctname; ?>)</strong></h6>
+	</div>
+	<div class="widget" style="border: none;">
+		<form action="" class="form">
+			<fieldset>
+				<div class="formRow" style="padding: 5px 7px;">
+					<div style="float: left;">
+						<div class="formRight">
+							<select id="exam-content" data-placeholder="..."
+								class="chzn-select" style="width: 170%;"
+								onchange="$.fn.getStudents($('#exam-content').val());">
+														<?php
+														foreach ( $this->grades as $key => $value ) {
+															if ($key < 0 || $key > 5)
+																echo "<option value='$key'>$value</option>";
+														}
+														;
+
+														?>
+													</select> <span class="formNote">Select Class of Student</span>
+						</div>
+					</div>
+
+					<div style="float: left;">
+						<div class="formRight">
+							<select id="slt-student" data-placeholder="select student"
+								class="chzn-select" style="width: 200% !important;"
+								onchange="$.fn.getStudentAttSummary($('#slt-student option:selected').val()); $.fn.loadAttendComment(); return false;">
+
+							</select> <span class="formNote">Select student</span>
+						</div>
+					</div>
+
+					<div style="float: left; margin-left: 20px;">
+						<div class="formRight">
+							<input type="text" id="year" class="maskYear" placeholder=""
+								style="text-indent: 5px;" value='2011/2012' /> <span
+								class="formNote">Academic Year</span>
+						</div>
+					</div>
+
+					<div style="float: left;">
+						<div class="formRight" style="width: 150px; margin-left: 20px;">
+							<select id="term" class="chzn-select" style="width: 100%;">
+								<option value="1">1st Term</option>
+								<option value="2">2nd Term</option>
+								<option selected="selected" value="3">3rd Term</option>
+							</select> <span class="formNote">Term (Default is current term)</span>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="line"></div>
+	<div id="attendance_detail3"
+		style="float: right; width: 100%; background-color: white;">
+		<p align="center">Select a student from the list above to view
+			summary.....</p>
+	</div>
+	<div class="clear"></div>
+	<div class="line"></div>
+	<form action="" class="form" style="margin-bottom: 10px;">
+		<fieldset>
+			<div class="formRow" style="padding: 5px 7px;">
+				<div class="formLeft">
+					<span class="formNote">class teachers comment on student selected</span>
+					<textarea id="ctcomment" placeholder="Class teacher's comment"
+						style="text-indent: 5px; width: 98%; font-size: 12px; color: black; font-weight: bold;"></textarea>
+				</div>
+			</div>
+
+			<div class="formRow" style="padding: 5px 7px; display: none;">
+				<div class="formLeft">
+					<span class="formNote">Principal's comment on student selected</span>
+					<textarea id="prcomment"
+						placeholder="Please enter principal's comment"
+						style="text-indent: 5px; width: 98%; font-size: 12px; color: white; font-weight: bold;"></textarea>
+				</div>
+			</div>
+
+			<div class="formRow" style="padding: 5px 7px">
+				<div style="float: left; width: 80%; display: none;">
+					<div class="formLeft">
+						<span class="formNote">Attendance comment on student selected</span>
+						<input type="text" id="atcomment"
+							placeholder="Enter attendance comment that will appear on student's terminal report"
+							style="text-indent: 5px; width: 100%; font-size: 12px; color: red; font-weight: bold;"
+							value='' />
+					</div>
+				</div>
+
+				<div style="float: right; width: 80px; padding-right: 50px;">
+					<div class="formLeft">
+						<span class="formNote">..</span> <a class="button dblueB"
+							onclick="$.fn.postAttendComment();"><span>Update Comments</span></a>
+					</div>
+				</div>
+			</div>
+
+
+		</fieldset>
+	</form>
+	<div class="clear"></div>
+</div>

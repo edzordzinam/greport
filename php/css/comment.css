@@ -1,0 +1,54 @@
+@page {
+	sheet-size: A4;
+	margin-header: 0px;
+}
+
+table {
+	page-break-inside: avoid;
+}
+
+tr {
+	page-break-inside: avoid;
+	page-break-after: auto
+}
+
+thead {
+	display: table-header-group
+}
+
+tfoot {
+	display: table-footer-group
+}
+
+.headcell {
+	text-transform: uppercase;
+	font-weight: bold;
+	text-align: center;
+}
+
+.lastcell {
+	border-bottom: 1px solid #4F81BD;
+}
+
+table {
+	max-height: 500px;
+	min-height: 300px;
+}
+
+td {
+	border-top: 1px solid #4F81BD;
+	border-left: 1px solid #4F81BD;
+	padding-left: 10px;
+}
+
+td:LAST-CHILD {
+	border-right: 1px solid #4F81BD;
+}
+
+.detail tr:nth-child(odd) {
+	background-color: #DFEEF3;
+}
+
+.detail tr:nth-child(even) {
+	background-color: #ffffff;
+}

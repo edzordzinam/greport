@@ -1,0 +1,75 @@
+<?php if ($this->billables) {?>
+
+<table class="table table-hover table-bordered table-condensed">
+	<thead>
+		<tr>
+			<th>Billable Description</th>
+			<th width="100">Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+  <?php
+	$sum = 0;
+	foreach ( $this->billables as $billable ) {
+		$amount = number_format ( $billable->amount, 2, '.', ',' );
+		$sum += $billable->amount;
+		echo "<tr><td>$billable->description</td><td align='right'>$amount</td></tr>";
+	}
+	?>
+  		<tr>
+			<th align="right" style="color: blue;">Total Amount</th>
+			<th align="right">GHC <?php echo number_format($sum, 2,'.',',')?></th>
+		</tr>
+
+		<tr>
+			<td colspan="2" style="color: maroon; font-size: 11px; font-weight: bold;">Other Applicable Billables</td>
+		</tr>
+	    <?php
+	$feetypes = array (
+			0 => 'Entry Fee',
+			1 => 'Term Fee',
+			2 => 'Monthly Fee',
+			3 => 'Yearly Fee' );
+
+	$sum = 0;
+	foreach ( $this->otherbillables as $billable ) {
+		$amount = number_format ( $billable->amount, 2, '.', ',' );
+		$sum += $billable->amount;
+		$f = $feetypes [$billable->type];
+		echo "<tr><td>$billable->description <span class='label label-default'>$f</span></td><td align='right'>$amount</td></tr>";
+	}
+	?>
+</tbody>
+	<tfoot>
+		<tr>
+			<th align="right" style="color: blue;"></th>
+			<th align="right">GHC <?php echo number_format($sum, 2,'.',',')?></th>
+		</tr>
+	</tfoot>
+</table>
+<div align="left">
+	<div class="btn-group" data-toggle="buttons-radio" style="margin-top:2px;">
+		<?php if ($this->page == 1 || !isset($this->page)) { ?>
+			<button id="b1" type="button" class="btn btn-sx btn-small btn-danger" data-toggle="button" onclick="$.fn.loadBills($('#feegroupv option:selected').val(),1);">Term Fees</button>
+			<button id="b0" type="button" class="btn btn-sx btn-small btn-danger" onclick="$.fn.loadBills($('#feegroupv option:selected').val(),0);">Entry Fees</button>
+		<?php } else { ?>
+			<button id="b4" type="button" class="btn btn-sx btn-small btn-primary" data-toggle="button" onclick="$.fn.loadBills2($('#feegroupv option:selected').val(),-100);">Uncategorized</button>
+			<button id="b1" type="button" class="btn btn-sx btn-small btn-danger"  onclick="$.fn.loadBills2($('#feegroupv option:selected').val(),1);">Term Fees</button>
+			<button id="b0" type="button" class="btn btn-sx btn-small btn-danger" onclick="$.fn.loadBills2($('#feegroupv option:selected').val(),0);">Entry Fees</button>
+		<?php } ?>
+	</div>
+</div>
+<?php } else {?>
+<p align="center" class="well well-small">Please select a valid group from above to view a bill</p>
+<?php } ?>
+<script type="text/javascript">
+<!--
+$(function(){
+
+	$(".table").tablecloth({ theme: "paper" });
+    $("#b<?php echo $this->button;?>").button('toggle');
+
+});
+
+//-->
+</script>

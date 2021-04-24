@@ -1,0 +1,32 @@
+<?php
+
+if ($this->users != null) {
+	?>
+
+
+
+			<h6>Existing Users</h6>
+
+		<table id="tb_users" class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Last name</th>
+					<th>First name</th>
+					<th>Role</th>
+					<th>Links</th>
+					<th>Links</th>
+				</tr>
+			</thead>
+			<tbody>
+               <?php echo $this->partialLoop('partials/_user-row.phtml', $this->users); ?>
+         </tbody>
+		</table>
+
+   <?php } else {?>
+     <p>You do not have any users yet.</p>
+   <?php }?>
+    <p>
+		<a href="/newuser">Create a new user</a>
+	</p>
+

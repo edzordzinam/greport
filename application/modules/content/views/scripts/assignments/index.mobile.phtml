@@ -1,0 +1,22 @@
+<div class="content-primary" id='cc'>
+
+
+
+</div><!--/content-primary -->
+
+   <!-- SCRIPT SECTION -->
+<script type="text/javascript">
+      $(function(){
+
+    	        $.post(
+    	        	    '/assignments/assign-summary',
+    	        	    {
+    	        	        mobile : true
+    	        	    },
+    	        	    function (data){
+    	        	        $(".content-primary").html(data).trigger('create');
+    	        	    });
+
+      });
+
+</script>

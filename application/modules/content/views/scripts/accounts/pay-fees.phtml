@@ -1,0 +1,117 @@
+<div style="display: inline; width: 700px;">
+	<div class="pull-left" style="width: 45%"><?php echo $this->form; ?></div>
+	<div class="pull-right" style="width: 45%">
+	<table class="table table-condensed table-striped table-bordered">
+	  <tr><td>Last Term Arrears/Credit </td><td>GH&cent; <?php echo $this->priorarrears;?></td></tr>
+	  <tr><td>Current Balance</td><td> GH&cent; <?php echo ($this->currentarrears < 0)? "(".(abs($this->currentarrears)).")" : $this->currentarrears; ?></td></tr>
+	</table>
+		<hr>
+		<h5>Optional Bills and Supplies</h5>
+		<hr style="margin-top:2px; margin-bottom:2px;">
+
+		<table class="table table-hover table-striped">
+			<tr>
+				<th><input type="checkbox" form="frm_payfees" id="selectall" disabled/></th>
+				<th width="210">Description</th>
+				<th align="center">Unit Price</th>
+			</tr>
+		</table>
+		<div id="scrolldiv">
+			<table class="table table-hover table-striped" >
+					<?php echo $this->optview; ?>
+			</table>
+			</div>
+
+		</div>
+	</div>
+	<input type="hidden" id="cs">
+	<script type="text/javascript">
+<!--
+$(function(){
+
+    $.fn.makePayment = function (){
+	    var arrayItem= [];
+	    $.each($(".case:checked"),function(){
+	         arrayItem.push($(this).val());
+	    });
+
+        $.post('/payfees',
+                {
+				studentid : $('#Pcl_id').val(),
+				gradelevel : $('#Pgradelevel').val(),
+				mode : $('#Ppaymode').val(),
+				slipno : $('#Pslipno').val(),
+				amount : $('#Pamount').autoNumeric('get'),
+				send : 'pay',
+				options : arrayItem
+
+            	},function(data){
+                	if (data != 0){
+                		$('#ajax-modal').modal('hide');
+                		bootbox.confirm("Print Receipt?", function(result) {
+                    		if (result)
+        						$.fn.printReceipt(data);
+
+                			});
+                		$('#dtb_studentdebtor').dataTable().fnReloadAjax();
+                	}
+                	else{
+                    	bootbox.alert('Transaction failed; contact administrator');
+                	}
+            });
+    };
+
+
+	ValidateAjax.initialize("frm_payfees", "/validateform");
+
+   /*  var selectBox = $("select").not("select[multiple=multiple]").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 600,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 600
+    }); */
+
+    // add multiple select / deselect functionality
+    $("#selectall").click(function () {
+         // $('.case').attr('checked', this.checked);
+    });
+
+    // if all checkbox are selected, check the selectall checkbox
+    // and viceversa
+    $(".case").click(function(){
+        if($(".case").length == $(".case:checked").length) {
+           // $("#selectall").attr("checked", "checked");
+        } else {
+           // $("#selectall").removeAttr("checked");
+        }
+ 		if ($(this).prop('checked')){
+ 	 		$.fn.addToBalance(true,$('#amt'+$(this).val()).text());
+
+    	}else{
+    		$.fn.addToBalance(false,$('#amt'+$(this).val()).text());
+    	}
+    });
+
+    $('#scrolldiv').slimScroll({
+        height: '300px',
+        size: '5px',
+        alwaysVisible: false
+    });
+
+    $.fn.addToBalance = function(checked,amt){
+        if (checked){
+            $('#arrears').val(parseFloat($('#arrears').val()) + parseFloat(amt));
+        }
+        else{
+            $('#arrears').val(parseFloat($('#arrears').val()) - parseFloat(amt));
+        }
+    };
+
+    $('.number').autoNumeric('init', {mDec :'0'});
+
+	$('#ajax-modal').width(800);
+	$('#ajax-modal').css('left','40%');
+
+});
+//-->
+</script>

@@ -1,0 +1,104 @@
+ <?php
+	// setting the controller and action name as title segments:
+
+	$this->headTitle ( 'View of Assigments' )->headTitle ( 'MVC Application' );
+
+	// setting a separator string for segments:
+	$this->headTitle ()->setSeparator ( ' - ' );
+
+	// LOADING OF VIEW SPECIFIC JAVASCRIPT FILES
+	//$this->jQuery ()->addJavascriptFile ( '/js/ui_js/assignment.js' );
+
+	?>
+
+		<div id="list-contain" style="width: 100% !important; height: 100%;  position: relative; margin-left: auto; margin-right: auto;">      	        <!-- Breadcrumbs -->
+        <div class="bc" style="margin: 2px !important;">
+            <ul id="breadcrumbs" class="breadcrumbs">
+            	<li><a href="#">ASSIGNMENT FILTERS</a></li>
+               		<?php echo $this->action('inst-subjects2', 'instructor')?>
+               	<li><a>ARCHIVE</a>
+               		<ul>
+
+               			<li><a href="">2011/2012</a></li>
+               		</ul>
+               	</li>
+               	<li class="current"><a href="/assignments/" onclick="$.fn.newAssignment(); return false;">ADD NEW ASSIGNMENT</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+
+   <?php
+	if ($this->assignments != null) {
+				?>
+		<div class="widget" id="assign-details" style="position: absolute; border:0px;  width : 99%;  top: 40px; left: 5px; height: 50px; ">
+			                 <div class="num" style="margin-left: 10px;">
+								<a id="markurl" class="greyNum" style="display: none !important;">Enter marks</a>
+								<a id="delurl" class="greyNum"
+								  onclick="return $.fn.confirmDelete();"
+								>Delete Assignment </a>
+							</div>
+                  <div class="updates">
+                    	<div class="newUpdate" style="padding-top: 0px;">
+                            <div class="uNotice">
+                                <a href="#" title=""><strong id="lbl_coursename"> </strong> -- [type : <strong id="lbl_type" class="orange">.</strong>]
+                                -- [topic : <strong id="lbl_topic">.</strong>]</a>
+                                <span>Date of submission : <strong id="lbl_datedued" class="green">.</strong>; |  | Maximum Mark :  <strong id="lbl_maxmark" class="orange"> . </strong>  </span>
+
+	            		 </div>
+                            <div class="uDate" style="margin-right: 2px;"><span class="uDay" id="lbl_day"></span><span id="lbl_month"></span></div>
+                            <div class="clear"></div>
+                        </div>
+                  </div>
+
+
+ 			</div>
+
+
+    	<div class="widget" style="margin-top: 0px; margin-left: 2px; padding-top: 60px; margin-right: 2px;">
+    	<div class="line"></div>
+    	<div class="clear"></div>
+		<div id="container-assign" style="overflow: auto; min-height: 400px;">
+			<table id="asstable" cellpadding="0" cellspacing="0" width="100%"
+				class="display">
+				<thead>
+					<tr>
+						<td>Assignment List</td>
+						<td>Subject</td>
+						<td>Class</td>
+						<td>Date Assigned</td>
+						<td>Max.</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody id="assignfiltered" >
+				  <?php  echo $this->partialLoop('partials/_assignments-row.phtml',  $this->assignments); ?>
+			 </tbody>
+			   <tfoot>
+					<tr>
+						<td>Assignment List</td>
+						<td>Subject</td>
+						<td>Class</td>
+						<td>Date Assigned</td>
+						<td>Max.</td>
+						<td></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+    	</div>
+</div>
+
+
+<?php } else {?>
+<p style="padding: 20px; text-align: center; min-height: 400px;">You do not have access to
+	any assignments. Either you haven't added any assignments or access is
+	denied to assignments.</p>
+<?php }?>
+
+<div class="body textL">
+	<div align="left" class="uDialog" style="display: none;">
+		<div align="left" id="dialog_newassignment" title="Dialog title">
+			<div align="left" id="assignment_container"></div>
+		</div>
+	</div>
+</div>

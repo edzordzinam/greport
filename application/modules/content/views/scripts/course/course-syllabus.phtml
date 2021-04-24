@@ -1,0 +1,180 @@
+<div align="right"><?php echo $this->subButtons?></div>
+
+<hr>
+
+<table id="dtb_syllabus"
+	class="dTable table table-hover table-bordered table-condensed table-mini">
+	<thead>
+		<tr>
+			<th>Syllabus Section</th>
+			<th>Status</th>
+			<th align="center">Manage</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<!-- <div class="btn-group" data-toggle="buttons-radio"> -->
+ <?php
+//   foreach ($this->classes as $key => $value) {
+//       $n = $this->getGradeName($value);
+//       echo "<button id='bb$key' class='btn btn-danger btn-small' type='button' onclick='$.fn.filterSyllabus($(\"#c\").text(),$value)'>$n</button>";
+//   }
+// ?>
+<!-- </div> -->
+
+<div align="left"><?php echo $this->subButtonsClasses?></div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_syllabus = $('#dtb_syllabus').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 20,
+		"bAutoWidth": false,
+
+		"bProcessing": true,
+		"bStateSave": false,
+		"bServerSide": true,
+		//"sServerMethod": "GET",
+		"sAjaxSource": "/syllabisource",
+		"fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
+			  aoData.push( { "name": "cid", "value": "<?php echo $this->firstcourse; ?>" } );
+			  aoData.push( { "name": "grade", "value": "<?php echo $this->classes[0];?>" } );
+		      oSettings.jqXHR = $.ajax( {
+		        "dataType": 'json',
+		        "type": "POST",
+		        "url": sSource,
+		        "data": aoData,
+		        "success": fnCallback
+		      });
+		      },
+		"aaSorting": [],
+	    "sScrollY": "250px",
+	    "bScrollInfinite": true,
+	    "bScrollCollapse": true,
+	    "bPaginate": true,
+
+		"oLanguage" : {
+			 "sProcessing": "<img src='/img/loaders/cloader2.gif'> Server processing request...",
+			 "sEmptyTable": "You have not been assigned the selected subject and selected class",
+		    },
+
+		"aoColumnDefs": [   {"bSortable":false, "aTargets":[2]},
+		                    /*  { "bVisible": false, "aTargets": [ 0 ] },
+		                       { "sClass": "markbase", "aTargets": [ 2 ] },
+			                   { "sClass": "markrow", "aTargets": [ 3 ] },
+			                   { "sClass": "exemptrow", "aTargets": [ 4 ] },*/
+			             ],
+		"fnDrawCallback": function( oSettings ) {
+							 $("a[rel=popover]")
+				 		     .popover()
+				 		     .click(function(e) {
+				 		       e.preventDefault();
+				 		     });
+				   		  },
+
+		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+		 			            var id = aData[0];
+		 			            	$(nRow).attr("id",id);
+		 		},
+
+		"fnInfoCallback": function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {
+		 		    return "Showing " + iStart+ " to "+ iEnd + " of "+ iTotal + " entries";
+
+		 		},
+		"oTableTools": {
+			//"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+							{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "Refresh Data",
+			                    "sButtonClass" : "btn-success whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                    	dtb_syllabus.fnReloadAjax();
+			                    }
+			                },
+			                {
+				                "sExtends" : "text",
+				                "sButtonText" : "Add Content",
+				                "sButtonClass" : "btn-primary whitetext",
+				                "fnClick" : function (nButton, oConfig, oFlash){
+					               //add new content panel
+				                	<?php if($this->current) { ?>
+				                		$.loadModal('/updatesyllabus?cid='+$('#c').text()+'&grade='+$('#g').text(), 'Syllabus definition', 1);
+				                	<?php } ?>
+				                },
+			                }],
+
+
+			"fnRowSelected": function (node){
+			}
+		}
+	});
+
+    $.fn.filterSyllabus = function(course, grade){
+        $('#c').text(course);
+        $('#g').text(grade);
+        dtb_syllabus.fnReloadAjax( '/syllabisource?cid=' + course + '&grade=' + grade );
+    };//end of filterassignments
+
+	$.fn.loadComments = function (examsid, title, std){
+		<?php if($this->current) { ?>
+		$.loadModal('/loadcomment?studentid='+std,title,examsid);
+		 <?php } else { ?>
+		 	bootbox.alert('Access Denied (Code 101) : Contact Administrator');
+		 <?php } ?>
+	};
+
+	$.fn.updateComment = function (examid, sid, cm){
+		<?php if($this->current) { ?>
+		bootbox.confirm('Are you sure you want to save updated comments?', function(response){
+			if(response){
+				$.post('/updatecomment',
+						{
+						eid : examid,
+						cm : cm,
+						course : $('#c').text(),
+						grade : $('#g').text(),
+						studentid : sid
+						},
+						function(){
+							dtb_syllabus.fnReloadAjax();
+				});
+			}
+		});
+		 <?php } else { ?>
+		 	bootbox.alert('Access Denied (Code 101) : Contact Administrator');
+		 <?php } ?>
+	};
+
+	$.fn.dtb_Syllabus = function(){
+		dtb_syllabus.fnReloadAjax();
+	};
+
+	$.fn.loadSyllabus = function(id){
+		$.loadModal('/updatesyllabus?update=true&id='+id+'&cid='+$('#c').text()+'&grade='+$('#g').text(), 'Syllabus definition', 1);
+	};
+
+	$.fn.deleteSyllabi = function (id, section){
+		bootbox.confirm('Sure you want to delete :'+section, function (response){
+			if (response){
+				$.post('/updatesyllabus',{update : 'delete',id : id}, function (response){ bootbox.alert(response);$.fn.dtb_Syllabus(); });
+			}
+		});
+	};
+
+	$(".table").not('#astats').tablecloth({ theme: "paper" });
+	$('#btnfirst').button('toggle');
+	$('#bb0').button('toggle');
+
+});
+
+</script>

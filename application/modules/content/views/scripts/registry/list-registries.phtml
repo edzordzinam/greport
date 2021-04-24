@@ -1,0 +1,147 @@
+<table cellpadding="0" cellspacing="0" border="0"
+    class="table table-striped table-bordered table-condensed" id="dtb_registries">
+	<thead>
+		<tr>
+			<th>Court</th>
+			<th>Location</th>
+			<th>RCode</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="odd_gradeA">
+			<td>Presto</td>
+			<td>Opera 8.5</td>
+			<td>Win 95+ / OSX.2+</td>
+		</tr>
+		<tr class="odd_gradeX">
+			<td>Tasman</td>
+			<td>Internet Explorer 4.5</td>
+			<td>Mac OS 8-9</td>
+		</tr>
+		<tr class="odd_gradeA">
+			<td>Presto</td>
+			<td>Opera 8.5</td>
+			<td>Win 95+ / OSX.2+</td>
+		</tr>
+		<tr class="odd_gradeX">
+			<td>Tasman</td>
+			<td>Internet Explorer 4.5</td>
+			<td>Mac OS 8-9</td>
+		</tr>
+		<tr class="even_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.1</td>
+			<td>Mac OS 7.6-9</td>
+		</tr>
+		<tr class="odd_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.2</td>
+			<td>Mac OS 8-X</td>
+		</tr>
+		<tr class="even_gradeA">
+			<td>Misc</td>
+			<td>NetFront 3.1</td>
+			<td>Embedded devices</td>
+		</tr>
+		<tr class="odd_gradeA">
+			<td>Presto</td>
+			<td>Opera 8.5</td>
+			<td>Win 95+ / OSX.2+</td>
+		</tr>
+		<tr class="odd_gradeX">
+			<td>Tasman</td>
+			<td>Internet Explorer 4.5</td>
+			<td>Mac OS 8-9</td>
+		</tr>
+		<tr class="even_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.1</td>
+			<td>Mac OS 7.6-9</td>
+		</tr>
+		<tr class="odd_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.2</td>
+			<td>Mac OS 8-X</td>
+		</tr>
+		<tr class="even_gradeA">
+			<td>Misc</td>
+			<td>NetFront 3.1</td>
+			<td>Embedded devices</td>
+		</tr>
+		<tr class="even_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.1</td>
+			<td>Mac OS 7.6-9</td>
+		</tr>
+		<tr class="odd_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.2</td>
+			<td>Mac OS 8-X</td>
+		</tr>
+		<tr class="even_gradeA">
+			<td>Misc</td>
+			<td>NetFront 3.1</td>
+			<td>Embedded devices</td>
+		</tr>
+		<tr class="odd_gradeA">
+			<td>Presto</td>
+			<td>Opera 8.5</td>
+			<td>Win 95+ / OSX.2+</td>
+		</tr>
+		<tr class="odd_gradeX">
+			<td>Tasman</td>
+			<td>Internet Explorer 4.5</td>
+			<td>Mac OS 8-9</td>
+		</tr>
+		<tr class="even_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.1</td>
+			<td>Mac OS 7.6-9</td>
+		</tr>
+		<tr class="odd_gradeC">
+			<td>Tasman</td>
+			<td>Internet Explorer 5.2</td>
+			<td>Mac OS 8-X</td>
+		</tr>
+		<tr class="even_gradeA">
+			<td>Misc</td>
+			<td>NetFront 3.1</td>
+			<td>Embedded devices</td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- JAVASCRIPTS SECTION -->
+<script type="text/javascript">
+<!--
+$(function (){
+	$('#dtb_registries').dataTable( {
+		"sLength" : 5,
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+		"oTableTools": {
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+			                {
+			                    "sExtends":    "text",
+			                    "sButtonText" : "New Registry",
+			                    "sButtonClass" : "",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                        $.post('/newregistry',
+			                        	{
+
+			                        	},
+			                        	function (data){
+			                        	    $('#registries').html(data);
+			                        	});
+			                    }
+			                }]
+
+		}
+	});
+});
+//-->
+</script>

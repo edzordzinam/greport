@@ -1,0 +1,20 @@
+<?php
+$mpdf_link = '
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+      document.write(\'<form method="POST" action="/buildpdf?url=\' + encodeURIComponent(location.href) +\'">\');
+';
+foreach ($_POST as $name => $post) {
+    $mpdf_link .= 'document.write(\'<input type="hidden" name="' . $name .
+             '" value="' . $post . '" />\'); ' . "\n";
+}
+$mpdf_link .= '
+      document.write(\'<input type="submit" class="btn btn-mini btn-primary" name="submit" value="Export PDF file of this page" />\');
+      document.write(\'</form>\');
+/* ]]> */
+</script>
+';
+
+echo $mpdf_link;
+
+?>

@@ -1,0 +1,115 @@
+<ul class="team pull-right">
+	<li><span class="crt" style="background-color: green">&cent;</span> <span
+		class="strong" style="font-size: 24px;" id="imptotal"><?php
+		$imprest = Content_Model_Imprest::getMonthlyImprest (
+							date ( 'm', time () ),
+							date ( 'Y', time () ) );
+		$expense = Content_Model_Expenses::monthExpenditure ( date ( 'm', time () ) );
+		$diff = $imprest - $expense;
+
+		echo ($imprest != null) ? (($diff > 0) ? number_format ( $diff, 2 ) : "(" . number_format (
+							abs ( $diff ),
+							2 ) . ")") : 'N/A';
+		?></span> <span class="muted"
+		style="top: 5px;
+	position: relative;
+	font-weight: bold;">Imprest Balance</span></li>
+	<li><span class="crt" style="background-color: black">&cent;</span> <span
+		class="strong" style="font-size: 24px;" id="exptotal"><?php echo Content_Model_Expenses::monthExpenditure(date('m',time())); ?></span>
+		<span class="muted"
+		style="top: 5px;
+	position: relative;
+	font-weight: bold;">Monthly Expenses</span></li>
+</ul>
+
+<h4 class="formSep">Monthly Imprest Update</h4>
+<div class="row-fluid">
+	<div class="span6"><?php echo $this->form; ?></div>
+	<div class="span6">
+		<table id="dtb_imprest" class="table table-condensed">
+			<thead>
+				<tr><th>Month</th><th>Amount</th></tr>
+			</thead>
+			<tbody>
+				<?php
+					foreach ($this->imprests as $imprest) { ?>
+					 <tr><td><?php echo date('F', strtotime("2013-$imprest->imonth") )?></td><td><?php echo ($imprest->amount); ?></td></tr>
+				<?php } ?>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th style="text-align: right; background-color: #E9F3F8;">Total:</th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<script>
+	$(function(){
+		ValidateAjax.initialize("frm_imprest", "/validateform");
+
+		$('#imonth option[value=<?php echo $this->month; ?>]').attr('selected','selected');
+		$('#amount').autoNumeric('init');
+
+
+		$.fn.updateImprest = function (){
+				$.post('/manageimprest',
+					{
+					update : true,
+					imonth : $('#imonth option:selected').val(),
+					amount : $('#amount').autoNumeric('get'),
+				},
+						function(data){
+
+				});
+		};
+
+		var dtb_imprest = $('#dtb_imprest').dataTable( {
+			"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+			"sPaginationType": "bootstrap",
+		    "iDisplayLength" : 12,
+			"bAutoWidth": false,
+			"bStateSave": false,
+			"sServerMethod": "POST",
+
+		    //"sScrollY": "250px",
+		    "bPaginate": true,
+
+			"oLanguage" : {
+				 "sUrl" : "/js/locale/datatables.english.txt"
+			    },
+
+			"oTableTools": {
+				"sRowSelect": "single",
+				"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+				"aButtons": [
+								"copy",
+								"print",
+								"xls",
+								"pdf"
+								]
+			},
+			"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+                /*
+                 * Calculate the total market share for all browsers in this table (ie inc. outside
+                 * the pagination)
+                 */
+                var iTotalExpense = 0;
+                for ( var i=0 ; i<aaData.length ; i++ )
+                {
+               	 	iTotalExpense += parseFloat(aaData[i][1])*1;
+                }
+
+ 				 //$('#impttotal').text(iTotalExpense);
+
+                /* Modify the footer row to match what we want */
+                var nCells = nRow.getElementsByTagName('th');
+                nCells[1].innerHTML = parseFloat(iTotalExpense);
+        }
+		});
+
+		$(".table").tablecloth({ theme: "paper" });
+	});
+</script>

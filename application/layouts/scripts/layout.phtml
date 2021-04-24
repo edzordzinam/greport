@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title><?php echo Content_Model_School::getSchoolName()?> welcomes you</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="We provide an innovative academic reporting generation system">
+<meta name="author"
+	content="<?php echo Content_Model_School::getSchoolName()?>">
+     <?php
+					echo $this->headTitle ();
+					$this->headLink ()->exchangeArray ( array () );
+					$this->headLink ()->appendStylesheet ( '/min/g=styles.css' );
+					echo $this->headLink ();
+					echo $this->jQuery ();
+					?>
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="/js/html5.js"></script>
+    <![endif]-->
+
+
+<!-- Le fav and touch icons -->
+<link rel="icon" type="image/png" href="/favicon.png">
+
+<!-- Le fav and touch icons -->
+<!-- <link rel="shortcut icon" href="/ico/favicon.ico"> -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="/ico/apple-touch-icon-57-precomposed.png">
+</head>
+
+<body background="/img/bg_noise.png"
+	style="background-color: rgba(0, 0, 0, 0.02);">
+
+	<!-- Navbar background-color: rgba(0, 0, 0, 0.03);
+    ================================================== -->
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a><a class="brand"
+					style="padding: 0px;
+							padding-top: 4px;
+							padding-left: 20px;
+							padding-right: 2px;">
+				<img class="img-polaroid" width="25"
+					src="/img/logosmall.png"
+					style="opacity:0.3;filter: alpha(opacity = 30)"></a>
+				<a class="brand" href="#"
+					id="schoolname" name="top"></a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="divider-vertical"></li>
+						<li class="tablet_menu" style="display: none;">
+							<div class="btn-group">
+								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+									<i class="icon-tasks"></i> Menu <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+								    <?php echo $this->action('sidebar', 'menu', 'content', array('nav' => 'yes'))?>
+								  </ul>
+							</div>
+						</li>
+						<li class="divider-vertical"></li>
+
+						<li class="dropdown"
+							style="background-image: url(/img/bg_noise.png);
+	background-color: rgba(0, 0, 0, 0.03);"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown">
+
+							<?php
+							$p = Content_Model_School::getCurrentTermYear ( false );
+							if ($p)
+								echo "Active :<strong style='color : blue'> Term $p->term of $p->year</strong>";
+							else
+								echo "<strong style='color : maroon'> Active Period Not Defined </strong>";
+							?>
+        					 <b class="caret black"></b>
+								<ul class="dropdown-menu quick-info">
+									<!-- dropdown menu links -->
+							    <?php if ($p) {?>
+							    	<li style="font-size: 12px;"><a
+										href="/changecontext?current=1">Activate Current Period (Term
+											and Year)</a></li>
+							    <?php } ?>
+							    <?php
+											$termyears = Content_Model_School::getPastTermYearsArray ();
+											foreach ( $termyears as $term ) {
+												$t = $term ['term'];
+												$y = $term ['year'];
+												$sd = date (
+																	'M-Y',
+																	strtotime (
+																						$term ['cl_startdate'] ) );
+												$ed = date (
+																	'M-Y',
+																	strtotime (
+																						$term ['cl_enddate'] ) );
+												echo "<li style='font-size: 12px;'><a href='/changecontext?Term=$t&Year=$y'>Term <strong>$t</strong> of <strong>$y</strong> [$sd - $ed] </a></li>";
+											}
+											?>
+							  </ul></li>
+						<li><a href="#"><label id="lbl_ajaxprogress"></label></a></li>
+
+					</ul>
+					<ul class="nav pull-right"
+						style="background-image: url(/img/bg_noise.png);
+						background-color: rgba(0, 0, 0, 0.03);">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <img class="nav-user-photo"
+								alt="Jason's Photo" src="/img/avatars/user.jpg"></img> <span
+								class="hidden-phone hidden-tablet" id="profileName"></span><b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#" onclick="$.fn.changePassword();return false;"><i
+										class="icon-wrench"></i> Change Password</a></li>
+								<li class="divider"></li>
+								<li><a href="/logout"><i class="icon-lock"></i> Logout</a></li>
+							</ul></li>
+						<?php $security = $this->action('index', 'index','security'); echo $security?>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+			<!--/.container-fluid -->
+		</div>
+		<!--/.navbar-inner -->
+	</div>
+	<!--/.navbar -->
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+
+			<div class="span3 hidden-phone hidden-tablet">
+				<!-- POSITION OF THE SIDEBAR MENU -->
+            <?php echo $this->action('sidebar', 'menu', 'content')?>
+         </div>
+			<!--/span-->
+			<div class="display-page" style="margin-left: 270px;">
+			<?php echo $this->action('shortcuts', 'menu', 'content');?>
+
+								<div id="ajax-modal" class="modal hide fade" tabindex="-1"
+					style="min-width: 600px;
+	top: 30px;">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 id="modal-title" style="text-transform: capitalize;">Please
+							provide title</h4>
+					</div>
+					<div class="modal-body"></div>
+					<!--                     <div class="modal-footer">
+		                    	<button type="button" data-dismiss="modal" class="btn">Close</button>
+		                    	<button type="button" class="btn btn-primary">Ok</button>
+		                    </div> -->
+				</div>
+
+				<div id="contentContainer context" data-toggle="context"
+					data-target="#context-menu" style="position: relative;">
+					<div id="fullscreen" class="span12"></div>
+					<div id="sysalert"></div>
+					<div class="alert alert-white fade in" id="idletimeout">
+						<h4 class="alert-heading" style="color: maroon;">Auto Logout
+							Alert!</h4>
+						You will be logged off in <span> <!-- countdown place holder -->
+						</span>&nbsp;seconds due to 10mins of inactivity. <a
+							id="idletimeout-resume" href="#">Refresh page or click here to
+							continue working...</a>.
+					</div>
+
+						<?php echo $this->layout()->content; ?>
+		           </div>
+			</div>
+			<!--/span-->
+
+		</div>
+		<!--/row-->
+
+	</div>
+
+	<!-- /container-fluid
+      <hr style="margin-bottom: 1px;">
+     <footer style="color: silver; font-weight : 200; font-size: 12px; margin-left: 30%">
+             <p>&copy; 2012 : Powered by Twitter Bootstrap, ZendFramework and Openshift Cloud [ <?php echo $this->translate('All rights reserved.') ?>]
+             <a href="http://www.pingdom.com"><img src="/img/pingdom_button_80x15.gif" alt="Monitored by Pingdom" width="80" height="15" border="0" /></a>
+             </p>
+     </footer>-->
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+
+    <?php if (getenv('APPLICATION_ENV') == 'development') {?>
+    	<script src="/min/g=scripts.js&debug"></script>
+    <?php } else {?>
+    	<script src="/min/g=scripts.js"></script>
+    <?php } ?>
+
+     <script type="text/javascript">
+         $(function() {
+			$.idleTimeout('#idletimeout', '#idletimeout a', {
+     			idleAfter: 540,
+     			pollingInterval: 300,
+     			keepAliveURL: '/keepalive',
+     			//warningLength: 60,
+     			AJAXTimeout: 2500,
+     			serverResponseEquals: 'OK',
+     			onTimeout: function(){
+     				$(this).slideUp();
+     				window.location = "/logout";
+     			},
+     			onIdle: function(){
+     				$(this).slideDown(); // show the warning bar
+     			},
+     			onCountdown: function( counter ){
+     				$(this).find("span").html( counter ); // update the counter
+     			},
+     			onResume: function(){
+     				$(this).slideUp(); // hide the warning bar
+     			}
+     		});
+
+     		//expose the form when it's clicked or cursor is focused
+     		var form = $(".expose").bind("click keydown", function() {
+     			$(this).expose({
+     			    opacity : 0.5,
+     			    loadSpeed : 'fast',
+     				// when exposing is done, change form's background color
+     				onLoad: function() {
+     					//form.css({backgroundColor: '#c7f8ff'});
+     				},
+
+     				// when "unexposed", return to original background color
+     				onClose: function() {
+     					//form.css({backgroundColor: null});
+     				}
+
+     			});
+     		});
+
+     		$.fn.createAutoClosingAlert = function(selector, delay) {
+      		   var alert = $(selector).alert();
+      		   window.setTimeout(function() { alert.alert('close') }, delay);
+      		}
+
+		/*	$.showMessage = function (msg, type, layout ) {
+		    	layout = (typeof layout === "undefined") ? "center" : layout;
+		    	type = (typeof type === "undefined") ? "information" : type;
+
+			  	var n = noty({
+			  		text: msg,
+			  		type: type,
+			  	    dismissQueue: true,
+			  		layout: layout,
+			  		theme: 'default',
+			  		modal : false,
+			  		timeout : 1000,
+			  		force : false,
+			  		closeWith : ['button'],
+			  		animation: {
+			  		    open: {height: 'toggle'},
+			  		    close: {height: 'toggle'},
+			  		    easing: 'swing',
+			  		    speed: 500 // opening & closing animation speed
+			  		  },
+					/*
+			  			 buttons: [
+				  			  {
+					  			  addClass: 'btn btn-success btn-mini', text: 'Ok', onClick: function($noty) {
+				  			           $noty.close();
+				  			  }},
+				  			 ],
+			  		  callback: {
+				  		    onShow: function() {},
+				  		    afterShow: function() {},
+				  		    onClose: function() {},
+				  		    afterClose: function() {}
+				  		  },
+			  	});
+			  }; */
+
+    		var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
+
+     		$.showMessage = function (msg, type, layout ){
+     			$.pnotify({
+     			    title: 'System Alert',
+     			    text: msg,
+     			    type: type,
+     			    icon: 'picon picon-network-wireless',
+      			    closer_hover: false,
+    			    sticker_hover: false,
+    			    history : false,
+    			    delay: 5000,
+     			});
+     		};
+
+
+			/* 	var stack_topleft = {"dir1": "down", "dir2": "right", "push": "top"};
+			var stack_bottomleft = {"dir1": "right", "dir2": "up", "push": "top"};
+			var stack_custom = {"dir1": "right", "dir2": "down"};
+			var stack_custom2 = {"dir1": "left", "dir2": "up", "push": "top"};
+			var stack_bar_bottom = {"dir1": "up", "dir2": "right", "spacing1": 0, "spacing2": 0};
+			*/
+			var stack_bar_top = {"dir1": "down", "dir2": "right", "push": "top", "spacing1":100, "spacing2": 0};
+
+     		$.showMessageTop = function (msg, type, layout ){
+		    	$.pnotify({
+	 			    title: 'Accounts Alert',
+	 			    text: msg,
+	 			    type: type,
+	 			    icon: 'picon picon-network-wireless',
+	  			    closer_hover: false,
+				    sticker_hover: false,
+				    history : false,
+				    delay: 5000,
+				    addclass: "stack_bar_top",
+				    cornerclass: "",
+				    width: "100%",
+				    top : '30%',
+				    stack: stack_bar_top
+	 			});
+			}
+
+			var $modal = $('#ajax-modal');
+			var $modalbody = $('#ajax-modal .modal-body');
+			  $.loadModal = function(url, title, data){
+				    GlobalModalManager.loading();
+				    $('#modal-title').html(title);
+				    $modalbody.load(url,
+						 {
+				          data : data,
+					     }, function(){
+				      $modal.modal();
+				    });
+			  }
+
+
+			  $.loadModalXD = function(url, title, data){
+				    GlobalModalManager.loading();
+				    $('#modal-title').html(title);
+
+					$.ajax({
+						     url:url,
+						     data : {'data' : data},
+						     timeout : 300000,
+						     success:function(json){
+						         // do stuff with json (in this case an array)
+						         $modalbody.html(json);
+						         $modal.modal();
+						     },
+						     error:function(){
+						     },
+					});
+			  };
+
+			  $.resizeElementHeight = function (element) {
+				  var height = 0;
+				  var body = window.document.body;
+				  if (window.innerHeight) {
+				      height = window.innerHeight;
+				  } else if (body.parentElement.clientHeight) {
+				      height = body.parentElement.clientHeight;
+				  } else if (body && body.clientHeight) {
+				      height = body.clientHeight;
+				  }
+				  element.css('height', ((height - 200) + "px"));
+				};
+
+			$(document).ajaxError(
+						function(event, request, settings) {
+							$('#lbl_ajaxprogress').unblock();
+						if (request.readyState == 0){
+							$('#lbl_ajaxprogress').unblock();
+							$('#sysalert').html('<div class="alert alert-block alert-error fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Connection to server failed. Please check your internet/network connection and try again</p></div>');
+						}
+						if (request.readyState == 4 && request.status == 401 /*Unauthorized Request*/  ) {
+				   			window.location.replace('/');
+						}else
+						if (request.readyState == 4 && request.status == 406 /*Unauthorized Request*/  ) {
+								$.showMessage('Update failed, Data incomplete','error');
+						}else
+						if(request.readyState == 4 && request.status == 701 /*Invalid term & year configuration*/){
+							window.location.replace('/notermerror');
+						}
+						else if (request.readyState == 4 && request.status == 503 /*Service Temporarilty Unavailable Request*/  ) {
+						$('#sysalert').html('<div class="alert alert-block alert-error fade in">\
+							    <button type="button" class="close" data-dismiss="alert">&times;</button> \
+							    <h4 class="alert-heading">System Alert!</h4> \
+								<p>The server is temporarily unable to service your \
+								request due to maintenance downtime. Please try again after some time.\
+								Sorry for the inconvenience!!</p></div>');
+						}
+						else if (request.readyState == 4 && request.status == 501){
+							$('#sysalert').html('<div class="alert alert-block alert-info fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Configuration of your institution is not yet complete. Sorry for any inconvenience caused. Please contact support for more information</p></div>');
+						}
+			});
+
+			$(document).ajaxSuccess(
+					function (event, request, settings){
+					   if (request.readyState == 4 && request.status == 202 /*Accepted Request*/) {
+							$.showMessage('Data successfully updated','information');
+						};
+					});
+
+
+			$(document).ajaxStart(function(){
+				$("#sysalert").html('');
+				$('#lbl_ajaxprogress').block(
+						{
+							message : ' <img src="/img/loaders/cloader2.gif" />  Processing',
+							css : {width : '150px', border:'0px solid #aaa',}
+						 }
+						);
+			});
+
+			$.fn.changePassword = function(){
+				$.loadModal('/changepassword','Change Password',1);
+			};
+
+
+			$.fn.updatePassword = function (){
+				$.post('/changepassword',
+						{
+							change : 1,
+							newpwd : $.MD5($('#newpwd').val()),
+							oldpwd : $.MD5($('#currentpwd').val()),
+							matchpwd : $.MD5($('#matchpwd').val())
+						},
+						function (data){
+							bootbox.alert(data);
+							bootbox.confirm('Password change successful. Please re-login with your new password', function($result){
+								$('#ajax-modal').modal('hide');
+								window.location.replace('/logout');
+							});
+						});
+			};
+
+			$(document).ajaxStop(function(){
+				$('#lbl_ajaxprogress').unblock();
+				//$.unblockUI();
+			});
+
+
+			//var UID = <?php //echo Zend_Auth::getInstance()->getIdentity()->cl_IID; ?>;
+
+			/* NotifierSSE = (function() {
+			    var _stateNode = $('#notificationNum'),
+			        _timeNode = $('#time'),
+			        _src,
+			        _handler = {
+			        onMessage : function(event) {
+			             var data = JSON.parse(event.data);
+			            _stateNode.val(data.updatedNotificationNum);
+			            _timeNode.val(data.time);
+			        }
+			    };
+			    return {
+			        init : function () {
+			        _src = new EventSource("/sse?recipientUid=" + UID);
+			        _src.addEventListener('message', _handler.onMessage, false);
+			        }
+			    }
+			}()); */
+
+
+			// Document is ready
+/* 			$(document).bind('ready.app', function() {
+			   setTimeout(NotifierSSE.init, 40);
+			}); */
+
+			var path = window.location.pathname;
+			path = path.replace(/^\/|\/$/g, '');
+
+			$('.navbar-inner li [id='+path +']').toggleClass('active');
+			$('#sidebarmenu [id='+path +']').toggleClass('active');
+
+ 			$('.chzn-select').chosen();
+
+			$(".tablecloth").tablecloth({ theme: "paper" });
+
+	});
+
+        function jqUpdateSize(){
+     	    // Get the dimensions of the viewport
+     	    var width = $(window).width();
+     	    var height = $(window).height();
+
+      	   if(screen.height - window.innerHeight > 3){
+				$('#fullscreen').html("<div class='alert alert-info fade in autoclose'><strong>Fullscreen mode: Switch to FULLMODE by pressing the F11 key on your keyboard for optimal display!</strong> <button type='button' class='close' data-dismiss='alert'>&times;</button></div>");
+				$.fn.createAutoClosingAlert(".autoclose", 5000);
+      	   }else{
+          	   $('#fullscreen').html('');
+      	   }
+     	};
+     	$(document).ready(jqUpdateSize);    // When the page first loads
+     	$(window).resize(jqUpdateSize);     // When the browser changes size
+   </script>
+
+</body>
+</html>
+
+

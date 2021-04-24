@@ -1,0 +1,102 @@
+<div class="row-fluid">
+	<div class="span6">
+		<h4 class="formSep">
+			Students Bills Management <small>Define and update billables</small>
+		</h4>
+	<?php echo $this->form; ?></div>
+	<div class="span6">
+		<?php echo $this->viewform;?>
+		<div id="loadbill2"></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+
+	$("#frm_termbill").ajaxForm({
+		//options of ajaxForm
+
+		url : '/termbillupdate',
+		data : {
+			send : '<?php echo $this->sendState; ?>',
+    		}, //data to be submitted along with the form variables json formatted
+		clearForm : null, // form to be cleared if submit is successfull,
+
+		dataType : 'json',  // json, xml, or script
+		type : 'POST', // type of ajax call GET or POST
+
+ 		beforeSubmit : function (arr, $form, options){
+		    if($('#isValid').val() == "false")
+    		    return false;
+		},
+
+		success: function (data){
+			$('a[href="#termbill"]').click();
+        }
+
+    });
+
+	ValidateAjax.initialize("frm_termbill", "/validateform");
+
+/*     var selectBox = $("select").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 200,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 200,
+
+    });
+ */
+	var datasource = [];
+	   $.ajax({
+	       url : '/billables',
+	       type : 'POST',
+	       data : 'query=none',
+	       dataType : 'JSON',
+	       async : true,
+	       success : function(data){
+	    	 [].push.apply(datasource, data);
+	       }
+	  });
+
+    $('#description').typeahead({
+  	   // source can be a function
+ 	   /*  source: function (query,process) {
+    	     $.ajax({
+      	       url : '/billables',
+      	       type : 'POST',
+      	       data : 'query=' + query,
+      	       dataType : 'JSON',
+      	       async : true,
+      	       success : function(data){
+     	    	     process(data);
+      	       }
+        	     });
+ 	   	    }, */
+   	    	source : datasource,
+ 	   	    minLength : 1,
+ 	   	    items : 8,
+ 	   	    updater : function (item){
+ 	   	   	    //item = selected item
+ 	   	   	    //do your stuff
+ 	   	   	    //$.showMessage(item);
+ 	   	   	    return item;
+ 	   	    },
+      });
+
+    $.fn.loadBills2 = function(groupkey, ft){
+        $.post('/viewbillsource',
+        	{
+        		view : 0,
+                group : groupkey,
+                feetype : ft
+            },
+            function(data){
+                $('#loadbill2').html(data);
+            });
+    };
+
+});
+//-->
+</script>

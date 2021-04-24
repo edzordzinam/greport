@@ -1,0 +1,122 @@
+<div class="tabbable tabs-above">
+	<ul id="myTab" class="nav nav-pills">
+		<li class="active"><a href="#listcurrentstudents" data-toggle="tab">Current Students</a></li>
+		<li><a href="#listpaststudents" data-toggle="tab">Past Students</a></li>
+		<li><a href="#listoldstudents" data-toggle="tab">Old Students(Graduates)</a></li>
+	</ul>
+
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="listcurrentstudents"></div>
+		<div class="tab-pane fade in active" id="listpaststudents"></div>
+		<div class="tab-pane fade in active" id="listoldstudents"></div>
+	</div>
+</div>
+
+<script src="/min/g=webcam.js" type="text/javascript" ></script>
+<!-- SCRIPT SECTION -->
+<script type="text/javascript">
+      $(function(){
+          	newstudent = true;
+
+    	    $('a[href="#listcurrentstudents"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/student/listcurrentstudents',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#listcurrentstudents').html(data);
+
+	  	        	    	  <?php if ($this->newstudent) { ?>
+	  	        	    	    if (newstudent)
+	  	        	    	  		$.post('/studentrecord',
+	  	        	                	{
+	  	        	                       send : false,
+	  	        	                	},
+	  	        	                	function (data){
+	  	        	                	    $('#listcurrentstudents').html(data);
+	  	        	                	});
+
+	  	        	            newstudent = false;
+
+	  	        	    	   <?php } ?>
+    	        	    });
+    	    });
+
+
+    	    $('a[href="#listpaststudents"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/student/listpaststudents',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#listpaststudents').html(data);
+    	        	    });
+    	    });
+
+
+    	    $('a[href="#listoldstudents"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/student/listoldstudents',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#listoldstudents').html(data);
+    	        	    });
+    	    });
+
+
+    	  $.fn.toggleStudentStatus = function (studentid, page){
+  		      var msg = '';
+  		      var btn = '';
+
+  		    if (page == 0){
+  	  		    msg = 'Sure you want to withdraw selected student?';
+  	  		    btn = 'Withdraw student';
+  		    }
+  		    else{
+  	  		    msg = 'Sure you want to re-admit selected student?';
+  	  	  		btn = 'Re-admit student';
+  		    }
+
+  		      bootbox.confirm(msg,'Cancel',btn,
+  		  		  function (result){
+    		        if (result){
+    		        	$.post(
+    		      			    '/student/toggle-status',
+    		      			    {
+    		          			    studentid : studentid
+    		          			},
+    		          			function (data){
+    		          			    if (page == 0)
+    		          			    	$('a[href="#listcurrentstudents"]').click();
+    		          			    else
+    		          			    	$('a[href="#listpaststudents"]').click();
+    		          			}
+    		          	);
+    		        }
+	  		      });
+     	  };
+
+    	  $.fn.updateStudentRecord = function (studentid){
+    		  $.post('/studentrecord',
+                    	{
+                           send : false,
+                           studentid : studentid,
+                           update : true,
+                    	},
+                    	function (data){
+                    	    $('#listcurrentstudents').html(data);
+                    	});
+    	  };
+
+
+  	      $.fn.studentPreview = function (studentid){
+  	  	      $.showMessage('load student data preview');
+  	      };
+
+
+    	  //make ajax call to list of instructors
+    	  $('a[href="#listcurrentstudents"]').click();
+
+     });
+</script>

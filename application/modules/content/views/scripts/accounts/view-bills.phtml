@@ -1,0 +1,35 @@
+<?php echo $this->form;?>
+<div id="loadBill">
+	<p align="center" class="well well-small">Please select a valid group
+		from above to view a bill</p>
+</div>
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+
+/* 	var selectBox = $("select").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 600,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 600
+    }); */
+
+    $.fn.loadBills = function(groupkey, ft){
+        $.post('/viewbillsource',
+        	{
+                group : groupkey,
+                feetype : ft
+            },
+            function(data){
+                $('#loadBill').html(data);
+            });
+    };
+
+	$('#ajax-modal').width(400);
+	$('#ajax-modal').css('left','48%');
+});
+
+//-->
+</script>

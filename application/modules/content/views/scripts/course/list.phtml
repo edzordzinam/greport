@@ -1,0 +1,102 @@
+	 <table id="dtb_listcourses" class="table table-bordered table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>Course Title</th>
+					<th>Classes</th>
+					<th>manage</th>
+					<!-- //<th width="45">Order</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<?php if ($this->courses != null) {   
+                	echo $this->partialLoop('partials/_course-row.phtml', $this->courses);  
+  				}?>
+             </tbody>
+		</table>
+
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+   var listcourses = $('#dtb_listcourses').dataTable( {
+    	"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+    	"bStateSave": false,
+        "iDisplayLength" : 10,
+        "aaSorting": [],
+		"aoColumnDefs": [
+			                 //{ "sClass": "ct", "aTargets": [ 1 ] },  //used in setting a class to a td
+			                 //{ "sClass": "em", "aTargets": [ 2 ] },  //used in setting a class to a td
+				            ],
+
+		"bPaginate": true,
+
+    	"oTableTools": {
+    		"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+    		"aButtons": [
+    						"copy",
+    						"print",
+    						"xls",
+    						"pdf",
+    						{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "New Subject",
+			                    "sButtonClass" : "",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                        $.post('/newsubject',
+			                        	{
+			                               send : false,
+			                        	},
+			                        	function (data){
+			                        	    $('#listsubjects').html(data);
+			                        	});
+			                    }
+			                }]
+    	},
+
+    	"fnDrawCallback" : function (){
+ 		   $("a[rel=popover]")
+		     .popover()
+		     .click(function(e) {
+		       e.preventDefault();
+		     });
+    	}
+    });
+
+   $.fn.deleteClass = function (grade, course){
+	   $.post(
+			    '/deleteclass',
+			    {
+				    subject : course,
+				    grade : grade,
+				},
+			    function (data){
+				   $('a[href="#listsubjects"]').click();
+				});
+   };
+
+
+   $.fn.updateSubject = function (courseid){
+	   $.post(
+			    '/updatesubject',
+			    {
+				    id : courseid
+			    },
+			    function (data){
+			    	 $('#listsubjects').html(data);
+			    }
+			   );
+   };
+
+   // popover demo
+   $("a[rel=popover]")
+     .popover()
+     .click(function(e) {
+       e.preventDefault()
+     })
+
+
+     $(".table").tablecloth({ theme: "paper" });
+});//end of document ready
+//-->
+</script>

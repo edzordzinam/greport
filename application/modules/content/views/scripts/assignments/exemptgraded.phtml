@@ -1,0 +1,75 @@
+<table id="dtb_exemptgraded" class="table table-hover table-bordered table-condensed table-mini">
+  <thead>
+    <tr>
+        <th>AID</th>
+        <th>Student name</th>
+        <th>Subject</th>
+        <th>Topic Assessed</th>
+        <th>Max.</th>
+        <th>Mark</th>
+        <th>Exempt</th>
+        <th>Class</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+<!--
+$(function(){
+
+	var dtb_exemptgraded = $('#dtb_exemptgraded').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 10,
+		"bAutoWidth": false,
+
+		"bProcessing": true,
+		"bStateSave": false,
+
+		"aaSorting": [],
+		"bServerSide": true,
+		"sAjaxSource": "/ungradedsource",
+		"fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
+			  aoData.push( { "name": "zero", "value": "-1" } );
+			  aoData.push( { "name": "instructor", "value": "<?php echo $this->ins;?>" } );
+		      oSettings.jqXHR = $.ajax( {
+		        "dataType": 'json',
+		        "type": "POST",
+		        "url": sSource,
+		        "data": aoData,
+		        "success": fnCallback
+		      });
+		      },
+		"bPaginate": true,
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"aoColumnDefs": [
+			                 { "bSortable": false, "aTargets": [ 7 ] }
+			             ],
+
+		"oTableTools": {
+			//"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+							],
+			"fnRowSelected": function ( node ) {
+
+			}
+		}
+	});
+
+	$(".table").not('#astats').tablecloth({ theme: "paper" });
+
+});
+//-->
+</script>

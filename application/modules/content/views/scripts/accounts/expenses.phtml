@@ -1,0 +1,215 @@
+
+<ul class="team pull-right">
+	<li><span class="crt" style="background-color: green">&cent;</span> <span
+		class="strong" style="font-size: 24px;" id="imptotal"><?php
+		$imprest = Content_Model_Imprest::getMonthlyImprest (
+							date ( 'm', time () ),
+							date ( 'Y', time () ) );
+		$expense = Content_Model_Expenses::monthExpenditure ( date ( 'm', time () ) );
+		$diff = $imprest - $expense;
+
+		echo ($imprest != null) ? (($diff > 0) ? number_format ( $diff, 2 ) : "(" . number_format (
+							abs ( $diff ),
+							2 ) . ")") : 'N/A';
+		?></span> <span class="muted"
+		style="top: 5px;
+	position: relative;
+	font-weight: bold;">Imprest Balance</span></li>
+	<li><span class="crt" style="background-color: black">&cent;</span> <span
+		class="strong" style="font-size: 24px;" id="exptotal"><?php echo Content_Model_Expenses::dayExpenditure(date('Y-m-d',time())); ?></span>
+		<span class="muted"
+		style="top: 5px;
+	position: relative;
+	font-weight: bold;">Total Expenses</span></li>
+</ul>
+
+<h4 class="formSep">Daily Expenditure Update</h4>
+<div class="row-fluid">
+	<div class="span5" id="expensecontainer">
+			<?php echo $this->form; ?>
+	</div>
+	<div class="span7">
+		<div class="input-prepend input-append">
+			<input type="text" data-mask="99-99-9999"
+				data-date-format="dd-mm-yyyy" class="span6" id="choosedate"
+				value="<?php echo date('d-m-Y',time());?>">
+			<button class="btn btn-small" onclick="$.fn.loadExpense(1,-10);">Load</button>
+		</div>
+
+		<div class="btn-group">
+			<button type="button" class="btn btn-default"
+				onclick="$.fn.loadExpense(1,-11);">Today</button>
+			<button type="button" class="btn btn-default"
+				onclick="$.fn.loadExpense(1,0);">All Expenses</button>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle"
+					data-toggle="dropdown">
+					Choose Month <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<!-- dropdown menu links -->
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,1);">January</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,2);">February</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,3);">March</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,4);">April</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,5);">May</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,6);">June</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,7);">July</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,8);">August</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,9);">September</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,10);">October</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,11);">November</a></li>
+					<li><a href="javascript:void(0);" onclick="$.fn.loadExpense(2,12);">December</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+		<table id="dtb_expenses" class="table table-condensed table-bordered">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Description</th>
+					<th>Received By</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+			<tfoot>
+				<tr>
+					<th style="text-align: right; background-color: #E9F3F8;" colspan="3" >Total:</th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+<!--
+$(function(){
+	ValidateAjax.initialize("frm_expenses", "/validateform");
+
+	<?php if ($diff < 0) { ?>
+		$('#sysalert').html('<div class="alert alert-white"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Please note that Imprest has been exceed by GH&cent; <?php echo abs($diff) ?><strong></div>');
+	<?php }?>
+
+	$.temp = {
+			t:0
+			};
+
+	$('#etransdate').datepicker();
+	$('#choosedate').datepicker();
+	var datasource = [];
+	   $.ajax({
+  	       url : '/json/expenses.json',
+  	       type : 'POST',
+  	       data : 'query=none',
+  	       dataType : 'JSON',
+  	       async : true,
+  	       success : function(data){
+    	    	 [].push.apply(datasource, data);
+  	       }
+    	  });
+
+	 $('#description').typeahead({
+	  	   // source can be a function
+	 	    source: datasource,
+	 	   	    minLength : 1,
+	 	   	    items : 8,
+	 	   	    updater : function (item){
+	 	   	   	    //item = selected item
+	 	   	   	    //do your stuff
+	 	   	   	    //$.showMessage(item);
+	 	   	   	    return item;
+	 	   	    },
+	 });
+
+
+		$("#frm_expenses").ajaxForm({
+			//options of ajaxForm
+
+			url : '/addexpense',
+			data : {
+				send : '<?php echo $this->sendState; ?>',
+	    		}, //data to be submitted along with the form variables json formatted
+			clearForm : true, // form to be cleared if submit is successfull,
+			resetForm : true,
+			dataType : 'json',  // json, xml, or script
+			type : 'POST', // type of ajax call GET or POST
+
+	 		beforeSubmit : function (arr, $form, options){
+			    if($('#isValid').val() == "false")
+	    		    return false;
+			},
+
+			success: function (data){
+				dtb_expenses.fnReloadAjax();
+	        }
+
+	    });
+
+		var dtb_expenses = $('#dtb_expenses').dataTable( {
+			"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+			"sPaginationType": "bootstrap",
+		    "iDisplayLength" : 10,
+			"bAutoWidth": false,
+			"bProcessing": true,
+			"bStateSave": false,
+			"bServerSide": true,
+			"sAjaxSource": "/expensesource?type=1&month=-11&transdate="+$('#choosedate').val(),
+			"sServerMethod": "POST",
+
+		    //"sScrollY": "250px",
+		    "bPaginate": true,
+
+			"oLanguage" : {
+				 "sUrl" : "/js/locale/datatables.english.txt"
+			    },
+
+			"aoColumnDefs": [
+
+				             ],
+
+			"oTableTools": {
+				"sRowSelect": "single",
+				"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+				"aButtons": [
+								"copy",
+								"print",
+								"xls",
+								"pdf"
+								]
+			 },
+		"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+                 /*
+                  * Calculate the total market share for all browsers in this table (ie inc. outside
+                  * the pagination)
+                  */
+                 var iTotalExpense = 0;
+                 for ( var i=0 ; i<aaData.length ; i++ )
+                 {
+                	 	iTotalExpense += aaData[i][3]*1;
+                 }
+
+  				 $('#exptotal').text(iTotalExpense);
+
+                 /* Modify the footer row to match what we want */
+                 var nCells = nRow.getElementsByTagName('th');
+                 nCells[1].innerHTML = parseFloat(iTotalExpense);
+         }
+
+		});
+
+		$.fn.loadExpense = function(cat, month){
+				dtb_expenses.fnReloadAjax("/expensesource?type="+cat+"&month="+month+"&transdate="+$('#choosedate').val());
+		}
+
+		$(".table").tablecloth({ theme: "paper" });
+
+});
+
+
+//-->
+</script>

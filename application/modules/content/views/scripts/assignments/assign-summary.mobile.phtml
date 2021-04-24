@@ -1,0 +1,46 @@
+		<ul class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-role="listview" data-inset="true" data-divider-theme="b">
+			<li class="ui-li ui-li-divider ui-bar-b ui-corner-top" role="heading" data-role="list-divider">Assessments Summary</li>
+			<li class="ui-li ui-li-static ui-btn-up-c ui-corner-top">
+				<h3 class="ui-li-heading">Class and subjects info</h3>
+				<p class="ui-li-desc" style="font-size: 13px">Assigned Classes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo $this->getGradeListRaw($this->assignedClasses);?></strong></p>
+				<p class="ui-li-desc" style="font-size: 13px">Assigned Subjects:&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo $this->assignedSubs;?></strong></p>
+			    <p class="ui-li-desc" style="font-size: 13px">Total students:&nbsp;&nbsp;&nbsp;<strong><?php echo $this->totalStudents;?></strong></p>
+                <p class="ui-li-desc" style="font-size: 13px">Assessments / * students: &nbsp;&nbsp;&nbsp;&nbsp; <strong><?php echo $this->totalAssess; ?> / <?php echo $this->totalStdAss;?></strong></p>
+                <p class="ui-li-desc" style="font-size: 13px">Graded assessments: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo $this->totalGraded; ?></strong></p>
+                <p class="ui-li-desc" style="font-size: 13px">Ungraded assessments:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo $this->totalUnGraded;  ?></strong></p>
+                <p class="ui-li-desc" style="font-size: 13px">Zero graded assessments:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo $this->totalZero;  ?></strong></p>
+			</li>
+            <li>
+            <button data-mini="true" id="newassess" onclick="$.fn.newAssessment();">New Assessment</button></li>
+		</ul>
+
+		<ol class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-role="listview" data-inset="true">
+    			 <?php
+                  $sum = 0;
+                  foreach ($this->stats as $stat) {
+                      $g = $this->getGradeName($stat->cl_grade);
+                      $st = substr($stat->subject, 0, 15) . '...';
+                      $sum += $stat->cnt;
+                      echo "<li class='ui-li ui-li-static ui-btn-up-c' style='font-size:13px;'>$st ($g)  <span class='ui-li-count ui-btn-up-c ui-btn-corner-all'>$stat->cnt</span></li>";
+                  }
+                 ?>
+ 			</ol>
+
+
+
+<!-- SCRIPTS SECTION -->
+<script type="text/javascript">
+<!--
+$(function (){ //document ready function call
+
+	<?php if ($this->totalUnGraded > 0) {?>
+        $('#ul').html('<span class="label label-inverse label-mini" style="padding : 0px 2px;"><?php echo $this->totalUnGraded;  ?></span>');
+    <?php } ?>
+
+	<?php if ($this->totalZero > 0) {?>
+    $('#zl').html('<span class="label label-inverse label-mini"  style="padding : 0px 2px;"><?php echo $this->totalZero;  ?></span>');
+    <?php } ?>
+
+});
+//-->
+</script>

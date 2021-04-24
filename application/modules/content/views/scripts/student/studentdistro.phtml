@@ -1,0 +1,29 @@
+<h3
+	style="color: rgba(100, 100, 0, 0.5);
+	font-size: 40px;
+	margin-top: 2px;
+	margin-bottom: 3px;
+	margin-left: 20px;">
+
+			<div class="input-prepend input-append">
+					<span class="add-on"><i class="icon-user" style="color: white;"></i></span>
+					<input placeholder="Search..." type="text" style="font-size:14px; height: 19px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+					<button type="button" class="btn btn-default" style="position: relative; top: 1px; border:none; border-radius:0px;"><i class="icon-search"></i></button>
+				</div>
+
+		<small>Total Capacity </small><?php echo $this->totalcapacity;?> | <?php echo $this->availablespace; ?><small style="color: blue; font-family: sans-serif;
+	font-weight: bold;">Spaces Available </small>
+</h3>
+
+<div id="container"
+	style="background: url(/img/bg_noise.png) repeat rgba(245, 245, 245, 0.01);
+	width: 99%;"></div>
+
+<script src="/min/g=highcharts.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	var highchartsOptions = Highcharts.setOptions(Highcharts.theme.back);
+	<?php echo $this->chart->render();?>
+});
+</script>

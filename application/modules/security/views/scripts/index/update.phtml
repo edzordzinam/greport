@@ -1,0 +1,17 @@
+
+<div class="loginWrapper">
+	<div id="response"></div>
+	<div class="widget" style="height: auto;">
+		<div class="title">
+			<img src="/images/icons/dark/files.png" alt="" class="titleIcon" />
+			<h6>Update user details</h6>
+		</div>
+            <?php  echo $this->form; ?>
+       </div>
+
+	<p>
+		<a
+			href='/login/user/password/id/<?php echo $this->form->getElement('id')->getValue(); ?>'>Update
+			Password</a>
+	</p>
+</div>

@@ -1,0 +1,90 @@
+
+<div align="left">
+	<div class="btn-group" align="right" data-toggle="buttons-radio">
+		<button type="button" class="btn btn-small btn-default active" onclick="$.fn.filterResidence(0);">Non-Resident/Day</button>
+		<button type="button" class="btn btn-small btn-default" onclick="$.fn.filterResidence(1);">Resident/Boarder</button>
+	</div>
+</div>
+
+<hr style="margin-top: 4px; margin-bottom: 4px;">
+<table id="dtb_studentdebtor" class="dTable table table-hover table-bordered table-condensed" style="font-size: 12px;">
+	<thead>
+		<tr>
+			<th>Student ID</th>
+			<th>Student Name</th>
+			<th>Class</th>
+			<th>Amount</th>
+			<th>Manage</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+				<tfoot>
+				<tr>
+					<th style="text-align: right; background-color: #E9F3F8;" colspan="5"></th>
+
+				</tr>
+			</tfoot>
+</table>
+<div class="well well-small">Please scroll downwards in the table above to load more debtors, if any!</div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_studentdebtor = $('#dtb_studentdebtor').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+		"iDisplayLength" : 10,
+
+		"bAutoWidth": false,
+		"bProcessing": true,
+		"bStateSave": false,
+		"bServerSide": true,
+		"sAjaxSource": "/studentbalances?debtors=1&residence=0",
+		"sServerMethod": "POST",
+
+		"bScrollInfinite": true,
+	    "sScrollY": "250px",
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"aoColumnDefs": [
+			                 { "bSortable": false, "aTargets": [ 4 ] }
+			             ],
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf",
+							{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "All Discounts Allowed",
+			                    "sButtonClass" : "btn-danger whitetext",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                    	$.loadModal('/studentdiscount', 'Discounts Offered', 1);
+			                    }
+			                }]
+		},
+		"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+            /*
+             * Calculate the total market share for all browsers in this table (ie inc. outside
+             * the pagination)
+            */
+    }
+	});
+
+    $.fn.filterResidence = function(residence){
+    	dtb_studentdebtor.fnReloadAjax( '/studentbalances?debtors=1&residence='+ residence );
+    };
+
+	$(".table").tablecloth({ theme: "paper" });
+
+});
+//-->
+</script>

@@ -1,0 +1,122 @@
+<!--mpdf
+<htmlpageheader name="myheader">
+<table width="100%" style="margin-top:0px; padding-top:0px" cellpadding="0" cellspacing="0">
+	<tr><td colspan="2" align="center" style="font-size:12px; text-transform:uppercase; font-weight:bold;"><?php echo Content_Model_School::getSchoolName();?></td>	</tr>
+	<tr><td colspan="2" align="center"><span style="font-size:12px;"><?php echo Content_Model_School::getSchoolTel();?></span></td></tr>
+	<tr><td colspan="2" align="center"><span style="font-size:12px;"><?php echo Content_Model_School::getSchoolEmail();?></span></td></tr>
+	</table>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 0.01em solid #000000; font-size: 12px; text-align: center; padding-top: 3mm;">
+<table width="100%">
+<tr><td align="right" style="font-size:12px">Performed by : <?php
+$i = Content_Model_Instructors::getInstructorDetail ( $this->receipt->transinitiator );
+if ($i)
+	echo $i->firstname . " " . $i->lastname;
+else if ($this->receipt->transinitiator == 999)
+	echo "Auto-billing"?> </td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="off" />
+mpdf-->
+
+<table style="font-size: 12px; font-family: sans-serif;" width="95%" cellpadding="2">
+	<tr>
+		<th colspan="2">TRANSACTION NO: <?php echo $this->receipt->cl_id; ?> / <?php echo $this->receipt->cl_GPSN_ID;?> </th>
+	</tr>
+	<tr>
+		<td colspan="2" style="border-bottom: 0.01em solid silver; text-align: center;"> Refer to Bill Summary Below </td>
+	</tr>
+	<tr>
+		<td colspan="2"
+			style="font-weight: bold; border-bottom: 0.01em solid silver;"
+			align="center"><?php echo strtoupper(Content_Model_Students::getStudentName($this->receipt->cl_GPSN_ID)); ?> <br> (<?php echo $this->getGradeName($this->receipt->gradelevel)?>)</td>
+	</tr>
+	<tr>
+		<td width="65%">Type of Transaction :</td>
+		<td><?php echo ($this->receipt->transtype == 0)?'Term/Entry Billing' : 'Payment of Fees'; ?></td>
+	</tr>
+	<tr>
+		<td width="65%">Date of Transaction :</td>
+		<td style="font-weight: bold"><?php echo date('jS, M Y',strtotime($this->receipt->datestamp)); ?></td>
+	</tr>
+
+
+	<?php if ($this->receipt->transtype == 0 || $this->receipt->transtype == 2) { ?>
+ 	<tr>
+		<td style="border-bottom: 0.01em solid silver;" width="65%">Description :</td>
+		<td style="border-bottom: 0.01em solid silver;"><?php echo $this->receipt->transdescription; ?></td>
+	</tr>
+	<?php } else {?>
+	<tr>
+		<td width="65%">Description :</td>
+		<td><?php echo $this->receipt->transdescription; ?></td>
+	</tr>
+	<tr>
+		<td width="65%">Amount paid :</td>
+		<td style="font-weight: bold;"><?php echo number_format($this->receipt->transamount,2); ?></td>
+	</tr>
+	<tr>
+		<td width="65%">Mode of Payment :</td>
+		<td><?php
+				if ($this->receipt->transpaymode != null)
+					echo ($this->receipt->transpaymode == 0) ? 'CASH' : 'CHEQUE/DEPOSIT';
+			?>
+		</td>
+	</tr>
+	<tr>
+		<td width="65%" style="border-bottom: 0.01em solid silver;">Cheque/Slip	No :</td>
+		<td style="border-bottom: 0.01em solid silver;"><?php echo $this->receipt->transslipno; ?></td>
+	</tr>
+	<?php } ?>
+
+	<tr>
+		<td width="65%" align="right">Total Payable (GHC)</td>
+		<td align="right" style="font-weight: bold; border: 0.01em dashed silver;"><?php echo number_format($this->payable,2); ?></td>
+	</tr>
+	<tr>
+		<td width="65%" align="right">Total Paid* (GHC)</td>
+		<td align="right" style="font-weight: bold; border: 0.01em dashed silver;"><?php echo "(" .number_format($this->paid,2).")"; ?></td>
+	</tr>
+	<tr>
+		<td width="65%" align="right" style="border-bottom: 0.01em dashed silver;">Discount (GHC)</td>
+		<td align="right" style="font-weight: bold; border: 0.01em dashed silver;"><?php echo "(" .number_format($this->discount,2).")"; ?></td>
+	</tr>
+	<?php if ($this->receipt->transtype != 0 && $this->receipt->transtype != 2) { ?>
+	<tr>
+		<td width="65%" align="right">Amount Paid (GHC)</td>
+		<td align="right" style="font-weight: bold; border: 0.01em dashed silver;"><?php echo number_format($this->receipt->transamount,2); ?></td>
+	</tr>
+	<?php } ?>
+	<tr>
+		<td width="65%" align="right">Arrears/Credit** (GHC)</td>
+		<td align="right" style="font-weight: bold; border: 0.01em dotted black; "><?php echo (($this->balance >= 0) ? number_format($this->balance,2) : " (".number_format(abs($this->balance),2).")"); ?></td>
+	</tr>
+	<tr><td colspan="2"></td></tr>
+	 <tr><td colspan="2" align="center" style="border-top: 0.01em dashed black; padding-top : 15px; font-size: 12px; font-weight: bold; text-decoration: underline;"> Bill Summary</td></tr>
+	 <tr>
+		<td align="right" style="font-size: 11px">Last term Arrears/Credit</td><td  align="right" style="font-size: 12px; padding-right: 50px;"> <?php echo ($this->priorbalance > 0) ? number_format($this->priorbalance,2) : "(".number_format(abs($this->priorbalance),2).")";?></td>
+	</tr>
+		<?php if ($this->debits) {
+			foreach ($this->debits as $debit) {
+				$d = str_getcsv($debit->transdescription,';');
+				if(is_numeric($d[0]))
+					$desc = $d[1];
+				else
+					$desc = $debit->transdescription;
+		?>
+	<tr>
+		<td align="right" style="font-size: 11px"><?php echo $desc?></td><td  align="right" style="font-size: 12px; padding-right: 50px;"> <?php echo number_format($debit->transamount,2);?></td>
+	</tr>
+	<?php } } ?>
+	<tr><td colspan="2" align="center" style="border-top: 0.01em dashed black; padding-top : 15px; font-size: 12px; font-weight: bold; text-decoration: underline;"></td></tr>
+
+	<tr>
+		<td colspan="2" style="font-size: 12px;">*Total Paid reflects payments prior to this transaction;<br> **Arrears/Credit reflects the outstanding[advance] account arrears[payments]</td>
+	</tr>
+</table>

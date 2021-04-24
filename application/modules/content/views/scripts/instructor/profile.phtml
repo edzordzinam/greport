@@ -1,0 +1,100 @@
+                    <div class="row-fluid">
+						<div class="span12">
+							<h3 class="heading">User Profile</h3>
+							<div class="row-fluid">
+								<div class="span8">
+									<form class="form-horizontal">
+										<fieldset>
+											<div class="control-group formSep">
+												<label class="control-label">Username</label>
+												<div class="controls text_line"  style="margin-top: 3px;">
+													<strong><?php echo $this->username;?></strong><button type="button" class="btn btn-danger btn-mini" style="margin-left: 10px;" onclick="$.fn.changePassword();">Password</button>
+												</div>
+											</div>
+											<div class="control-group formSep">
+												<label for="fileinput" class="control-label">User avatar</label>
+												<div class="controls">
+													<div data-provides="fileupload" class="fileupload fileupload-new">
+														<input type="hidden" />
+														<div style="width: 80px; height: 80px;" class="fileupload-new thumbnail"><img src="http://www.placehold.it/80x80/EFEFEF/AAAAAA" alt="" /></div>
+														<div style="width: 80px; height: 80px; line-height: 80px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+														<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+														<input type="file" id="fileinput" name="fileinput" /></span>
+														<a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+													</div>	
+												</div>
+											</div>
+											<div class="control-group formSep">
+												<label for="u_fname" class="control-label">Given name</label>
+												<div class="controls">
+													<input type="text" id="u_fname" class="input-xlarge" value="<?php echo $this->firstname?>" />
+												</div>
+											</div>
+											<div class="control-group formSep">
+												<label for="u_fname" class="control-label">Surname</label>
+												<div class="controls">
+													<input type="text" id="u_fname" class="input-xlarge" value="<?php echo $this->lastname?>" />
+												</div>
+											</div>
+											<div class="control-group formSep">
+												<label for="u_email" class="control-label">Email</label>
+												<div class="controls">
+													<input type="text" id="u_email" class="input-xlarge" value="<?php echo $this->email;?>" />
+												</div>
+											</div>
+											<div class="control-group formSep">
+												<label for="u_email" class="control-label">Mobile No.</label>
+												<div class="controls">
+													<input type="text" id="u_email" data-mask="(099)-999-9999" class="input-xlarge" value="<?php echo $this->telno?>" />
+												</div>
+											</div>
+											<div class="control-group formSep">
+												<label class="control-label">I want to receive:</label>
+												<div class="controls">
+													<label class="checkbox inline">
+														<input type="checkbox" value="newsletter" id="email_newsletter" name="email_receive" />
+														Newsletters
+													</label>
+													<label class="checkbox inline">
+														<input type="checkbox" value="sys_messages" id="email_sysmessages" name="email_receive" checked="checked" />
+														System messages
+													</label>
+													<label class="checkbox inline">
+														<input type="checkbox" value="other_messages" id="email_othermessages" name="email_receive" />
+														Other messages
+													</label>
+												</div>
+											</div>
+
+											<div class="control-group formSep">
+												<label class="control-label">Gender</label>
+												<div class="controls">
+													<label class="radio inline">
+														<input type="radio" value="male" id="s_male" name="f_gender" checked="checked" />
+														Male
+													</label>
+													<label class="radio inline">
+														<input type="radio" value="female" id="s_female" name="f_gender" />
+														Female
+													</label>
+												</div>
+											</div>
+											<div class="control-group formSep">
+												<label for="u_signature" class="control-label">Signature</label>
+												<div class="controls">
+													<textarea rows="4" id="u_signature" class="input-xlarge">Lorem ipsum&hellip;</textarea>
+													<span class="help-block">Automatic resize</span>
+												</div>
+											</div>
+											<div class="control-group">
+												<div class="controls">
+													<button class="btn btn-gebo" type="submit">Save changes</button>
+												<button class="btn">Cancel</button>
+												</div>
+											</div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>

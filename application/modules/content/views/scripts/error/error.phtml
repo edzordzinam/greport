@@ -1,0 +1,28 @@
+
+<div class="alert alert-block alert-dark">
+	<h4>System Alert! : <?php echo $this->message ?></h4>
+	Errors displayed below, if not contact Administrator
+</div>
+
+
+<?php if (isset($this->exception)): ?>
+	<h3>
+		Exception trace information<small></small>
+	</h3>
+
+<div class="well well-small">
+	<b>Message:</b> <?php echo $this->exception->getMessage()?>
+</div>
+
+
+<h4>Stack trace:</h4>
+<pre style="color: black;"><?php echo $this->exception->getTraceAsString()?>
+  </pre>
+
+
+<h4>Request Parameters:</h4>
+<pre><?php echo $this->escape(var_export($this->request->getParams(), true))?>
+  </pre>
+
+<?php endif ?>
+

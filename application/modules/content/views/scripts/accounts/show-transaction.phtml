@@ -1,0 +1,85 @@
+<table id="dtb_transactions" class="dTable table table-hover table-bordered table-condensed" style="font-size: 12px;">
+	<thead>
+		<tr>
+		    <th>Date </th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th title="Type of transaction">Tranx</th>
+            <th>Description</th>
+            <th>Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+
+    </tbody>
+</table>
+<div class="well well-small">Please scroll downwards in the table above to load more transactions, if any!</div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_transactions = $('#dtb_transactions').dataTable( {
+				"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+				"sPaginationType": "bootstrap",
+			    "iDisplayLength" : 10,
+
+				"bAutoWidth": false,
+				"bProcessing": true,
+				"bServerSide": true,
+				"sAjaxSource": "/showtranssource?audit=<?php echo $this->audit;?>",
+				"sServerMethod": "POST",
+				"bStateSave": false,
+
+				"bScrollInfinite": true,
+			    "sScrollY": "250px",
+
+				"aaSorting": [[0,'desc']],
+				"oLanguage" : {
+					 "sUrl" : "/js/locale/datatables.english.txt"
+				    },
+
+				"aoColumnDefs": [
+
+				                ],
+
+				"oTableTools": {
+					//"sRowSelect": "single",
+					"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+					"aButtons": [
+									"copy",
+									"print",
+						            {
+					                    "sExtends": "csv",
+					                    "sButtonText" : "Excel",
+					                    "mColumns": [ 0, 1, 2,3,5 ],
+					                    "sFileName": "transactions.csv",
+					                },
+									{
+				                        "sExtends": "pdf",
+				                        "mColumns": [ 0, 1, 2,3,5 ],
+				                        "sTitle": "Transactional Report",
+				                        "sPdfMessage": "List of filtered transactions",
+				                        "sFileName": "transactions.pdf",
+				                        "sPdfOrientation": "landscape"
+				                    }
+									]
+				},
+		    	"fnDrawCallback" : function (){
+			  		   $("a[rel=popover]")
+			 		     .popover()
+			 		     .click(function(e) {
+			 		       e.preventDefault();
+			 		     });
+			     	}
+
+			});
+
+        //dtb_transactions.$("a[rel=popover]").popover().click(function(e) {e.preventDefault();});
+	   // popover demo
+
+
+	$(".table").tablecloth({ theme: "paper" });
+
+});
+//-->
+</script>

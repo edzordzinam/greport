@@ -1,0 +1,90 @@
+<div class="tabbable tabs-above">
+	<ul id="myTab" class="nav nav-pills">
+            <li class="active"><a href="#termdates" data-toggle="tab">Term Dates</a></li>
+            <li><a href="#schoolconfig" data-toggle="tab">School Configuration</a></li>
+            <li><a href="#classconfig" data-toggle="tab">Setup Classrooms</a></li>
+            <li><a href="#grading" data-toggle="tab">Grading System</a></li>
+	</ul>
+
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="termdates"></div>
+		<div class="tab-pane fade in" id="schoolconfig"></div>
+		<div class="tab-pane fade in" id="classconfig"></div>
+		<div class="tab-pane fade in" id="grading"></div>
+	</div>
+</div>
+
+<!-- SCRIPT SECTION -->
+<script type="text/javascript">
+      $(function(){
+    	    $('a[href="#termdates"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/listtermdates',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#termdates').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#schoolconfig"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/schoolconfig',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#schoolconfig').html(data);
+    	        	    });
+    	    });
+
+
+       	    $('a[href="#classconfig"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/setupclasses',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#classconfig').html(data);
+    	        	    });
+    	    });
+
+       	    $('a[href="#grading"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/gradingsystem',
+    	        	    {
+    	        	    },
+    	        	    function (data){
+    	        	        $('#grading').html(data);
+    	        	    });
+    	    });
+   	    $.fn.newClass = function (){
+        	    $.loadModal('/newclass','New Class',1);
+    	 };
+
+        $.fn.addNewClass = function (){
+        	    $.post('/newclass',
+        	    		{
+    	    				commit : true,
+    	    				gradename : $('#gradename').val(),
+    	    				preceed : $('#preceed option:selected').val(),
+    	    				capacity : $('#capacity').val(),
+        	    		},
+        	    		function (response){
+        	    			dtb_gradelevels.fnReloadAjax();
+        	    		});
+   	};
+
+    	  //make ajax call to list of instructors
+    $('a[href="#termdates"]').click();
+
+    <?php if ($this->nextterm) { ?>
+	    $.post('/setupterm',
+	        	{
+	               send : false,
+	        	},
+	        	function (data){
+	        	    $('#termdates').html(data);
+	        	});
+   <?php } ?>
+});
+</script>

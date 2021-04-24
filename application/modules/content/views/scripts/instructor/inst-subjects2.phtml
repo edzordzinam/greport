@@ -1,0 +1,21 @@
+<?php
+ if ($this->instSubjects != null) {
+    //echo $this->partialLoop('partials/_instSubjects2.phtml', $this->instSubjects);
+    foreach ($this->instSubjects as $subject) {
+    	?>
+    <li>
+		<a id="C<?php echo $subject->cl_courseid;?>" href="" onclick="return false;"> <?php echo $subject->cl_coursename; ?></a>
+		<ul>
+		<?php
+		  foreach ($this->classes[$subject->cl_courseid] as $class){  ?>
+			<li><a href="" onclick='$.fn.filterAssignment("<?php echo $subject->cl_courseid;?>","<?php echo $class->gradeid;?>"); return false;'><?php echo $class->gradename;?></a></li>
+
+		<?php } ?>
+		</ul>
+	</li>
+
+  <?php };
+ }
+ else
+    echo "<p> No subjects found </p>"
+ ?>

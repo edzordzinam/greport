@@ -1,0 +1,143 @@
+<h4 class="heading formSep">
+	Bill Printing
+	<div class="pull-right" style="margin-bottom:4px;">
+	<div class="input-prepend" >
+		<span class="add-on">Please specify appropriate stream here: </span> <select id="stream">
+			<?php foreach ($this->streams as $key => $value) { ?>
+			<option value="<?php echo $key?>"><?php echo $value;?></option>
+			<?php }?>
+		</select>
+	</div>
+	</div>
+</h4>
+<div class="row-fluid">
+	<div class="span3">
+		<label>Type of Bill</label> <select id="reporttype">
+			<?php foreach ($this->reporttypes as $key => $value) { ?>
+			<option value="<?php echo $key?>"><?php echo $value;?></option>
+			<?php }?>
+		</select>
+	</div>
+	<div class="span3">
+		<label>Grade/Class <code>eg. Year 1A</code>
+		</label> <select class="span8" id="grade">
+			<?php foreach ($this->classes as $key => $value) { ?>
+			<option value="<?php echo $key?>"><?php echo $value;?></option>
+			<?php }?>
+		</select>
+
+	</div>
+	<div class="span3">
+		<label>Indicate Term <code>eg. Term 3</code>
+		</label> <select class="span8" id="term">
+			<?php foreach ($this->terms as $key => $value) { ?>
+			<option value="<?php echo $key?>"><?php echo $value;?></option>
+			<?php }?>
+		</select>
+
+
+		<script type="text/javascript">$("#term option[value=<?php echo $this->ct;?>]").prop('selected','selected');</script>
+	</div>
+
+	<div class="span3 pbspan">
+		<label>Indicate Year <code>eg. 2012/2013</code></label>
+		<div class="input-append">
+			<select class="span8" id="year">
+			<?php foreach ($this->years as $key => $value) { ?>
+			<option value="<?php echo $value['year']?>"><?php echo $value['year'];?></option>
+			<?php }?>
+		</select>
+			<button type="button" class="btn btn-success" id="btn_build"
+				onclick="$.fn.compileReports()">Build Report</button>
+		</div>
+		<script type="text/javascript">$("#year option[value='<?php echo $this->cy;?>']").prop('selected','selected');</script>
+	</div>
+
+	<div class="span12 formSep"
+		style="margin-left: 0px;
+	margin-top: 5px;">
+		<h4 class="heading">
+			Available Bills <small> Previously generated compilations</small>
+		</h4>
+		<table id="dtb_reports"
+			class="table table-bordered table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>Bill Compilation</th>
+					<th>Date Compiled</th>
+					<th>Level/Class</th>
+					<th>Term</th>
+					<th>Year</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+<!--
+$(function(){
+ 	var dtb_reports = $('#dtb_reports').dataTable({
+ 		"sDom": "<'row-fluid'<'span6'><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 8,
+		"bAutoWidth": false,
+
+		"bProcessing": true,
+		"bStateSave": false,
+		"sAjaxSource": "http://<?php echo $this->pdfhost;?>/availablereports?bills=0&host=<?php echo $this->host;?>",
+		"aaSorting": [[ 1, "desc" ]],
+        "aoColumns": [
+                      { "mData": "name" },
+                      { "mData": "date" },
+                      { "mData": "grade" },
+                      { "mData": "term"},
+                      {"mData" : "year"}
+                  ],
+		//"bServerSide": false,
+ 	});
+
+ 	//http://cent.pdf/schedulereports?url=http://cent.greport/classjson&sid=160205509&tm=2&yr=2012/2013&i=47&cid=0&grade=8&t=10&data=1&cc=0&gn=Year%207
+ 	$.fn.compileReports = function(){
+ 	 	$.ajax( {
+ 	 	 	    url :'http://<?php echo $this->pdfhost?>/schedulereports',
+ 	 	 	    async : true,
+ 	 	 	 	type : 'POST',
+ 	 			data :{
+ 					'url' : 'http://<?php echo $this->host?>/classjson',
+ 					'sid' : 0,
+ 					'tm' : $('#term option:selected').val(),
+ 					'yr' : $('#year option:selected').val(),
+ 					'i' : 1,
+ 					'cid' : 0,
+ 					'grade' : $('#grade option:selected').val(),
+ 					't' : 10, //fees compilation
+ 					'data' : 1,
+ 					'cc' : $('#reporttype option:selected').val(),
+ 					'gn' : $('#grade option:selected').text(),
+ 					'online' : '<?php echo $this->online; ?>',
+ 	 				'mode' : '<?php echo $this->mode; ?>',
+ 	 				'bill' : 999,
+ 	 				'stream' : $('#stream option:selected').val(),
+ 	 			},
+ 	 			beforeSend : function(){
+					$('#btn_build').prop('disabled', 'disabled');
+					$('#btn_build').removeClass('btn-success');
+ 	 	 			$('#btn_build').addClass('btn-inverse');
+ 	 			},
+ 	 			success : function (response){
+ 	 	 			bootbox.alert(response);
+ 	 	 			$('#btn_build').prop('disabled', '');
+					$('#btn_build').removeClass('btn-inverse');
+ 	 	 			$('#btn_build').addClass('btn-success');
+ 	 	 			dtb_reports.fnReloadAjax();
+ 	 			}
+ 	 	 });
+
+ 	};
+});
+
+//-->
+</script>

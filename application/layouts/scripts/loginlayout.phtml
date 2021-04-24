@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" class="login_page">
+  <head>
+    <meta charset="utf-8">
+    <title><?php echo Content_Model_School::getSchoolName()?> welcomes you</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We provide an innovative academic reporting generation system">
+    <meta name="author" content="<?php echo Content_Model_School::getSchoolName()?>">
+
+     <?php
+    	echo $this->headTitle();
+    	$this->headLink()->exchangeArray(array());
+    	$this->headLink()->appendStylesheet('/min/g=styles.css');
+    	echo $this->headLink();
+    	echo $this->jQuery();
+     ?>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/js/html5.js"></script>
+    <![endif]-->
+
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
+
+    <style type="text/css">
+     	.bs-docs-sidenav > li > a {
+		    display: block;
+		    margin: 0px 0px -1px;
+		    padding: 8px 14px;
+		    border: none;
+		}
+     </style>
+
+  </head>
+
+  <body background="/img/bg_noise.png" style="background-color: rgba(0, 0, 0, 0.01)">
+
+<!-- Navbar
+    ================================================== -->
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#" id="schoolname" name="top"></a>
+
+          <div class="nav-collapse collapse">
+          <ul class="nav pull-right">
+              <li><a href="#"><label id="lbl_ajaxprogress"></label></a></li>
+              <li class="divider-vertical"></li>
+			  <li class="dropdown pull-right">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+					<div class="dropdown-menu" style="padding: 15px; padding-bottom: 5px;">
+						 <form id="validate">
+			                 <input style="margin-bottom: 15px;"
+			    			    type="text"
+			    			    id="uid"
+			    			    name="username"
+			    			    placeholder="Email or Username"
+			    			    required
+			    			    class="input-medium"  />
+
+			    			 <input
+			    			    class="input-medium"
+			    			    type="password"
+			    			    id="pwd"
+			    			    name="password"
+			    			    placeholder="Password"
+			    			    required
+			    			    title='a password is required to sign-in' />
+			                  <button type="submit" class="btn btn-block btn-inverse">Sign in <i class="icon-chevron-right icon-white"></i></button>
+			                </form>
+			 		</div>
+			 </li>
+          </ul>
+          </div><!--/.nav-collapse -->
+          <form class="navbar-search pull-left">
+                <input type="text" class="search-query" placeholder="Search">
+            </form>
+        </div>
+      </div>
+    </div>
+
+
+     <div class="navbar  navbar-fixed-bottom hidden-desktop hidden-tablet hidden-phone">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse collapse">
+          <ul class="nav">
+              <li><a>&copy; 2012 : Powered by Twitter Bootstrap, ZendFramework and Openshift Cloud [ <?php echo $this->translate('All rights reserved.') ?>]</a></li>
+          </ul>
+          <ul class="nav pull-right">
+              <li><a>About us</a></li>
+              <li><a>Contact us</a></li>
+          </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <div class="span3 hidden-phone hidden-tablet">
+            <!-- POSITION OF THE SIDEBAR MENU -->
+        <ul class="nav nav-list bs-docs-sidenav affix">
+           <li class="nav-header">
+          	 <div class="thumbnail">
+				<img class="img-polaroid" src="/img/adverts/greport.png" width="210" alt="">
+				<h4 align="center" style="font-family: cursive;">Akwaaba</h4>
+				<!-- <p align="center" style="margin-bottom:0px;">Speed, Security & Efficiency</p> -->
+				</div>
+          	</li>
+              <li class="active"><a href="#home" data-toggle="tab"><span class="icon-home"></span> Welcome</a></li>
+              <li><a href="#reports" data-toggle="tab"><span class="icon-envelope"></span> Online Reports</a></li>
+              <li><a href="#records" data-toggle="tab"><span class="icon-book"></span> Records Management</a></li>
+              <li><a href="#stores" data-toggle="tab"><span class="icon-tags"></span> Stores Management</a></li>
+              <li><a href="#bills" data-toggle="tab"><span class="icon-edit"></span> Billing and Payments</a></li>
+              <li><a href="#tour" data-toggle="tab"><span class="icon-play"></span> Take a Tour</a></li>
+        </ul>
+         </div><!--/span-->
+
+        <div class="display-page" style="margin-left: 270px;">
+                    <div id="ajax-modal" class="modal hide fade" tabindex="-1" style="min-width: 600px; top: 30px;">
+              <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            	        <h4 id="modal-title" style="text-transform: capitalize;">Please provide title</h4>
+              </div>
+                    <div class="modal-body">
+
+                    </div>
+<!--                     <div class="modal-footer">
+                    	<button type="button" data-dismiss="modal" class="btn">Close</button>
+                    	<button type="button" class="btn btn-primary">Ok</button>
+                    </div> -->
+            </div>
+
+             <div id="sysalert"></div>
+               <?php echo $this->layout()->content; ?>
+             <a href="http://www.pingdom.com"><img src="/img/pingdom_button_80x15.gif" alt="Monitored by Pingdom" width="80" height="15" border="0" /></a>
+       </div><!--/span-->
+
+      </div><!--/row-->
+
+   </div> <!-- /container-fluid -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     <script src="/min/g=scripts.js"></script>
+     <script type="text/javascript">
+         $(function() {
+          	//default form initialization
+          	$('#validate').ajaxForm({
+          		//options of ajaxForm
+
+          		url : '/auth',
+          		data : {}, //data to be submitted along with the form variables json formatted
+          		clearForm : null, // form to be cleared if submit is successfull,
+
+          		dataType : 'json',  // json, xml, or script
+          		type : 'POST', // type of ajax call GET or POST
+
+          		replaceTarget : true,
+          		target : '#response',   //target is only rendered when the dataType has been specified.
+
+          		//callback function to be invoked on error.
+          		error : function (){
+          		},
+
+          		beforeSubmit : function (arr, $form, options){
+          			// return false; to cancel submit action
+          			 arr[1].value = $.MD5(arr[1].value);
+          		},
+
+          		success : function (data){
+          		    if (data.success == 1){
+          		    	window.location.replace(data.url);
+          		    }
+          		    else if (data.success == -1) {
+          		    	$.showMessage('Your account has been deactivated, contact admin.');
+          		    }
+          		    else if (data.success == 2){
+          		    	window.location.replace(data.url);
+          		    }
+          		    else{
+          		    	$.showMessage('Username or Password invalid', 'error');
+          		    }
+          		},
+
+              });
+
+     		// expose the form when it's clicked or cursor is focused
+     		var form = $(".expose").bind("click keydown", function() {
+
+     			$(this).expose({
+
+     				// when exposing is done, change form's background color
+     				onLoad: function() {
+     					//form.css({backgroundColor: '#c7f8ff'});
+     				},
+
+     				// when "unexposed", return to original background color
+     				onClose: function() {
+     					//form.css({backgroundColor: null});
+     				}
+
+     			});
+     		});
+    		var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
+
+     		$.showMessage = function (msg, type, layout ){
+     			$.pnotify({
+     			    title: 'System Alert',
+     			    text: msg,
+     			    type: type,
+     			    icon: 'picon picon-network-wireless',
+      			    closer_hover: false,
+    			    sticker_hover: false,
+    			    history : false,
+    			    delay: 5000,
+    			    addclass: "stack-bottomright",
+    				stack: stack_bottomright
+     			});
+     		};
+
+			  $.resizeElementHeight = function (element) {
+				  var height = 0;
+				  var body = window.document.body;
+				  if (window.innerHeight) {
+				      height = window.innerHeight;
+				  } else if (body.parentElement.clientHeight) {
+				      height = body.parentElement.clientHeight;
+				  } else if (body && body.clientHeight) {
+				      height = body.clientHeight;
+				  }
+				  element.style.height = ((height - element.offsetTop) + "px");
+				};
+
+				$(document).ajaxError(
+						function(event, request, settings) {
+						if (request.readyState == 0){
+							$('#lbl_ajaxprogress').unblock();
+							$('#sysalert').html('<div class="alert alert-block alert-error fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Connection to server failed. Please check your internet/network connection and try again</p></div>');
+						}
+						if (request.readyState == 4 && request.status == 401 /*Unauthorized Request*/  ) {
+				   			window.location = '/';
+						}else
+							if (request.readyState == 4 && request.status == 406 /*Unauthorized Request*/  ) {
+								$.showMessage('Update failed, Data incomplete','error');
+						}
+						else if (request.readyState == 4 && request.status == 501){
+							$('#sysalert').html('<div class="alert alert-block alert-info fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Configuration of your institution is not yet complete. Sorry for any inconvenience caused. Please contact support for more information</p></div>');
+						}
+			});
+
+			$(document).ajaxSuccess(
+					function (event, request, settings){
+					   if (request.readyState == 4 && request.status == 202 /*Accepted Request*/) {
+							$.showMessage('Data successfully updated','information');
+						};
+					});
+
+
+			$(document).ajaxStart(function(){
+				$("#sysalert").html('');
+				$('#lbl_ajaxprogress').block(
+						{
+							message : ' <img src="/img/loaders/loader6.gif" />Processing',
+							css : {width : '150px', border:'1px silver #aaa', }
+						 }
+						);
+			});
+
+			$(document).ajaxStop(function(){
+				$('#lbl_ajaxprogress').unblock();
+			});
+
+			  var $modal = $('#ajax-modal');
+			  var $modalbody = $('#ajax-modal .modal-body');
+			  $.loadModal = function(url, title, data){
+				    GlobalModalManager.loading();
+				    $('#modal-title').html(title);
+				    $modalbody.load(url,
+						 {
+				          data : data,
+					     }, function(){
+				      $modal.modal();
+				    });
+			  }
+
+			$('#schoolname').append("<?php echo $this->schoolname; ?>");
+	});
+      </script>
+    </body>
+</html>

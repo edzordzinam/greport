@@ -1,0 +1,117 @@
+<?php
+	 if (count($this->assignments) > 0) { ?>
+ 
+		<table id="hd" class="table table-hover table-bordered table-condensed table-mini">
+			<tr>
+			 	<td colspan="<?php echo count($this->assignments) + 4?>" align="center"><strong style="color: black;">(<?php echo strtoupper($this->assignmentType); ?>) <?php echo strtoupper($this->coursename)?> in <?php echo strtoupper($this->gradename); ?> by <?php echo strtoupper($this->instructor)?></strong> </td></tr>
+			 <tr><td style="width: 250px; !important;">Students</td>
+			 	 <td style=" font-weight: bold;" colspan="<?php echo count($this->assignments)?>">MARKS</td>
+			 	 <td colspan="2">TOTAL</td><td>%</td>
+			</tr>
+
+
+			<tr class="tc"><td></td>
+			<!-- Printing the header  -->
+				<?php
+				   $i = 0;
+				   foreach ($this->assignments as $assign){
+					$i++;
+					 echo "<td width='35' align='center'>#$i</td>";
+
+				   }
+				?>
+			   <td style="font-weight : bold">  </td><td> </td>
+			   <td style="font-weight : bold">   </td>
+			</tr>
+
+			<tr class="tc">
+			<td width="250" align="right">Maximum Allowed Mark</td>
+			<!-- Printing the header  -->
+				<?php
+				   $this->total = 0;
+				   $i = 0;
+				   foreach ($this->assignments as $assign){
+					$i++;
+					 echo "<td width='35' align='center' style='color:maroon; font-weight:bold'> $assign->cl_maxmark </td>";
+					 $this->total += $assign->cl_maxmark;
+				   }
+				?>
+			   <td width="40" style="font-weight : bold;">S* </td>
+			   <td width="40" >B**</td>
+			   <td width="40" style="font-weight : bold;"> 100 </td>
+			</tr>
+		</table>
+		<div id="scrolldiv"> 
+		<table id="bd" class="table table-hover table-bordered table-condensed table-mini">
+			<tr><td colspan="<?php echo count($this->assignments) + 4?>"></td></tr>
+		<?php
+		   foreach ($this->students as $student){
+			 echo "<tr> <td width='250'>". $student['fullname'] ."</td>";
+			 $assignTotal = 0;
+			 $assignMax = 0;
+			 $alteredBase = false;
+			 $exempt = null;
+			 
+			  foreach ($this->assignments as $assign){
+
+				 	foreach ($this->reports as $report){
+				 	  	if ($report->assignmentid == $assign->cl_assignmentid ){
+						  if (array_key_exists($student['cl_GPSN_ID'], $report->marks)){
+						  	$mark = ($report->marks[$student['cl_GPSN_ID']] != null ) ? $report->marks[$student['cl_GPSN_ID']] : 0;
+							$maximum = $report->maximum;
+							$exempt = $report->exempts[$student['cl_GPSN_ID']];
+							if (!$exempt)
+						  		echo "<td width='35' align='center'>$mark</td>";
+							else{
+								echo "<td width='35' align='center'>E</td>";
+								$alteredBase = true;
+							}
+						  }
+						  else {
+								 echo "<td width='35' align='center'>n/a</td>";
+								 $mark = 0;
+								 $maximum = 0;
+						  }
+						  if (!$exempt){
+						 	$assignTotal += $mark;
+						  	$assignMax += $maximum;
+						  }
+				 	  	}
+					}
+			 } 
+
+			 if ($this->total != 0){
+					echo "<td width='40' style='font-weight:bold'>$assignTotal</td>";
+					echo "<td width='40' style='font-weight:bold; color:blue;'>$assignMax</td>";
+					if ($assignMax != 0 ) $tt = round(($assignTotal / $assignMax) * 100); else $tt = 0;
+			 		echo "<td width='40' style='font-weight:bold; color:green'>". $tt ."</td>";
+			 }else{
+			 	echo "<td class='trb'>-</td>";
+			 	echo "<td class='trb'>-</td>";
+			 }
+			 echo "</tr>";
+		  }
+		?>
+		</table>
+		</div>
+		<p align="left" style="font-size: 11px;"><strong>n/a</strong> = Student was not enrolled in class when assignment was given; <strong>E</strong> = Student was exempted from the assignment
+		<strong>S*</strong> = Total of marks obtained by student; <strong>B**</strong> = Total Maximum Mark of assignments in which student participated;</p>
+ 
+    <?php
+	 }
+	 else
+	 	echo "No records found matching the parameters provided!! ";
+    ?>
+<script type="text/javascript">
+<!--
+$(".table[id=hd]").not('#astats').tablecloth({ theme: "paper" });
+$(".table[id=bd]").not('#astats').tablecloth({ theme: "paper" });
+$('#scrolldiv').slimScroll({
+    height: '200px',
+    size: '8px',
+    alwaysVisible: true
+});
+//-->
+</script>
+
+

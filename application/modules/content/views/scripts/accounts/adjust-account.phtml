@@ -1,0 +1,29 @@
+<?php echo $this->form?>
+
+<script type="text/javascript">
+<!--
+	$(".chzn-select").chosen();
+	ValidateAjax.initialize("frm_adjustaccount", "/validateform");
+
+	$('#ajax-modal').width(500); 
+	$('#ajax-modal').css('left','47%');
+
+	$.fn.adjAccount = function(){
+		$.post(
+			'/adjustaccount',
+			{
+				studentid : $('#liststudents option:selected').val(),
+				adjtype : $('#adjType option:selected').val(),	
+				adjamount : $('#adjAmount').autoNumeric('get'),
+				reason : $('#reason').val(),
+				commit : 1
+			},
+			function (data){
+				bootbox.alert($('#liststudents option:selected').text() + '\'s account has been adjusted');
+			}
+		);
+	};
+
+	 $('.number').autoNumeric('init', {mDec :'0'});
+//-->
+</script>

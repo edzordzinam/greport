@@ -1,0 +1,25 @@
+<tr>
+		<?php
+			//if ($this->TCM != 0){
+			if (!$this->Exempt){
+		?>
+				<td class="tf"><?php echo $this->cname ?></td>
+				<td class="tb" style="padding-right: 50px;"><?php echo ($this->CWKMax > 0) ? round($this->CWK) : '-' ?></td>
+				<td class="tb" style="padding-right: 50px;"><?php echo ($this->HWKMax > 0) ? round($this->HWK) : '-' ?></td>
+				<td class="tb"><?php echo ($this->UNTMax > 0) ? round($this->UNT) : '-' ?></td>
+				<td class="tb" style="padding-right: 50px;"><?php echo ($this->GPWMax > 0) ? round($this->GPW) : '-' ?></td>
+				<td class="tb"><?php echo ($this->PRJMax > 0) ? round($this->PRJ) : '-' ?></td>
+				<td class="tb" style="padding-right: 50px;"><?php echo round($this->TCM) == 0 ? '-' : round($this->TCM); ?></td>
+
+				<td class="tl" style="padding-left: 50px;"><?php echo round($this->TCM) == 0 ? '-' : $this->getGradeLetter($this->TCM); ?> </td>
+				<?php } else { ?>
+				<td class="tf"><?php echo $this->cname ?></td>
+				<td class="tb"><?php echo '-' ?></td>
+				<td class="tb"><?php echo '-' ?></td>
+				<td class="tb"><?php echo '-' ?></td>
+				<td class="tb"><?php echo '-' ?></td>
+				<td class="tb" style="padding-right: 25px;"><?php echo '-' ?></td>
+				<td class="tb" style="padding-right: 25px;"><?php echo '-' ?></td>
+				<td class="tl" style="padding-left: 18px;"><?php echo '-'; ?> </td>
+		<?php } ?>
+</tr>

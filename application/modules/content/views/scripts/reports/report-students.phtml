@@ -1,0 +1,7 @@
+<?php 
+	foreach ($this->students as $student) {
+		$id = $student['cl_GPSN_ID'];
+		$name = $student['fullname'];
+		echo "<option value=$id>$name</option>";
+	}
+?>

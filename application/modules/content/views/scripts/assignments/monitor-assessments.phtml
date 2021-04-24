@@ -1,0 +1,174 @@
+<select id="instructors" onchange="$.fn.loadAssignSummary();">
+<?php
+	foreach ($this->instructors as $instructor) {
+		$id = $instructor->cl_IID;
+		$name = $instructor->fullname;
+		echo "<option value=$id>$name</option>";
+	}
+?>
+</select>
+
+<hr style="margin-top:2px; margin-bottom:2px;">
+
+<ul id="myTab" class="nav nav-pills">
+	<li class="active"><a href="#assignsummary" data-toggle="tab">Summary</a></li>
+	<li><a id="as" href="#assessments" data-toggle="tab">Assessments</a></li>
+	<li><a id="ug" href="#ungraded" data-toggle="tab">Ungraded Assessments&nbsp; <span id ="ul" style="font-size: 11px;"></span></a></li>
+	<li><a id="zg" href="#zerograded" data-toggle="tab">Zero Graded&nbsp; <span id ="zl" style="font-size: 11px;"></span></a></li>
+	<li><a id="eg" href="#exemptgraded" data-toggle="tab">Exemptions&nbsp; <span id ="el" style="font-size: 11px;"></span></a></li>
+	<li><a href="#outlook" data-toggle="tab">Term Overview</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade in active" id="assignsummary"></div>
+	<div class="tab-pane fade in" id="assessments"></div>
+	<div class="tab-pane fade in" id="ungraded"></div>
+	<div class="tab-pane fade in" id="zerograded"></div>
+	<div class="tab-pane fade in" id="exemptgraded"></div>
+	<div class="tab-pane fade in" id="outlook"></div>
+</div>
+
+<div id="monitorview">
+
+</div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+
+/* 	var selectBox = $("#instructors").selectBoxIt({
+	    showEffect: "fadeIn",
+	    showEffectSpeed: 200,
+	    hideEffect: "fadeOut",
+	    hideEffectSpeed: 200
+	}).data('selectBoxIt').refresh(); */
+
+	$('#instructors').attr('selectedIndex', 0);
+
+	$('a[href="#assignsummary"]').on('click', function (e) {
+        $.post(
+        	    '/assignments/assign-summary?lock=0',
+        	    {
+    				instructor : $('#instructors option:selected').val()
+        	    },
+        	    function (data){
+        	        $('#assignsummary').html(data);
+        	    });
+    });
+
+    $('a[href="#assessments"]').on('click', function (e) {
+        $.post(
+        	    '/assessments',
+        	    {
+        	    	instructor : $('#instructors option:selected').val()
+        	    },
+        	    function (data){
+        	        $('#assessments').html(data);
+        	    });
+    });
+
+    $('a[href="#ungraded"]').on('click', function (e) {
+        $.post(
+        	    '/ungradedassess',
+        	    {
+        	    	instructor : $('#instructors option:selected').val()
+        	    },
+        	    function (data){
+        	        $('#ungraded').html(data);
+        	    });
+    });
+
+    $('a[href="#zerograded"]').on('click', function (e) {
+        $.post(
+        	    '/zerograded',
+        	    {
+        	    	instructor : $('#instructors option:selected').val()
+        	    },
+        	    function (data){
+        	        $('#zerograded').html(data);
+        	    });
+    });
+
+
+    $('a[href="#outlook"]').on('click', function (e) {
+        $.post(
+        	    '/termoutlook',
+        	    {
+        	    	ins : $('#instructors option:selected').val()
+           	    },
+        	    function (data){
+        	        $('#outlook').html(data);
+        	    });
+    });
+
+    $('a[href="#exemptgraded"]').on('click', function (e) {
+        $.post(
+        	    '/exemptgraded',
+        	    {
+        	    	instructor : $('#instructors option:selected').val()
+        	    },
+        	    function (data){
+        	        $('#exemptgraded').html(data);
+        	    });
+    });
+
+    $.fn.loadScores = function (assignmentid, title){
+        $.loadModal('/assessmentscores?lock=true','Assessment Grading - ' + title, assignmentid);
+    };
+
+	$.fn.GetClassCourses = function(ins, grade){
+	    $.post('/course/grade-course',
+    		{
+	          instructor : ins,
+	          grade : grade
+		    },
+		    function (data){
+		       $('#cl_course').html(data);
+    		});
+	};
+
+	$.fn.filterOutlook = function (course, grade){
+        $('#cc').text(course);
+        $('#gg').text(grade);
+
+        if ($('#aType').text() != 'SUM'){
+	 		$.post('/outlookview',
+	 				{
+ 						cid : course,
+ 						grade : grade,
+ 						t : $('#aType').text(),
+ 						i :  $('#instructors option:selected').val(),
+ 						term : <?php echo $this->term; ?>,
+ 						year : '<?php echo $this->year; ?>',
+	 				},
+	 				function(data){
+		 				$('#outlookdiv').html(data);
+	 		});
+        }
+        else{
+        	$.post('/outlooksummary',
+	 				{
+ 						cid : course,
+ 						grade : grade,
+ 						t : $('#aType').text(),
+ 						i : $('#instructors option:selected').val(),
+ 						term : <?php echo $this->term; ?>,
+ 						year : '<?php echo $this->year; ?>',
+	 				},
+	 				function(data){
+		 				$('#outlookdiv').html(data);
+	 		});
+        };
+	};
+
+	$('a[href="#assignsummary"]').click();
+
+	$.fn.loadAssignSummary = function(){
+		 $('#ul').html('');
+		 $('#zl').html('');
+		$('a[href="#assignsummary"]').click();
+	};
+
+});
+
+//-->
+</script>

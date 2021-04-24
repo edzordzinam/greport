@@ -1,0 +1,52 @@
+<p class="text-error">All entries must be filled before you would be allowed to save this assignment</p>
+<?php  echo $this->form; ?>
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+
+	$('#frm_newassessment').ajaxForm({
+		//options of ajaxForm
+
+		url : '/newassessment',
+		data : {
+			send : '<?php echo $this->sendState; ?>',
+    		}, //data to be submitted along with the form variables json formatted
+		clearForm : null, // form to be cleared if submit is successfull,
+
+		dataType : 'json',  // json, xml, or script
+		type : 'POST', // type of ajax call GET or POST
+
+ 		beforeSubmit : function (arr, $form, options){
+		    if($('#isValid').val() == "false")
+    		    return false;
+		},
+
+		success: function (data){
+			if (data.status){
+			  if (data.update == 0){
+    			bootbox.confirm('Do you want to enter scores now?','Not now', 'Enter Scores', function(confirm){
+    			    if (confirm){
+    				    //use received id of assignment and topic to load scores
+    			    	$.fn.loadScores(data.id, data.topic);
+    			    	$('a[href=\"#assessments\"]').click();
+    			    }
+    			    else{
+    			    	$('#frm_newassessment').resetForm();
+    			    }
+    				});
+			  }
+			  else{
+				  $('a[href=\"#assessments\"]').click();
+			  }
+			}
+        }
+
+    });
+	ValidateAjax.initialize("frm_newassessment", "/validateform");
+
+	$('#cl_date').datepicker();
+});
+//-->
+</script>

@@ -1,0 +1,110 @@
+  <?php
+		// setting the controller and action name as title segments:
+		$this->headTitle ( 'Work Covered Update' )->headTitle ( 'MVC Application' );
+
+		// setting a separator string for segments:
+		$this->headTitle ()->setSeparator ( ' - ' );
+
+		// LOADING OF VIEW SPECIFIC JAVASCRIPT FILES
+	$this->jQuery ()->addJavascriptFile ( '/js/ui_js/reports.js' );
+	?>
+	<div>
+  <?php	if ($this->courses != null) { ?>
+
+ <div class="widget" style="margin-right: auto; margin-left: auto; width: 90%;">
+		<div class="title">
+			<img src="/images/icons/dark/money2.png" alt="" class="titleIcon" />
+			<h6>Entering subject content covered for the options selected below</h6>
+			<div class="num">
+				<a id="" href="/home" class="blueNum">Return Home</a>
+			</div>
+		</div>
+		<div class="wInvoice">
+			<fieldset>
+				<div class="formRow" style="padding-top: 5px; padding-bottom: 5px;">
+					<label for="" style="width: 100px !important;"> options : </label>
+					<input type="hidden" id="grade" value="" />
+
+					<div class="loginInput"
+						style="width: auto !important; float: left !important;">
+						<select id="subject" class="chzn-select"
+							data-placeholder="select subject" style="width: 200px;"
+							onchange="$.fn.getReportGradesPanel($('#subject').val());">
+							<option value="-1"></option>
+							<?php echo $this->partialLoop('partials/_reportindex-row.phtml', $this->courses)?>
+						</select>
+					</div>
+
+					<div class="loginInput"
+						style="width: auto !important; float: left !important;">
+						<select id="exam-content" data-placeholder="select class"
+							class="chzn-select" style="width: 100px;">
+
+						</select>
+					</div>
+
+					<div class="loginInput"
+						style="width: auto !important; float: left !important;">
+						<select id="term" class="chzn-select" style="width: 150px;">
+							<option value="1">1st Term</option>
+							<option value="2">2nd Term</option>
+							<option value="3">3rd Term</option>
+						</select>
+							<script type="text/javascript">
+						        $("#term option[value=<?php echo $this->term; ?>]").attr('selected','selected');
+						        //$("#term option[value=2").prop('selected',true);
+						    </script>
+					</div>
+					<div class="loginInput"
+						style="width: 100px !important; float: left !important;">
+						<input type="text" id="year" class="maskYear" placeholder=""
+
+							style="width: 100px; float: left; padding: 0px; height: 22px; text-indent: 5px;"
+							value=<?php echo $this->year; ?> /> <span class="formNote" style="width: 100px;">
+						</span>
+					</div>
+					<div class="loginInput"
+						style="width: auto !important; float: left !important; margin-right: 0px !important;">
+						<button
+							style="width: 100px; padding-bottom: 5px; padding-top: 6px;"
+							class="button redB" onclick="$.fn.GetWorkCovered();">Work
+							Covered</button>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+			<form class="form">
+				<fieldset>
+					<div class="formRow">
+						<label>WORK COVERED FOR : </label> <label id="lbl_name"
+							style="font-size: 14px; font-weight: bold; padding-left: 50px; color: blue;"></label>
+					</div>
+				</fieldset>
+				<fieldset style="padding: 10px;">
+
+					<div class="loginControl">
+						<textarea id="course-content" maxlength="300" wrap="hard" data-placeholder='No comment loaded for subject'
+							style="width: 95%; font-size: 14px; min-height: 100px; max-height: 100px; max-width: 95%">
+						</textarea>
+
+						<div class="loginControl" style="padding-top: 8px; padding-bottom: 8px; padding-right: 30px;">
+							<input type="button" value="Update Content Covered"
+								onclick="$.fn.updateWorkCovered();" class="dblueB logMeIn" />
+							<div class="clear"></div>
+						</div>
+						<input type="hidden" id="lbl_info" />
+					</div>
+					<p align="center">This page must be refreshed in order to reflect
+						updated comments</p>
+				</fieldset>
+			</form>
+	</div>
+</div>
+
+<?php } else {?>
+<div class="widget">
+	<p style="padding: 20px; text-align: center;">You are not allowed view
+		of any subjects and classes for report purposes</p>
+</div>
+<?php }?>

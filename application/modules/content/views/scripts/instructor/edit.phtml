@@ -1,0 +1,191 @@
+<h6>
+	Updating Class and Subject Assignments of :
+	<span class="label label-info" id="lbl_name"><?php echo strtoupper($this->i_name); ?></span>
+	   Given name <span id="givenname" class="label label-important"><?php echo ($this->firstname); ?></span>
+	   Surname <span id="surname" class="label label-important"><?php echo ($this->lastname); ?></span>
+	   <small>(Double clicking on the names allows editting)</small>
+</h6>
+
+<?php
+if ($this->courses != null) {
+    ?>
+<table class="dtb_base table table-bordered table-hover table-condensed">
+	<thead>
+		<tr>
+			<th width="200">Subjects</th>
+			<th>Classes</th>
+			<th>Manage</th>
+		</tr>
+	</thead>
+	<tbody>
+       <?php
+            echo $this->partialLoop('partials/_instructor-edit-row.phtml',
+            $this->courses);
+        ?>
+     </tbody>
+</table>
+
+    <?php } else {?>
+<p style="padding: 20px; text-align: center;">No classes and subjects
+	assigned to instructor</p>
+<?php }?>
+
+<div>
+<?php
+    $this->assignAddfrm = $this->action('assign-form', 'instructor');
+    echo $this->assignAddfrm;
+?>
+</div>
+
+<script type="text/javascript">
+   $('#tb1').click();
+   $('#cl_inst_id').val(<?php echo $this->instructor?>);
+
+   $(function(){
+
+   $('.dtb_base').dataTable( {
+	   	"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+	   	"oTableTools": {
+	   		"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+	   		"aButtons": [
+	   						"copy",
+	   						"print",
+	   						"xls",
+	   						"pdf"]
+	   	}
+	   });//end dtb_base
+
+
+   $.fn.deleteSubjectClass = function (grade, subject, instructor){
+	    //send post for deleting class subject of an instructor
+	    $.post(
+	    	    '/delsubclass',
+	    	    {
+		    	    grade : grade,
+		    	    subject : subject,
+		    	    instructor : instructor
+		    	},
+		    	function (data){
+		    	    $.fn.getInstDetails(instructor, $('#lbl_name').text(), true);
+		    	});
+   }; //end of deleteSubjectClass
+
+
+   $.fn.getAvailableClasses = function(value){
+		if (value != -1){
+			$.post(
+					  '/instructor/available-classes',
+					  {
+						  //data to send
+						  courseid : value,
+					  },
+					  function (data){
+						 options = '';
+
+						 if (data != null){
+							 $.each(data, function(index, value){
+								 options = options + '<option value='+ index + '>' + value + '</option>';
+							 });
+						 }
+						 else
+						    options = '<option value="-1">All classes have been assigned</option>';
+
+					     $('#cl_grades').html(options);
+					     $('#cl_grades').trigger('liszt:updated');
+					  });
+		}
+
+	};//end of getAvailableClasses
+
+
+	$.fn.sendAssignForm = function(){
+
+		if ($('#cl_inst_id').val() != ''){
+
+		  if ($('#cl_courses').val() != -1 && $('#cl_grades').val() != null){
+			 $.post('/instructor/assign-add',
+					 {
+				 		cl_inst_id : $('#cl_inst_id').val(),
+				 		cl_courses : $('#cl_courses').val(),
+				 		cl_grades  : $('#cl_grades').val()
+					 },
+					 function (data){
+						 $.fn.getInstDetails($('#cl_inst_id').val(), $('#lbl_name').text(),true);
+						 $('#cl_courses option:selected').removeAttr('selected');
+						 $('#cl_grades option:selected').removeAttr('selected');
+
+						 });
+		  	}
+		  else
+			  alert('A subject and applicable classes must be selected, update aborted');
+		}
+		else
+		{
+		   alert('No instructor has been selected from above, update aborted');
+		}
+	};//end of sendAssignForm
+
+
+	$.fn.deleteSubject = function(course, cname, instructor){
+	    bootbox.confirm('Unassigning : ' + $('#lbl_name').text() + ' from teaching ' + cname.toUpperCase(),'Cancel','Unassign', function (result){
+	        if (result){
+	        	$.post(
+						'/instructor/delete-subject',
+						{
+							courseid : course,
+							instructorid : instructor
+						},
+						function(data){
+							$.fn.getInstDetails($('#cl_inst_id').val(), $('#lbl_name').text(), true);
+						});
+	        }
+
+		    });
+	};//end of deleteSubject
+
+    $('#givenname').editable('/instructor/update-details',
+			{
+			"callback": function( sValue, y ) {
+				    //$.showMessage(sValue);
+				},
+
+			"submitdata": function ( value, settings ) {
+				return {
+					"instructor": $('#cl_inst_id').val(),
+					"column" : 'gn',
+				};
+			},
+			placeholder: "",
+			onblur : "submit",
+			type : "text",
+			height: "25px",
+			width : "200px",
+		    event : "dblclick"
+	});//editable of lbl_name to alter the name of an instructor
+
+    $('#surname').editable('/instructor/update-details',
+			{
+			"callback": function( sValue, y ) {
+				    //$.showMessage(sValue);
+				},
+
+			"submitdata": function ( value, settings ) {
+				return {
+					"instructor": $('#cl_inst_id').val(),
+					"column" : 'sn',
+				};
+			},
+			placeholder: "",
+			onblur : "submit",
+			type : "text",
+			height: "25px",
+			width : "200px",
+		    event : "dblclick"
+	});//editable of lbl_name to alter the name of an instructor
+
+     ValidateAjax.initialize("frm_assingadd", "/validateform");
+	 $('.chzn-select').chosen();
+
+	 $(".table").tablecloth({ theme: "paper" });
+   });//end of document ready function
+</script>

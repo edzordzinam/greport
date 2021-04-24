@@ -1,0 +1,19 @@
+<tr>
+
+   <td><?php echo date('jS',strtotime('2007-01-'.$this->term)); ?></td>
+   <td><?php echo $this->year; ?></td>
+   <td><?php echo date('D, jS F Y',strtotime($this->cl_startdate));?></td>
+   <td><?php echo date('D, jS F Y',strtotime($this->cl_enddate));?></td>
+   <td><?php echo $this->holidays;?></td>
+   <?php
+     $sd = new Zend_Date($this->cl_startdate, 'YYYY-MM-dd');
+     $ed = new Zend_Date($this->cl_enddate, 'YYYY-MM-dd');
+     $diff = $ed->sub($sd);
+   ?>
+   <td>
+       <?php
+           // ceil($diff->toValue()/60/60/24/7) + 1;
+            echo $diff->toValue(Zend_Date::WEEK)?>
+       </td>
+
+</tr>

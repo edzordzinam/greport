@@ -1,0 +1,18 @@
+<h4 class="formSep">All Financial Transactions and Statements</h4>
+<div id="transactions"></div>
+<script type="text/javascript">
+$(function(){
+	$.post(
+		    '/showtrans',
+		    {
+				audit : "<?php echo $this->audit ?>"
+		    },
+		    function (data){
+		        $('#transactions').html(data);
+		    });
+
+	$.fn.printReceipt = function (receiptid){
+		$.loadModal('/index/makepdf?url=http://<?php echo $this->host; ?>/printreceipt?receiptid='+receiptid+'&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=RP&grade=0&cid=0&check=500','Transaction Receipt',1);
+	};
+});
+</script>

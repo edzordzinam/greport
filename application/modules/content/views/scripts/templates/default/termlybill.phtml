@@ -1,0 +1,92 @@
+<!--mpdf
+<htmlpageheader name="myheader">
+<table width="100%">
+<tr><td width="100%" align="center"><h1 style="color : maroon"><?php echo strtoupper(Content_Model_School::getSchoolName());?><h1></td></tr>
+<tr><td width="100%" align="center"><h4>TERM FEES FOR TERM <?php echo $this->term?> of <?php echo $this->year ?> ACADEMIC YEAR <h4></td></tr>
+</table>
+<hr>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 5px; ">
+<table width="100%">
+<tr>
+	<td width="30%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="35%" style=" font-size: 9pt; border:none; text-align:center;">Schedule of Fees - Termly</td>
+	<td width="35%" style=" font-size: 9pt; text-align: right;  border:none;">Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+
+
+<table align="center" width="80%" border="0">
+	<thead>
+	    <tr><td colspan="3" align="center" style="border-bottom: 1px solid silver; margin-bottom: 20px;">Class/Grade : <strong><?php echo $this->getGradeName($this->grade);?></strong></td>
+		<tr>
+		    <th align="left">No.</th>
+			<th align="left">Description</th>
+			<th width="100" align="right">Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+  <?php
+    $sum = 0; $i =0;
+    foreach ($this->termbillables as $billable) {
+    	$amount = number_format($billable->amount,2,'.',',');
+    	$sum += $billable->amount; $i += 1;
+    	echo "<tr><td>$i</td><td align='left'>$billable->description</td><td align='right'>$amount</td></tr>";
+    }
+    foreach ($this->gradebillables as $billable) {
+    	$amount = number_format($billable->amount,2,'.',',');
+    	$sum += $billable->amount; $i += 1;
+    	echo "<tr><td>$i</td><td align='left'>$billable->description</td><td align='right'>$amount</td></tr>";
+    }
+
+  ?>
+    <?php if ($sum > 0) {?>
+  		<tr>
+			<td align="right" style="color: blue;"></td>
+			<td align="right">GHC <?php echo number_format($sum, 2,'.',',')?></td>
+		</tr>
+	<?php } ?>
+	  <tr><td colspan="2" style="color: maroon; font-size:11px; font-weight: bold;">.</td></tr>
+	    <?php
+	    $feetypes = array(0 => 'Entry Fee', 1 => 'Term Fee', 2 => '1st Month', 3=> 'Yearly Fee' );
+
+/* 	    $sum1 = 0;
+	    foreach ($this->otherbillables as $billable) {
+	        $amount = number_format($billable->amount,2,'.',',');
+	        $sum1 += $billable->amount;
+	        $f = $feetypes[$billable->type];
+	        $i += 1;
+	        echo "<tr><td>$i</td><td>$billable->description <span style='font-size:9px'>($f)</span></td><td align='right'>$amount</td></tr>";
+	     } */?>
+</tbody>
+	<tfoot>
+<!--   		<tr>
+			<td align="right" style="color: blue;"></td>
+			<td align="right">GHC <?php //echo number_format($sum1, 2,'.',',')?></td>
+<!-- 		</tr> -->
+		 <tr>
+			<th align="right" style="color: blue;">Total Amount</th>
+			<th align="right" style="border-bottom: 1px double silver; text-decoration: underline;">GHC <?php echo number_format($sum , 2,'.',',')?></th>
+		</tr>
+	</tfoot>
+</table>
+<br><br>
+
+
+ <p align="justify"><strong>Please Note the following:</strong><br><br>
+Fees must be paid into <strong>Cal Bank, Account Name: Bethelinter Academy Lower Primary Section and
+Account Number 161014585722 </strong> before school re-opens on _ _ _ _ _ _ _ _ 20__ .
+<br><br>
+Please Cheques are not accepted. All purchases of other school items should be made during registration, (ie, School Uniforms)
+
+Thank you
+</p>
+

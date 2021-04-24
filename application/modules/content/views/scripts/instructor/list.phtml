@@ -1,0 +1,180 @@
+<?php
+if ($this->instructors != null) {
+?>
+
+<table id="dtb_listinstructors" class="dTable table table-hover table-bordered">
+	<thead>
+		<tr>
+		    <th>ID</th>
+			<th>Name / Access Level</th>
+			<th>Class Teacher</th>
+			<th width="170">Manage Account</th>
+			<th>E-mail</th>
+			<th>Tel no.</th>
+			<th width="50">Ecode</th>
+		</tr>
+	</thead>
+	<tbody>
+           <?php echo $this->partialLoop('partials/_instructor-row.phtml',$this->instructors);?>
+     </tbody>
+</table>
+
+<?php } else {?>
+    <p>You do not have any instructors yet.</p>
+<?php }?>
+
+<script type="text/javascript">
+<!--
+$(function(){
+   var listinstructors = $('#dtb_listinstructors').dataTable( {
+    	"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+    	"bStateSave": false,
+    	"iDisplayLength" : 8,
+		"aoColumnDefs": [
+                             { "bVisible": false, "aTargets": [ 0 ] },
+			                 { "sClass": "ct", "aTargets": [ 2 ] },  //used in setting a class to a td
+			                 { "sClass": "em", "aTargets": [ 4 ] },  //used in setting a class to a td
+			                 { "sClass": "tl", "aTargets": [ 5 ] },  //used in setting a class to a td
+			                 { "sClass": "ec", "aTargets": [ 6 ] },  //used in setting a class to a td
+			            ],
+
+		"sScrollY": "320px",
+		"bPaginate": true,
+
+    	"oTableTools": {
+    		"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+    		"aButtons": [
+    						"copy",
+    						"print",
+    						"xls",
+    						"pdf",
+    						{
+			                    "sExtends":    "text",
+			                    "sButtonText" : "New Instructor/User",
+			                    "sButtonClass" : "",
+			                    "fnClick": function ( nButton, oConfig, oFlash ) {
+			                        $.post('/newinstructor',
+			                        	{
+			                               send : false,
+			                        	},
+			                        	function (data){
+			                        	    $('#listinstructors').html(data);
+			                        	});
+			                    }
+			                }]
+    	}
+    });
+
+    $.fn.getInstDetails = function(id, inst_name, update){
+    	$.post(
+    			  '/instructor/edit',
+    			  {
+    				  //data to send
+    				  instructor : id,
+    				  i_name : inst_name
+    			  },
+    			  function (data){
+    				  //call back function  -- could receive html
+    				 $('#listinstructors').html(data);
+    				 $('.chzn-select').trigger('liszt:updated');
+
+    				 if (update){
+        				 $.showMessage('System update successful');
+    				 }
+    			  });
+    };//end of getInstDetails
+
+    $.fn.resetPassword = function (id, iname){
+        bootbox.confirm('Sure you want to reset password for '+ iname.toUpperCase(),'Cancel','Reset Password', function (result){
+            if (result){
+                $.post('/resetinstructorpwd',
+                        {
+                            instructor : id
+                        },
+                        function (data){});
+                }
+
+            });
+    };// end of resetPassword
+
+
+    listinstructors.$('td.ct').editable('/instructor/update-details',
+			{
+			"callback": function( sValue, y ) {
+				    //$.showMessage(sValue);
+				},
+			"submitdata": function ( value, settings ) {
+				return {
+					"instructor": this.parentNode.getAttribute('id'),
+					"column" : 'ct',
+				};
+			},
+			placeholder: "",
+			onblur : "submit",
+			type : "select",
+			loadurl : "/allgrades",
+			height: "25px",
+		    event : "dblclick"
+	});
+
+
+    listinstructors.$('td.em').editable('/instructor/update-details',
+			{
+			"callback": function( sValue, y ) {
+				    //$.showMessage(sValue);
+				},
+			"submitdata": function ( value, settings ) {
+				return {
+					"instructor": this.parentNode.getAttribute('id'),
+					"column" : 'em',
+				};
+			},
+
+			placeholder: "",
+			onblur : "submit",
+			type : "text",
+			height: "25px",
+		    event : "dblclick"
+	});
+
+    listinstructors.$('td.tl').editable('/instructor/update-details',
+			{
+			"callback": function( sValue, y ) {
+				    //$.showMessage(sValue);
+				},
+			"submitdata": function ( value, settings ) {
+				return {
+					"instructor": this.parentNode.getAttribute('id'),
+					"column" : 'tl',
+				};
+			},
+			placeholder: "",
+			onblur : "submit",
+			type : "text",
+			height: "25px",
+		    event : "dblclick"
+	});
+
+    listinstructors.$('td.ec').editable('/instructor/update-details',
+			{
+			"callback": function( sValue, y ) {
+				    //$.showMessage(sValue);
+				},
+			"submitdata": function ( value, settings ) {
+				return {
+					"instructor": this.parentNode.getAttribute('id'),
+					"column" : 'ec',
+				};
+			},
+
+			placeholder: "",
+			onblur : "submit",
+			type : "text",
+			height: "25px",
+		    event : "dblclick"
+	});
+
+    $(".table").tablecloth({ theme: "paper" });
+});//end of document ready
+//-->
+</script>

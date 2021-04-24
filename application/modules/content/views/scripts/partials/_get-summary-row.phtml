@@ -1,0 +1,59 @@
+<tr>
+  <td width="250"><?php echo $this->fullname; ?></td>
+
+  <?php if ($this->CM > 0) {?>
+  <td  width="25" style="text-align: center;"><a href="#" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'CWK',<?php echo $this->studentid?>);return false;"><?php echo ($this->CWKMax > 0) ? $this->CWK : '-'; ?></a></td>
+  <td  width="25" style="text-align: center;"><?php echo ($this->CWKMax > 0) ? round($this->CWKP) : '-'; ?></td>
+  <?php } else { ?>
+	  <td width="25" style="text-align: center;">-</td>
+	  <td width="25" style="text-align: center;">-</td>
+  <?php } ?>
+
+  <?php if ($this->HM > 0) {?>
+	  <td width="25" style="text-align: center;"><a href="#" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'HWK',<?php echo $this->studentid?>);return false;"><?php echo ($this->HWKMax > 0) ? $this->HWK : '-'; ?></a></td>
+	  <td width="25" style="text-align: center;"><?php echo ($this->HWKMax > 0) ? round($this->HWKP) : '-'; ?></td>
+  <?php } else { ?>
+	  <td width="25" style="text-align: center;">-</td>
+	  <td width="25" style="text-align: center;">-</td>
+  <?php } ?>
+
+   <?php if ($this->UM > 0) {?>
+  		<td width="25" style="text-align: center;"><a href="#" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'UNT',<?php echo $this->studentid?>);return false;"><?php echo ($this->UNTMax > 0) ? $this->UNT : '-'; ?></a></td>
+  		<td width="25" style="text-align: center;"><?php echo ($this->UNTMax > 0) ? round($this->UNTP) : '-'; ?></td>
+  <?php } else { ?>
+	  <td width="25" style="text-align: center;">-</td>
+	  <td width="25" style="text-align: center;">-</td>
+  <?php } ?>
+
+  <?php if ($this->GM > 0) {?>
+  <td width="25" style="text-align: center;"><a href="#" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'GPW',<?php echo $this->studentid?>);return false;"><?php echo ($this->GPWMax > 0) ? $this->GPW : '-'; ?></a></td>
+  <td width="25" style="text-align: center;"><?php echo ($this->GPWMax > 0) ? round($this->GPWP) : '-'; ?></td>
+   <?php } else { ?>
+	  <td width="25" style="text-align: center;">-</td>
+	  <td width="25" style="text-align: center;">-</td>
+  <?php } ?>
+
+  <?php if ($this->PM > 0) {?>
+  <td width="25" style="text-align: center;"><a href="#" onclick="$.fn.loadMarkDetails(<?php echo $this->cc?>,'PRJ',<?php echo $this->studentid?>);return false;"><?php echo ($this->PRJMax > 0) ? $this->PRJ : '-'; ?></a></td>
+  <td width="25" style="text-align: center;"><?php echo ($this->PRJMax > 0) ? round($this->PRJP) : '-'; ?></td>
+  <?php } else { ?>
+	  <td width="25" style="text-align: center;">-</td>
+	  <td width="25" style="text-align: center;">-</td>
+  <?php } ?>
+
+  <td width="25"  style="text-align: center; font-weight: bold; color : blue;"><?php echo $this->GT; ?></td>
+
+  <td width="25" style="text-align: center; font-weight: bold; color : maroon;" ><?php echo round($this->TCM100); ?></td>
+  <td width="25" style="text-align: center; font-weight: bold; color : green"><?php echo round($this->TCM40); ?></td>
+
+		      	<?php if ($this->isExaminable) {?>
+					  <td width="25" style="text-align: center; font-weight: bold; color : maroon;"><?php echo round($this->EXM100);?></td>
+					  <td width="25" style="text-align: center; font-weight: bold; color : green;"><?php echo round($this->EXM60);?></td>
+  		      	<?php } else { ?>
+					  <td width="25" style="text-align: center; font-weight: bold; color : maroon;"><?php echo '-';?></td>
+					  <td width="25" style="text-align: center; font-weight: bold; color : green;"><?php echo '-';?></td>
+  		      	<?php } ?>
+
+  <td width="70" style="text-align: center; font-weight: bold; color : blue;"><?php echo round($this->TM);?></td>
+  <td style="text-align: center; font-weight: bold; color : blue;"><?php echo $this->GR;?></td>
+</tr>

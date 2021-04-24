@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" class="login_page">
+<head>
+<meta charset="utf-8">
+<title><?php echo Content_Model_School::getSchoolName()?> welcomes you</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="We provide an innovative academic reporting generation system">
+<meta name="author"
+	content="<?php echo Content_Model_School::getSchoolName()?>">
+
+         <?php
+									echo $this->headTitle ();
+									$this->headLink ()->exchangeArray ( array () );
+									$this->headLink ()->appendStylesheet ( '/min/g=login.css' );
+									echo $this->headLink ();
+									echo $this->jQuery ();
+
+									?>
+        <!-- Bootstrap framework -->
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="favicon.ico" />
+
+
+<!--[if lte IE 8]>
+            <script src="js/ie/html5.js"></script>
+			<script src="js/ie/respond.min.js"></script>
+        <![endif]-->
+<style type="text/css">
+html {
+	overflow-y: scroll
+}
+
+body {
+	color: #222;
+}
+
+html,body {
+	height: 90%;
+	/* 			background: url("/img/bgLight.gif") transparent; */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push,#footer {
+	height: 60px;
+}
+
+#footer {
+	background-color: #f5f5f5;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media ( max-width : 767px) {
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+</style>
+
+</head>
+<body style="padding-top: 40px;">
+
+
+<!-- Navbar ================================================== -->
+
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#" id="schoolname" name="top"></a>
+
+				<div class="nav-collapse collapse">
+					<ul class="nav pull-right">
+						<li><a href="#"><label id="lbl_ajaxprogress"></label></a></li>
+						<li class="divider-vertical"></li>
+
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+<img class="pull-left img-polaroid"
+		src="<?php echo Content_Model_School::getSchoolLogo()?>"
+				alt="<?php echo Content_Model_School::getSchoolName()?>" width="400"
+						style="margin-top: -10px; margin-right: 10px;" />
+						<hr>
+						<blockquote>
+						<p>A strong and robust platform that makes the job of school
+						administration efficient and effective.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+						</blockquote>
+						<hr style="margin-bottom:8px;">
+
+
+	<div style="width: 40%; float: left; padding-left: 15%">
+		     <p>The default media allow to float a media object (images, video, audio) to the left or right of a content block.</p>
+            <div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" src="http://placehold.it/64x64">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">Academic Reporting</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </div>
+                        <div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" src="http://placehold.it/64x64">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </div>
+
+	</div>
+	<div class="login_box pull-right" style="float: right;">
+		<form action="" method="post" id="login_form">
+			<div class="top_b">
+				Sign in : <strong style="text-transform: uppercase;"><?php echo Content_Model_School::getSchoolName()?></strong>
+			</div>
+			<div class="alert alert-info alert-login">Management and Instructors
+				only</div>
+			<div class="cnt_b">
+				<div class="formRow">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-user"></i></span><input
+							type="text" id="username" name="username" placeholder="Username"
+							value="" />
+					</div>
+				</div>
+				<div class="formRow">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-lock"></i></span><input
+							type="password" id="password" name="password"
+							placeholder="Password" value="" />
+					</div>
+				</div>
+				<!-- 					<div class="formRow clearfix">
+						<label class="checkbox"><input type="checkbox" /> Remember me</label>
+					</div> -->
+			</div>
+			<div class="btm_b clearfix">
+				<button class="btn btn-inverse pull-right" type="submit">Sign In</button>
+				<span class="link_reg"><a href="#reg_form">Not registered? Sign up
+						here</a></span>
+			</div>
+		</form>
+
+		<form action="dashboard.html" method="post" id="pass_form"
+			style="display: none">
+			<div class="top_b">Can't sign in?</div>
+			<div class="alert alert-info alert-login">Please enter your email
+				address. You will receive a link to create a new password via email.
+			</div>
+			<div class="cnt_b">
+				<div class="formRow clearfix">
+					<div class="input-prepend">
+						<span class="add-on">@</span><input type="text"
+							placeholder="Your email address" />
+					</div>
+				</div>
+			</div>
+			<div class="btm_b tac">
+				<button class="btn btn-inverse" type="submit">Request New Password</button>
+			</div>
+		</form>
+
+		<form action="dashboard.html" method="post" id="reg_form"
+			style="display: none">
+			<div class="top_b">Sign up to Gebo Admin</div>
+			<div class="alert alert-login">
+				By filling in the form bellow and clicking the "Sign Up" button, you
+				accept and agree to <a data-toggle="modal" href="#terms">Terms of
+					Service</a>.
+			</div>
+			<div id="terms" class="modal hide fade" style="display: none">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Terms and Conditions</h3>
+				</div>
+				<div class="modal-body">
+					<p>Nulla sollicitudin pulvinar enim, vitae mattis velit venenatis
+						vel. Nullam dapibus est quis lacus tristique consectetur. Morbi
+						posuere vestibulum neque, quis dictum odio facilisis placerat. Sed
+						vel diam ultricies tortor egestas vulputate. Aliquam lobortis
+						felis at ligula elementum volutpat. Ut accumsan sollicitudin neque
+						vitae bibendum. Suspendisse id ullamcorper tellus. Cum sociis
+						natoque penatibus et magnis dis parturient montes, nascetur
+						ridiculus mus. Vestibulum at augue lorem, at sagittis dolor.
+						Curabitur lobortis justo ut urna gravida scelerisque. Cum sociis
+						natoque penatibus et magnis dis parturient montes, nascetur
+						ridiculus mus. Aliquam vitae ligula elit. Pellentesque tincidunt
+						mollis erat ac iaculis. Morbi odio quam, suscipit at sagittis
+						eget, commodo ut justo. Vestibulum auctor nibh id diam placerat
+						dapibus. Cum sociis natoque penatibus et magnis dis parturient
+						montes, nascetur ridiculus mus. Suspendisse vel nunc sed tellus
+						rhoncus consectetur nec quis nunc. Donec ultricies aliquam turpis
+						in rhoncus. Maecenas convallis lorem ut nisl posuere tristique.
+						Suspendisse auctor nibh in velit hendrerit rhoncus. Fusce at
+						libero velit. Integer eleifend sem a orci blandit id condimentum
+						ipsum vehicula. Quisque vehicula erat non diam pellentesque sed
+						volutpat purus congue. Duis feugiat, nisl in scelerisque congue,
+						odio ipsum cursus erat, sit amet blandit risus enim quis ante.
+						Pellentesque sollicitudin consectetur risus, sed rutrum ipsum
+						vulputate id. Sed sed blandit sem. Integer eleifend pretium metus,
+						id mattis lorem tincidunt vitae. Donec aliquam lorem eu odio
+						facilisis eu tempus augue volutpat.</p>
+				</div>
+				<div class="modal-footer">
+					<a data-dismiss="modal" class="btn" href="#">Close</a>
+				</div>
+			</div>
+			<div class="cnt_b">
+
+				<div class="formRow">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-user"></i></span><input
+							type="text" placeholder="Username" />
+					</div>
+				</div>
+				<div class="formRow">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-lock"></i></span><input
+							type="text" placeholder="Password" />
+					</div>
+				</div>
+				<div class="formRow">
+					<div class="input-prepend">
+						<span class="add-on">@</span><input type="text"
+							placeholder="Your email address" />
+					</div>
+					<small>The e-mail address is not made public and will only be used
+						if you wish to receive a new password.</small>
+				</div>
+
+			</div>
+			<div class="btm_b tac">
+				<button class="btn btn-inverse" type="submit">Sign Up</button>
+			</div>
+		</form>
+
+		<div class="links_b links_btm clearfix">
+			<span class="linkform"><a href="#pass_form">Forgot password?</a></span>
+			<span class="linkform" style="display: none">Never mind, <a
+				href="#login_form">send me back to the sign-in screen</a></span>
+		</div>
+	</div>
+	 	   <?php echo $this->layout()->content; ?>
+
+<div style="clear: both;"></div>
+<hr style="margin-top:5px;">
+		<ul class="thumbnails">
+			<li class="span3">
+				<a href="#" class="thumbnail" style="width: 180px;">
+				<img src="/img/logos/image1.jpg" style="width: 180px; height: 120px;" alt="260x180">
+				</a>
+			</li>
+			<li class="span3">
+				<a href="#" class="thumbnail" style="width: 180px;">
+				<img src="/img/logos/image2.jpg" style="width: 180px; height: 120px;" alt="260x180">
+				</a>
+			</li>
+
+ </ul>
+
+
+		<div class="navbar navbar-fixed-bottom" id="footer">
+		<div class="container" style="padding-top: 20px; width: 100%">
+			<p class="muted credit" style="" align="center">
+				<strong>Support:</strong> | (+233)-024-346-3320 |
+				(+233)-024-635-9711 | <a href="mailto:info@greports.com">info@greports.com</a>
+				| <a href="mailto:info@greports.com">support@greports.com</a>
+			</p>
+		</div>
+	</div>
+
+	<script src="/min/g=scripts.js"></script>
+
+	<script>
+            $(document).ready(function(){
+
+				//* boxes animation
+				form_wrapper = $('.login_box');
+				function boxHeight() {
+					form_wrapper.animate({ marginTop : ( - ( form_wrapper.height() / 2) - 24) },400);
+				};
+				form_wrapper.css({ marginTop : ( - ( form_wrapper.height() / 2) - 24) });
+                $('.linkform a,.link_reg a').on('click',function(e){
+					var target	= $(this).attr('href'),
+						target_height = $(target).actual('height');
+					$(form_wrapper).css({
+						'height'		: form_wrapper.height()
+					});
+					$(form_wrapper.find('form:visible')).fadeOut(400,function(){
+						form_wrapper.stop().animate({
+                            height	 : target_height,
+							marginTop: ( - (target_height/2) - 24)
+                        },500,function(){
+                            $(target).fadeIn(400);
+                            $('.links_btm .linkform').toggle();
+							$(form_wrapper).css({
+								'height'		: ''
+							});
+                        });
+					});
+					e.preventDefault();
+				});
+
+				//* validation
+				$('#login_form').validate({
+					onkeyup: false,
+					errorClass: 'error',
+					validClass: 'valid',
+					rules: {
+						username: { required: true, minlength: 3 },
+						password: { required: true, minlength: 3 }
+					},
+					highlight: function(element) {
+						$(element).closest('div').addClass("f_error");
+						setTimeout(function() {
+							boxHeight()
+						}, 200)
+					},
+					unhighlight: function(element) {
+						$(element).closest('div').removeClass("f_error");
+						setTimeout(function() {
+							boxHeight()
+						}, 200)
+					},
+					errorPlacement: function(error, element) {
+						$(element).closest('div').append(error);
+					}
+				});
+            });
+
+                       	//default form initialization
+              	$('#login_form').ajaxForm({
+              		//options of ajaxForm
+
+              		url : '/auth',
+              		data : {}, //data to be submitted along with the form variables json formatted
+              		clearForm : null, // form to be cleared if submit is successfull,
+
+              		dataType : 'json',  // json, xml, or script
+              		type : 'POST', // type of ajax call GET or POST
+
+              		replaceTarget : true,
+              		target : '#response',   //target is only rendered when the dataType has been specified.
+
+              		//callback function to be invoked on error.
+              		error : function (){
+              		},
+
+              		beforeSubmit : function (arr, $form, options){
+              			// return false; to cancel submit action
+              			 arr[1].value = $.MD5(arr[1].value);
+              		},
+
+              		success : function (data){
+              		    if (data.success == 1){
+              		    	window.location.replace(data.url);
+              		    }
+              		    else if (data.success == -1) {
+              		    	$.showMessage('Your account has been deactivated, contact admin.');
+              		    }
+              		    else if (data.success == 2){
+              		    	window.location.replace(data.url);
+              		    }
+              		    else{
+              		    	$.showMessage('Username or Password invalid', 'error');
+              		    }
+              		},
+
+                  });
+
+         		// expose the form when it's clicked or cursor is focused
+         		var form = $(".expose").bind("click keydown", function() {
+
+         			$(this).expose({
+
+         				// when exposing is done, change form's background color
+         				onLoad: function() {
+         					//form.css({backgroundColor: '#c7f8ff'});
+         				},
+
+         				// when "unexposed", return to original background color
+         				onClose: function() {
+         					//form.css({backgroundColor: null});
+         				}
+
+         			});
+         		});
+        		var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
+
+         		$.showMessage = function (msg, type, layout ){
+         			$.pnotify({
+         			    title: 'System Alert',
+         			    text: msg,
+         			    type: type,
+         			    icon: 'picon picon-network-wireless',
+          			    closer_hover: false,
+        			    sticker_hover: false,
+        			    history : false,
+        			    delay: 5000,
+        			    addclass: "stack-bottomright",
+        				stack: stack_bottomright
+         			});
+         		};
+
+    			  $.resizeElementHeight = function (element) {
+    				  var height = 0;
+    				  var body = window.document.body;
+    				  if (window.innerHeight) {
+    				      height = window.innerHeight;
+    				  } else if (body.parentElement.clientHeight) {
+    				      height = body.parentElement.clientHeight;
+    				  } else if (body && body.clientHeight) {
+    				      height = body.clientHeight;
+    				  }
+    				  element.style.height = ((height - element.offsetTop) + "px");
+    				};
+
+    				$(document).ajaxError(
+    						function(event, request, settings) {
+    						if (request.readyState == 0){
+    							$('#lbl_ajaxprogress').unblock();
+    							$('#sysalert').html('<div class="alert alert-block alert-error fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Connection to server failed. Please check your internet/network connection and try again</p></div>');
+    						}
+    						if (request.readyState == 4 && request.status == 401 /*Unauthorized Request*/  ) {
+    				   			window.location = '/';
+    						}else
+    							if (request.readyState == 4 && request.status == 406 /*Unauthorized Request*/  ) {
+    								$.showMessage('Update failed, Data incomplete','error');
+    						}
+    						else if (request.readyState == 4 && request.status == 501){
+    							$('#sysalert').html('<div class="alert alert-block alert-info fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Configuration of your institution is not yet complete. Sorry for any inconvenience caused. Please contact support for more information</p></div>');
+    						}
+    			});
+
+    			$(document).ajaxSuccess(
+    					function (event, request, settings){
+    					   if (request.readyState == 4 && request.status == 202 /*Accepted Request*/) {
+    							$.showMessage('Data successfully updated','information');
+    						};
+    					});
+
+
+    			$(document).ajaxStart(function(){
+    				$("#sysalert").html('');
+    				$('#lbl_ajaxprogress').block(
+    						{
+    							message : ' <img src="/img/loaders/loader6.gif" />Processing',
+    							css : {width : '150px', border:'1px silver #aaa', }
+    						 }
+    						);
+    			});
+
+    			$(document).ajaxStop(function(){
+    				$('#lbl_ajaxprogress').unblock();
+    			});
+
+    			  var $modal = $('#ajax-modal');
+    			  var $modalbody = $('#ajax-modal .modal-body');
+    			  $.loadModal = function(url, title, data){
+    				    GlobalModalManager.loading();
+    				    $('#modal-title').html(title);
+    				    $modalbody.load(url,
+    						 {
+    				          data : data,
+    					     }, function(){
+    				      $modal.modal();
+    				    });
+    			  }
+
+           // $('#schoolname').append("<?php //echo $this->schoolname; ?>");
+        </script>
+</body>
+</html>

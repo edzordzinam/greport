@@ -1,0 +1,60 @@
+<table id="dtb_paststudents" class="dTable table table-hover table-bordered table-condensed table-mini">
+	<thead>
+		<tr>
+		    <th width="100">ID</th>
+			<th width="200">Given name</th>
+			<th width="200">Surname</th>
+			<th width="50">Gender</th>
+			<th width="100">Class</th>
+			<th width="50">Manage</th>
+		</tr>
+	</thead>
+	<tbody>
+    </tbody>
+</table>
+
+<div class="well well-small">Please click on page numbers below the table above to view more student records, if any!</div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_paststudents = $('#dtb_paststudents').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+	    "iDisplayLength" : 10,
+		"bAutoWidth": false,
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "/student/past-students",
+		"sServerMethod": "POST",
+		"bStateSave": false,
+
+	    //"sScrollY": "350px",
+	    "bPaginate": true,
+		//"bScrollInfinite": true,
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+			"aoColumnDefs": [
+			                 { "bSortable": false, "aTargets": [ 4, 5 ] }
+			                ],
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf"
+							]
+		}
+	});
+
+	 $(".table").tablecloth({ theme: "paper" });
+
+});
+//-->
+</script>

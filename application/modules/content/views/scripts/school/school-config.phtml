@@ -1,0 +1,93 @@
+<h6 class="formSep">School Setup Configurations</h6>
+<div class="span6 pull-left">
+	<?php echo $this->form; ?>
+</div>
+<div class="span5">
+    <form id="frm_logo" enctype="multipart/form-data" action="/uploadlogo" method="POST">
+        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+		<label for="fileinput" class="control-label">School Logo/Banner</label><code>.jpg; .png; .gif; .jpeg; maximum size: 100KB</code>
+		<div class="controls">
+			<div data-provides="fileupload" class="fileupload fileupload-new">
+				<input type="hidden" />
+				<div style="width: 350px; height: 80px;"
+					class="fileupload-new thumbnail">
+					<img src="<?php echo ($this->schoollogo != '') ? $this->schoollogo : 'http://www.placehold.it/350x80/EFEFEF/AAAAAA?>' ?>" alt="" />
+				</div>
+				<div style="width: 350px; height: 80px; line-height: 80px;"
+					class="fileupload-preview fileupload-exists thumbnail"></div>
+
+				<span class="btn btn-file btn-small"><span class="fileupload-new">Select Logo</span><span
+					class="fileupload-exists">Change</span>
+					<input type="file" id="schoollogo2" /></span>
+					<a data-dismiss="fileupload" class="btn btn-danger btn-small fileupload-exists" href="#">Remove</a>
+					<input type="button" class="btn btn-success btn-file fileupload-exists" onclick="$.fn.sendLogo();" value="Upload Logo" />
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- SCRIPT SECTION -->
+<script type="text/javascript">
+<!--
+$(function(){
+
+    $('#frm_schoolconfig').ajaxForm({
+    	//options of ajaxForm
+    	url : '/schoolconfig',
+    	data : {
+    	    send : true,
+    	    duplicate : null,
+    	}, //data to be submitted along with the form variables json formatted
+    	clearForm : null, // form to be cleared if submit is successfull,
+
+    	dataType : 'json',  // json, xml, or script
+    	type : 'POST', // type of ajax call GET or POST
+
+    	beforeSubmit : function (arr, $form, options){
+			//set the duplicate value here by retrieving the select option...
+
+           	if ((parseInt(arr[7].value) + parseInt(arr[8].value)) != 100){
+            	$.showMessage('% of Marks for (Exams and Class) must total 100%');
+            	return false;
+        	}
+    	    if($('#isValid').val() == "false")
+    		    return false;
+    	},
+
+    	success: function (data){
+    		$.showMessage('School Configurations successfully updated');
+        }
+
+    });
+
+    $.fn.sendLogo = function(){
+    	// The Javascript
+    	var fileInput = document.getElementById('schoollogo2');
+    	var file = fileInput.files[0];
+    	var formData = new FormData();
+    		formData.append('file', file);
+
+    	$.ajax({
+    	  url: '/uploadlogo',
+    	  data: formData,
+    	  processData: false,
+    	  contentType: false,
+    	  type: 'POST',
+    	  success: function(data){
+    	    $.showMessage(data);
+    	  }
+    	});
+
+    	return false;
+    };
+
+    /* var selectBox = $("select").selectBoxIt({
+        showEffect: "fadeIn",
+        showEffectSpeed: 200,
+        hideEffect: "fadeOut",
+        hideEffectSpeed: 200
+    }); */
+    ValidateAjax.initialize("frm_schoolconfig", "/validateform");
+});
+//-->
+</script>

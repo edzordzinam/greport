@@ -1,0 +1,216 @@
+
+
+/* -----------------------------------------------------------------------
+
+
+ Blueprint CSS Framework 1.0.1
+ http://blueprintcss.org
+
+   * Copyright (c) 2007-Present. See LICENSE for more info.
+   * See README for instructions on how to use Blueprint.
+   * For credits and origins, see AUTHORS.
+   * This is a compressed file. See the sources in the 'src' directory.
+
+----------------------------------------------------------------------- */
+/* print.css */
+body {
+/* 	//line-height: 1.5; */
+	font-family: "Times New Roman";
+	color: #000;
+	background: none;
+	font-size: 14px;
+}
+
+@page {
+  sheet-size: A4;
+}
+
+.container {
+	background: none;
+}
+
+hr {
+	width: 100%;
+}
+
+hr.space {
+	background: #fff;
+	color: #fff;
+	visibility: hidden;
+}
+
+h1,h2,h3,h4,h5,h6 {
+/* 	font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif; */
+}
+
+code {
+/* 	font: .9em "Courier New", Monaco, Courier, monospace; */
+}
+
+a img {
+	border: none;
+}
+
+p img.top {
+	margin-top: 0;
+}
+
+blockquote {
+	margin: 1.5em;
+	padding: 1em;
+	font-style: italic;
+	font-size: .9em;
+}
+
+.small {
+	font-size: .9em;
+}
+
+.large {
+	font-size: 1.1em;
+}
+
+.quiet {
+	color: #999;
+}
+
+.hide {
+	display: none;
+}
+
+a:link,a:visited {
+	background: transparent;
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+a:link:after,a:visited:after {
+	content: " (" attr(href) ")";
+	font-size: 90%;
+}
+
+.tb {
+	text-align: right;
+	padding-right: 40px;
+	font-size: 14px;
+	border-left: 1px solid #0070C0;
+}
+
+.trb {
+	text-align: center;
+	font-size: 14px;
+	border-left: 1px solid #0070C0;
+}
+
+.tc {
+	text-align: center;
+	font-size: 14px;
+	border-left: 1px solid #0070C0;
+    background-color: white !important;
+}
+
+.tl {
+	text-align: left;
+ 	padding-left : 35px;
+	/*padding-left: 50px; */
+	font-size: 14px;
+	font-weight: bold;
+	border-left: thin solid #0070C0;
+	/* border-right: thin solid #0070C0; */
+}
+
+.tf{
+  font-size: 14px;
+  border-bottom: 1px solid #0070C0;
+}
+
+table thead {
+	text-align: center;
+}
+
+.report-level2 {
+	height: 200px;
+}
+
+.report-logo tr {
+	border: none;
+}
+
+.auto-style1 {
+	font-family: Times New Roman;
+	font-size: 14px;
+	border-bottom: 1px solid #0070C0;
+	background-color: #DFEEF3;
+}
+
+
+
+.auto-style4 {
+	border-left: 1px solid #0070C0;
+	border-top : 1px solid #0070C0;
+	font-size: 12px;
+	font-weight : bold;
+	white-space: wrap;
+	text-transform: uppercase;
+	background-color: #DFEEF3;
+/* 	width : 100px; */
+/* 	border-right: 2px solid #0070C0; */
+/* 	border-left: 2px solid #0070C0; */
+
+}
+
+.auto-style5 {
+  	border: 0.01em solid #0070C0;
+}
+
+tr td{
+	border-left : 1px solid #0070C0;
+	border-bottom : 1px solid #0070C0;
+}
+
+td:FIRST-CHILD{
+	border-left: 1px solid #0070C0;
+}
+
+td:LAST-CHILD{
+	border-right: 1px solid #0070C0;
+}
+
+
+tr:nth-child(even) { background-color: #DFEEF3; }
+tr:nth-child(odd) { background-color: #ffffff; }
+
+.rptdetails{
+	border: 0px !important;
+}
+
+
+.hearderinfo tr td:nth-child(even) { background-color: #eee }
+.hearderinfo tr td:nth-child(odd) { background-color: white; }
+
+.hearderinfo td:FIRST-CHILD {
+	border: 1px !important;
+	border-top: 1px solid #0070C0;
+}
+
+.tdetail{
+	text-align: center;
+}
+
+.rpdetails td {
+	border: 1px solid #0070C0;
+}
+
+.rpdetails td {
+	border: 1px solid #0070C0;
+}
+
+
+.rpdetails tr:nth-child(even) { background-color: #DFEEF3; }
+.rpdetails tr:nth-child(odd) { background-color: #ffffff; }
+.rpdetails tr td{
+	border-left : none;
+	border-bottom : none;
+}
+
+

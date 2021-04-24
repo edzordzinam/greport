@@ -1,0 +1,133 @@
+<?php if ($this->useTemplate) { ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="stylesheet" href="/css/print.css"></link>
+</head>
+
+
+<body>
+<?php
+	 if ($this->report != false) { ?>
+<!--mpdf
+<htmlpageheader name="myheader">
+<table width="100%">
+<tr>
+	<td width="50%" style="color:#0000BB; border:none;"><img src="<?php echo Content_Model_School::getSchoolLogo();?>" alt="<?php echo Content_Model_School::getSchoolLogo();?>" height="77px;"/></td>
+<?php if ($this->useCambridge) { ?>
+	<td width="50%" style="text-align: right;border:none;"><img src="/img/camlogo.png" alt="" height="50px;" /></td>
+<?php } ?>
+</tr>
+</table>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+<table width="100%">
+<tr>
+	<td width="50%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="50%" style=" font-size: 9pt; text-align: right;  border:none;"><?php if($this->current){ ?>Class Teacher : <strong><?php echo strtoupper($this->classteacher); } ?></strong> | Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+<div>
+     <table class="auto-style5" align="left" cellpadding="5" cellspacing="0" style="margin-right: 0px;" >
+     <tr>
+     	<td width="100" style="border-top: 1px solid #0070C0;">Report Date</td>
+     	<td width="200" style="border-top: 1px solid #0070C0;"><strong><?php echo date('jS F Y')?></strong></td></tr>
+     <tr>
+        <td width="100" style="border-top: 1px solid #0070C0;">Class</td>
+     	<td width="200" style="border-top: 1px solid #0070C0;"><strong><?php echo $this->gradename; ?></strong></td>
+     </tr>
+     	</table>
+</div>
+
+<div align="center" style=" padding-top: 1px;">
+      <div align="center"  style="padding-bottom: 10px; margin-right: auto; margin-left:auto;">
+	         PROGRESS REPORT : <span style="font-size:18px; font-weight:bold; color: maroon;"><?php echo $this->report[0]->stdname; ?></span>
+	 </div>
+	<table cellpadding="1" cellspacing="0" width="100%" class="auto-style5">
+					<thead>
+						<tr>
+							<td class="auto-style4" style="width: 250px; !important;">SUBJECTS</td>
+							<td class="auto-style4">Class Work Mark</td>
+							<td class="auto-style4">Home Work Mark</td>
+							<td class="auto-style4">Unit Test Mark</td>
+							<td class="auto-style4">Group Work Mark </td>
+							<td class="auto-style4">PROJECT Mark</td>
+							<td class="auto-style4">total class mark</td>
+							<td class="auto-style4">POTENTIAL GRADE</td>
+						</tr>
+					</thead>
+					<tbody>
+					   <?php
+					         echo $this->partialLoop('partials/_progress-report-row-template.phtml', $this->report);
+					    ?>
+					   <tr><td colspan="10" style="padding : 5px; font-weight: bold;" > This report shows the marks gained by <?php echo strtoupper($this->report[0]->stdname); ?> up to the Report Date. The Potential Grade is what <?php echo strtoupper($this->report[0]->stdname); ?> could achieve at the end of the term continuing the same level of progress as shown to date.  </td> </tr>
+
+					  <tr style="height : 20px;" >  <td colspan="2" ></td><td colspan="8"></td> </tr>
+
+
+					  <tr style="font-weight: bold;">  <td colspan="2" >HEADINGS</td><td colspan="8">INTERPRETATION</td> </tr>
+					  <tr>  <td colspan="2" >CLASSWORK </td><td colspan="8">Sum of all class exercises</td> </tr>
+					  <tr>  <td colspan="2" >HOMEWORK </td><td colspan="8" >Sum of all homework assignments</td> </tr>
+					  <tr>  <td colspan="2" >UNIT TEST </td><td colspan="8">Sum of marks from topic tests</td> </tr>
+					  <tr>  <td colspan="2" >GROUP WORK </td><td colspan="8">Sum of marks of group work presented</td> </tr>
+					  <tr>  <td colspan="2" >PROJECT </td><td colspan="8">Marks obtained from project work</td> </tr>
+					  <tr style=" ">  <td colspan="2" >TOTAL CLASS MARK </td><td colspan="8">The percentage of all class work, homework, group work, projects and unit tests</td> </tr>
+					</tbody>
+	</table>
+</div>
+    <?php
+	 }
+	 else
+	 	echo "No records found matching the parameters provided!! ";
+    ?>
+</body>
+
+</html>
+<?php } else { ?>
+<table id="hd" class="table table-hover table-bordered table-condensed" style="padding-right: 15px;">
+    <tr >
+     <td width="auto" colspan="10" style="border-top: 1px solid #0070C0;" ><strong>
+    					<?php if(isset($this->report[0]->stdname)) 
+					 	     echo strtoupper($this->report[0]->stdname); 
+					       
+					  	?> </strong></td>
+    
+     </tr>
+	<tr>
+							<td style="width: 250px; !important;">SUBJECTS</td>
+							<td width="8%" style="font-weight: bold; text-align:center; color: blue;">CWK</td>
+							<td width="8%" style="font-weight: bold; text-align:center; color: blue;">HWK</td>
+							<td width="8%" style="font-weight: bold; text-align:center; color: blue;">UNT</td>
+							<td width="8%" style="font-weight: bold; text-align:center; color: blue;">GPW </td>
+							<td width="8%" style="font-weight: bold; text-align:center; color: blue;">PRJ</td>
+							<td width="8%" style="font-weight: bold; text-align:center; color: black;">Total</td>	
+							<td width="100" style="font-weight: bold; text-align:center; color: maroon;">P* GRADE</td>
+	</tr>
+</table>
+    <div style="max-height: 250px; overflow: auto;">
+		<table id="bd" class="table table-hover table-bordered table-condensed">
+		     <tr><td colspan="10"></td></tr>
+						   <?php 
+						   if ($this->report != false)
+						         echo $this->partialLoop('partials/_progress-report-row.phtml', $this->report);
+						   else
+						   		echo "No records found matching the parameters provided!! ";
+						    ?>					  			  
+		</table>
+	</div>	    
+	<script type="text/javascript">
+	<!--
+	$(".table[id=hd]").not('#astats').tablecloth({ theme: "paper" });
+	$(".table[id=bd]").not('#astats').tablecloth({ theme: "paper" });
+	//-->
+	</script>
+<?php } ?>
+

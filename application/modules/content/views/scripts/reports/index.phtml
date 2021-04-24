@@ -1,0 +1,215 @@
+<?php if ($this->allow) {?>
+<div align="left" style="display: none;" class="pull-right"><?php echo $this->subButtons?></div>
+		<span class="label label-important" id="rType" style="display: none;">0</span>
+
+	<ul id="myTab" class="nav nav-pills">
+	    <li><span style="padding-right: 5px;"><select id="rStudents" onchange='$.fn.filterReport($("#cc").text(),$("#gg").text(), $("#rStudents option:selected").val());'></select></span></li>
+		<li class="active"><a href="" data-toggle="tab" onclick="$.fn.changeType(0);">Cummulative</a></li>
+		<li><a href="" data-toggle="tab" onclick="$.fn.changeType(1);">Term Report</a></li>
+		<li><a href="" data-toggle="tab" onclick="$.fn.changeType(2);">Progressive</a></li>
+		<li><a href="" data-toggle="tab" onclick="$.fn.changeType(3);">Comments and Remarks</a></li>
+		<li><a href="" style="font-size: 12px; color: maroon;" onclick="$.fn.print(); return false;"><i class="icon-print"></i> Print Version (PDF)</a></li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="1"></div>
+		<div class="tab-pane fade in" id="2"></div>
+		<div class="tab-pane fade in" id="3"></div>
+		<div class="tab-pane fade in" id="4"></div>
+		<div class="tab-pane fade in" id="5"></div>
+	</div>
+	<div id="viewreportdiv" style="border-bottom: 1px solid silver; margin-bottom: 4px;"></div>
+
+			<div class="btn-toolbar" style="width: 100%">
+				<div class="btn-group" >
+			    	<button class="left btn btn-link"><i class="icon-chevron-left"></i></button>
+			    </div>
+				<div class="scrolling_area btn-group" style="margin: 0px;">
+					 <div class="scroll_content">
+							<div class="btn-group" data-toggle="buttons-radio">
+							<?php $i = 0;
+							  foreach ($this->classes as $key => $value) {
+								//if ($i % 10 == 0)
+								  //echo "<hr style='margin-top : 5px; margin-bottom:5px;'>";
+							      $n = $this->getGradeName($value);
+							      echo "<button id='bbb$key' class='btn btn-small btn-danger' type='button'
+							      onclick='$.fn.loadStudents($value, $(\"#cc\").text(),$this->term,\"$this->year\");$.fn.filterReport($(\"#cc\").text(),$value, $(\"#rStudents option:selected\").val())'>$n</button>";
+							      $i += 1;
+								}
+							?>
+							</div>
+					  </div>
+				</div>
+							<!--Add top, bottom, left and right link to trigger scrolling -->
+				<div class="btn-group" style="margin-right: 0px;">
+			    	<button class="right btn btn-link"><i class="icon-chevron-right"></i></button>
+			    </div>
+			</div>
+
+      <!-- sample modal content -->
+
+<script type="text/javascript">
+<!--
+$(function (){
+		$.fn.filterReport = function (course, grade, sid){
+			//alert($('#rStudents').val());
+		    $('#cc').text(course);
+		    $('#gg').text(grade);
+
+			switch ($('#rType').text()) {
+			case '0':
+				$.post('/cummulative',
+		 				{
+								grade : grade,
+								id : sid,
+								t : 0,
+								i : <?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>,
+								term : <?php echo $this->term; ?>,
+								year : '<?php echo $this->year; ?>',
+		 				},
+		 				function(data){
+			 				$('#viewreportdiv').html(data);
+		 		});
+				break;
+			case '1':
+				$.post('/termreport',
+		 				{
+								grade : grade,
+								id : sid,
+								t : 1,
+								i : <?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>,
+								term : <?php echo $this->term; ?>,
+								year : '<?php echo $this->year; ?>',
+		 				},
+		 				function(data){
+			 				$('#viewreportdiv').html(data);
+		 		});
+			break;
+
+			case '2':
+				$.post('/progressreport',
+		 				{
+								grade : grade,
+								id : sid,
+								t : 2,
+								i : <?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>,
+								term : <?php echo $this->term; ?>,
+								year : '<?php echo $this->year; ?>',
+		 				},
+		 				function(data){
+			 				$('#viewreportdiv').html(data);
+		 		});
+			break;
+			case '3':
+				$.post('/commentreport',
+		 				{
+								grade : grade,
+								id : sid,
+								t : 3,
+								i : <?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>,
+								term : <?php echo $this->term; ?>,
+								year : '<?php echo $this->year; ?>',
+		 				},
+		 				function(data){
+			 				$('#viewreportdiv').html(data);
+		 		});
+			break;
+			default:
+				$('#viewreportdiv').html('No report available for this command, ');
+			break;
+			}
+
+		};
+
+		$.fn.changeType = function(type){
+			$('#rType').text(type);
+			$.fn.filterReport($("#cc").text(),$('#gg').text(),$('#rStudents option:selected').val());
+		};
+
+		$.fn.print = function (){
+			switch ($('#rType').text()) {
+				case '0':
+					$.loadModal('http://<?php echo $this->pdfhost;?>/buildpdf?mode=<?php echo $this->mode ?>&url=http://<?php echo $this->host; ?>/cummulative&sid='+$('#rStudents option:selected').val()+'&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=<?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>&cid='+$("#cc").text()+'&grade='+$('#gg').text()+'&t='+$('#rType').text(),'Student Assessment Breakdown',1);
+				break;
+				case '1':
+					$.loadModal('http://<?php echo $this->pdfhost;?>/buildpdf?mode=<?php echo $this->mode ?>&url=http://<?php echo $this->host; ?>/termreport&O=P&sid='+$('#rStudents option:selected').val()+'&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=<?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>&cid='+$("#cc").text()+'&grade='+$('#gg').text()+'&t='+$('#rType').text(),'End of Term Report',1);
+				break;
+				case '2':
+					$.loadModal('http://<?php echo $this->pdfhost;?>/buildpdf?mode=<?php echo $this->mode ?>&url=http://<?php echo $this->host; ?>/progressreport&sid='+$('#rStudents option:selected').val()+'&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=<?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>&cid='+$("#cc").text()+'&grade='+$('#gg').text()+'&t='+$('#rType').text(),'Progress Report',1);
+				break;
+				case '3':
+					$.loadModal('http://<?php echo $this->pdfhost;?>/buildpdf?mode=<?php echo $this->mode ?>&url=http://<?php echo $this->host; ?>/commentreport&O=P&sid='+$('#rStudents option:selected').val()+'&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=<?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>&cid='+$("#cc").text()+'&grade='+$('#gg').text()+'&t='+$('#rType').text(),'Comments Report',1);
+				break;
+			default:
+				break;
+			}
+		};
+
+		$.fn.loadStudents = function(grade, course, term, year){
+				  $.ajax({
+					  type: "POST",
+					  url: "/reportstudents",
+					  async : false,
+					  data: {
+							grade : grade,
+							course : course,
+							term : term,
+							year : year,
+						 }
+					}).done(function( response ) {
+						$('#rStudents').html(response);
+					   /*  var selectBox = $("#rStudents").selectBoxIt({
+					        showEffect: "fadeIn",
+					        showEffectSpeed: 200,
+					        hideEffect: "fadeOut",
+					        hideEffectSpeed: 200
+					    }).data('selectBoxIt').refresh(); */
+
+					    $('#rStudents').attr('selectedIndex', 0);
+					});
+
+
+		};
+
+		$.fn.loadMarkDetails = function(course,type){
+			studentid = $('#rStudents option:selected').val();
+			courseid = course;
+			grade = $('#gg').text();
+			term = <?php echo $this->term; ?>;
+			year = '<?php echo $this->year; ?>';
+
+			 GlobalModalManager.loading();
+			    $('#modal-title').html('Student Report Content Details');
+			    $('#ajax-modal .modal-body').load('/outlookstudent',
+					 {
+						cid : course,
+						grade : grade,
+						t : type,
+						sid : studentid,
+						i : <?php echo Zend_Auth::getInstance()->getIdentity()->cl_IID?>,
+						term : <?php echo $this->term; ?>,
+						year : '<?php echo $this->year; ?>',
+				     }, function(){
+				 $('#ajax-modal').modal();
+			    });
+		};
+
+	    $.fn.loadStudents($('#gg').text(), $("#cc").text(), <?php echo $this->term ?>, '<?php echo $this->year; ?>');
+
+	    $('#btnfirst1').button('toggle');
+		$('#bbb0').button('toggle');
+		$.fn.filterReport($("#cc").text(),$('#gg').text(), $('#rStudents option:selected').val());
+
+		$('.left').click(function() {
+			$('.scrolling_area').animate({
+				scrollLeft:'-=250'
+			}, 'slow');
+		});
+	        $('.right').click(function() {
+			$('.scrolling_area').animate({
+				scrollLeft:'+=250'
+			}, 'slow');
+		});
+
+});
+//-->
+</script><?php } else { echo $this->action('noauth', 'error', 'security'); } ?>

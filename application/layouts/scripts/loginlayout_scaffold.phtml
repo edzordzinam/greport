@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><?php echo Content_Model_School::getSchoolName()?> welcomes you</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We provide an innovative academic reporting generation system">
+    <meta name="author" content="<?php echo Content_Model_School::getSchoolName()?>">
+    <meta name="google-translate-customization" content="f9f653f471718fdd-3770df854ccb1e6a-g691666417f27928c-11"></meta>
+<!-- styles -->
+
+     <?php
+					echo $this->headTitle ();
+					$this->headLink ()->exchangeArray ( array () );
+					$this->headLink ()->appendStylesheet ( '/min/g=scaffold.css' );
+					echo $this->headLink ();
+					echo $this->jQuery ();
+					?>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- fav and touch icons -->
+<link rel="shortcut icon" href="assets/ico/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="assets/ico/apple-touch-icon-144-precomposed.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="assets/ico/apple-touch-icon-114-precomposed.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="assets/ico/apple-touch-icon-72-precomposed.png" />
+<link rel="apple-touch-icon-precomposed"
+	href="assets/ico/apple-touch-icon-57-precomposed.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+.goog-te-gadget-icon {display:none;}
+.goog-te-gadget-simple {display:none;}
+.goog-te-gadget-simple a {text-decoration: none !important;}
+.goog-te-banner-frame.skiptranslate {display: none !important;}
+body { top: 0px !important; }
+</style>
+</head>
+
+<body style="padding-top: 60px;">
+	<header>
+		<!-- Navbar
+================================================== -->
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<!-- logo -->
+					<a class="brand logo" href="#" id="schoolname" style="font-family: digital !important; font-size:30px;" >
+					</a>
+					<!-- end logo -->
+					<!-- top menu -->
+					<div>
+						<nav>
+							<ul class="nav topnav pull-left">
+								<li class="dropdown"><a href="#" style="right: 100px;" id="lbl_ajaxprogresss"></a></li>
+							</ul>
+						<ul class="nav translation-links">
+						  <li><a href="#" class="spanish" data-lang="Engl">English</a></li>
+						  <li><a href="#" class="german" data-lang="Simp">Chinese Simplified</a></li>
+						  <li><a href="#" class="german" data-lang="Trad">Chinese Traditional</a></li>
+						  <li><a href="#" class="german" data-lang="Fren">French</a></li>
+						  <li><a href="#" class="german" data-lang="Viet">Vietnamese</a></li>
+						</ul>
+						</nav>
+					</div>
+
+					<div id="google_translate_element"></div><script type="text/javascript">
+						function googleTranslateElementInit() {
+						  new google.translate.TranslateElement({
+								  includedLanguages: 'en,fr,vi,zh-CN,zh-TW',
+								  layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+								  autoDisplay: false
+							  }, 'google_translate_element');
+						}
+					</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+					<!-- end menu -->
+
+					<!-- Flag click handler -->
+					<script type="text/javascript">
+						$(function(){
+						    $('.translation-links a').click(function() {
+							      var lang = $(this).data('lang');
+							      var $frame = $('.goog-te-menu-frame:first');
+							      if (!$frame.size()) {
+							        alert("Error: Could not find Google translate frame.");
+							        return false;
+							      }
+							      $frame.contents().find('.goog-te-menu2-item span.text:contains('+lang+')').click();
+							      $(".goog-te-gadget-simple").css('display','none');
+							      return false;
+							    });
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<!-- Docs nav
+        ================================================== -->
+		<div class="row">
+			<div class="span4 pull-right">
+				<aside>
+					<div class="widget" style="margin-bottom: 0px;">
+						<h4 class="heading-success">
+							<span class="btn btn-success"><i
+								class="m-icon-big-swapdown m-icon-white"></i></span>&nbsp;&nbsp;Login<a  id="lbl_ajaxprogress"></a>
+						</h4>
+						<img src="assets/img/avatar.png" class="alignleft" alt="" />
+						<h5>Credentials</h5>
+						<p>
+
+						<form id="validate">
+							<input style="margin-bottom: 15px;" type="text" id="uid"
+								name="username" placeholder="Email or Username" required
+								class="input-medium" /> <input class="input-medium"
+								type="password" id="pwd" name="password" placeholder="Password"
+								required title='a password is required to sign-in' />
+							<button type="submit" class="btn btn-block btn-primary"
+								style="z-index: 999999;">
+								Sign in <i class="icon-chevron-right icon-white"></i>
+							</button>
+						</form>
+						</p>
+						<div class="clearfix"></div>
+
+					</div>
+					<div class="widget">
+						<div style="width: 48%; float: left;">
+							<address>
+								<strong>Technological base:</strong><br> Zend Framework<br>
+								RedHat Openshift Cloud<br> <strong>Support:</strong><br> <abbr
+									title="Phone">P:</abbr> (+233)-024-346-3320 <br> <abbr
+									title="Phone">P:</abbr> (+233)-024-635-9711 <br> <abbr
+									title="Email">E:</abbr> <a href="mailto:info@greports.com">info@greports.com</a><br>
+								<abbr title="Email">E:</abbr> <a href="mailto:info@greports.com">support@greports.com</a><br>
+								<!-- <abbr title="Website">W:</abbr> <a href="www.greports.com">www.greports.com</a> -->
+							</address>
+						</div>
+
+						<div style="width: 50%; float: right; padding-bottom: 20px;">
+							<ul>
+								<dt><?php echo $this->schoolinfo['schoolname'];?></dt>
+								<li>Tel: <?php echo $this->schoolinfo['schooltel']?></li>
+								<li>E-mail: <a
+									href="mailto:<?php echo $this->schoolinfo['schoolemail']?>"><?php echo $this->schoolinfo['schoolemail']?></a></li>
+								<dt>Final Grade Composition</dt>
+								<li>Final Examination : <?php echo $this->schoolinfo['examallocate']?>%</li>
+								<li>Class Assessments : <?php echo $this->schoolinfo['classallocate']?>%</li>
+							</ul>
+							<a class="btn btn-inverse btn-block btn-small" href="#"
+								onclick="$.loadModal('/gradingsystem','Grading Scale',1); return false;"><i
+								class="icon-info-sign icon-white"></i> Grading Scale &raquo;</a>
+						</div>
+					</div>
+
+
+					<div class="clearfix"></div>
+
+				</aside>
+				<span class="pull-right"><a href="https://www.odesk.com/o/profiles/users/_~01174b21783e24907d/" style="color: blue;"><u>Developer: Elvis Dagadu.</u></a></span>
+			</div>
+			<div class="span8">
+				<!-- POSITION OF MAIN CONTENT....  -->
+    		     <?php echo $this->layout()->content;?>
+    		</div>
+		</div>
+	</div>
+
+	<!-- end tagline -->
+
+
+
+	<!-- Footer
+================================================== -->
+	<footer class="footer">
+	</footer>
+
+	<?php if (getenv('APPLICATION_ENV') == 'development') {?>
+    	<script src="/min/g=scaffoldscripts.js"></script>
+    <?php } else {?>
+    	<script src="/min/g=scaffoldscripts.js"></script>
+    <?php } ?>
+
+	<script type="text/javascript">
+    $(document).ready(function(){
+            //TWITTER
+            $(".twitter").tweet({
+                    join_text: "auto",
+                    username: "wrapbootstrap",
+                    avatar_size: 20,
+                    count: 2,
+                    auto_join_text_default: "we said,",
+                    auto_join_text_ed: "we",
+                    auto_join_text_ing: "we were",
+                    auto_join_text_reply: "we replied",
+                    auto_join_text_url: "we were checking out",
+                    loading_text: "loading tweets..."
+            });
+
+           // Append a close trigger for each block
+           $('.box-tile .content').append('<span class="close">x</span>');
+
+           // Show window
+            function showContent(elem){
+                hideContent();
+                elem.find('.content').addClass('expanded');
+                elem.addClass('cover');
+            }
+
+            // Reset all
+            function hideContent(){
+                $('.box-tile  .content').removeClass('expanded');
+                $('.box-tile  li').removeClass('cover');
+            }
+
+            // When a li is clicked, show its content window and position it above all
+            $('.box-tile  li').click(function() {
+                showContent($(this));
+            });
+
+            // When tabbing, show its content window using ENTER key
+            $('.box-tile  li').keypress(function(e) {
+                if (e.keyCode == 13) {
+                    showContent($(this));
+                }
+            });
+            // When right upper close element is clicked  - reset all
+            $('.box-tile  .close').click(function(e) {
+                e.stopPropagation();
+                hideContent();
+            });
+
+            // Also, when ESC key is pressed - reset all
+            $(document).keyup(function(e) {
+                if (e.keyCode == 27) {
+                hideContent();
+                }
+            });
+
+          	//default form initialization
+          	$('#validate').ajaxForm({
+          		//options of ajaxForm
+
+          		url : '/auth',
+          		data : {}, //data to be submitted along with the form variables json formatted
+          		clearForm : null, // form to be cleared if submit is successfull,
+
+          		dataType : 'json',  // json, xml, or script
+          		type : 'POST', // type of ajax call GET or POST
+
+          		replaceTarget : true,
+          		target : '#response',   //target is only rendered when the dataType has been specified.
+
+          		//callback function to be invoked on error.
+          		error : function (){
+          		},
+
+          		beforeSubmit : function (arr, $form, options){
+          			// return false; to cancel submit action
+          			 arr[1].value = $.MD5(arr[1].value);
+          		},
+
+          		success : function (data){
+          		    if (data.success == 1){
+          		    	window.location.replace(data.url);
+          		    }
+          		    else if (data.success == -1) {
+          		    	$.showMessage('Your account has been deactivated, contact admin.');
+          		    }
+          		    else if (data.success == 2){
+          		    	window.location.replace(data.url);
+          		    }
+          		    else{
+          		    	$.showMessage('Username or Password invalid', 'error');
+          		    }
+          		},
+
+            });
+
+        	var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
+
+     		$.showMessage = function (msg, type, layout ){
+     			$.pnotify({
+     			    title: 'System Alert',
+     			    text: msg,
+     			    type: type,
+     			    icon: 'picon picon-network-wireless',
+      			    closer_hover: false,
+    			    sticker_hover: false,
+    			    history : false,
+    			    delay: 5000,
+    			    addclass: "stack-bottomright",
+    				stack: stack_bottomright
+     			});
+     		};
+
+			  $.resizeElementHeight = function (element) {
+				  var height = 0;
+				  var body = window.document.body;
+				  if (window.innerHeight) {
+				      height = window.innerHeight;
+				  } else if (body.parentElement.clientHeight) {
+				      height = body.parentElement.clientHeight;
+				  } else if (body && body.clientHeight) {
+				      height = body.clientHeight;
+				  }
+				  element.style.height = ((height - element.offsetTop) + "px");
+				};
+
+				$(document).ajaxError(
+						function(event, request, settings) {
+						if (request.readyState == 0){
+							$('#lbl_ajaxprogress').unblock();
+							$('#sysalert').html('<div class="alert alert-block alert-error fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Connection to server failed. Please check your internet/network connection and try again</p></div>');
+						}
+						if (request.readyState == 4 && request.status == 401 /*Unauthorized Request*/  ) {
+				   			window.location = '/';
+						}else
+							if (request.readyState == 4 && request.status == 406 /*Unauthorized Request*/  ) {
+								$.showMessage('Update failed, Data incomplete','error');
+						}
+						else if (request.readyState == 4 && request.status == 501){
+							$('#sysalert').html('<div class="alert alert-block alert-info fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Configuration of your institution is not yet complete. Sorry for any inconvenience caused. Please contact support for more information</p></div>');
+						}
+			});
+
+			$(document).ajaxSuccess(
+					function (event, request, settings){
+					   if (request.readyState == 4 && request.status == 202 /*Accepted Request*/) {
+							$.showMessage('Data successfully updated','information');
+						};
+					});
+
+
+			$(document).ajaxStart(function(){
+				$("#sysalert").html('');
+				$('#lbl_ajaxprogress').block(
+						{
+							message : ' <img src="/assets/img/slides/camera/camera-loader.gif" /> ',
+							css : {width : '150px', border:'1px silver #aaa', }
+						 }
+						);
+			});
+
+			$(document).ajaxStop(function(){
+				$('#lbl_ajaxprogress').unblock();
+			});
+
+			  var $modal = $('#ajax-modal');
+			  var $modalbody = $('#ajax-modal .modal-body');
+			  $.loadModal = function(url, title, data){
+				    GlobalModalManager.loading();
+				    $('#modal-title').html(title);
+				    $modalbody.load(url,
+						 {
+				          data : data,
+					     }, function(){
+				      $modal.modal();
+				    });
+			  }
+
+			$('#schoolname').append("<?php echo $this->schoolname; ?>");
+
+        });
+</script>
+</body>
+</html>

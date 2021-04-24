@@ -1,0 +1,66 @@
+<div align="right">
+	<div class="btn-group" align="right" data-toggle="buttons-radio">
+		<button type="button" class="btn btn-small btn-default active" onclick="$.fn.filterResidence(0);">Non-Resident/Day</button>
+		<button type="button" class="btn btn-small btn-default" onclick="$.fn.filterResidence(1);">Resident/Boarder</button>
+	</div>
+</div>
+
+<table id="dtb_studentcreditor" class="dTable table table-hover table-bordered table-condensed" style="font-size: 12px;">
+	<thead>
+		<tr>
+		    <th>Student ID </th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Amount</th>
+            <th>Manage</th>
+		</tr>
+	</thead>
+	<tbody>
+    </tbody>
+</table>
+<div class="well well-small">Please scroll downwards in the table above to load more creditors, if any!</div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	var dtb_studentcreditor = $('#dtb_studentcreditor').dataTable( {
+		"sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'pl>>",
+		"sPaginationType": "bootstrap",
+		"iDisplayLength" : 20,
+
+		"bAutoWidth": false,
+		"bProcessing": true,
+		"bStateSave": false,
+		"bServerSide": true,
+		"sAjaxSource": "/studentbalances?debtors=0&residence=0",
+		"sServerMethod": "POST",
+
+		"bScrollInfinite": true,
+	    "sScrollY": "250px",
+
+		"oLanguage" : {
+			 "sUrl" : "/js/locale/datatables.english.txt"
+		    },
+
+		"aoColumnDefs": [
+			                 { "bSortable": false, "aTargets": [ 4 ] }
+			             ],
+
+		"oTableTools": {
+			"sRowSelect": "single",
+			"sSwfPath": "/js/tabletools/swf/copy_csv_xls_pdf.swf",
+			"aButtons": [
+							"copy",
+							"print",
+							"xls",
+							"pdf"]
+		}
+	});
+
+	$(".table").tablecloth({ theme: "paper" });
+    $.fn.filterResidence = function(residence){
+    	dtb_studentcreditor.fnReloadAjax( '/studentbalances?debtors=0&residence='+ residence );
+    };
+});
+//-->
+</script>

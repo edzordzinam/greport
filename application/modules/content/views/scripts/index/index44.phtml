@@ -1,0 +1,140 @@
+<?php
+if ($this->dashboard == 1) {
+	echo $this->action ( 'dashboard', 'index', 'content' );
+} else if ($this->dashboard == 2) {
+	echo $this->action ( 'index', 'accounts', 'content' );
+} else {
+	?>
+<div style="background-image: /img/bgLight.gif;">
+	<img class="pull-right img-polaroid"
+		src="<?php echo Content_Model_School::getSchoolLogo()?>"
+		alt="<?php echo Content_Model_School::getSchoolName()?>" width="400"
+		style="margin-top: -10px;" />
+	<hr>
+	<blockquote>
+		<p style="font-family: monospace; font-size: 12px;">Connecting schools
+			to their stud-ructors. Secured, fast and efficient platform for the
+			administration of your educational institution...</p>
+		<small style="font-family: cursive;">Join the green revolution and<cite
+			title="Source Title"> reduce your paper consumption...</cite></small>
+			<hr>
+			<span style="color: black;font-size: 12px;">For Demo: Please use <b>Username: </b> <span style="color:blue;">administrator</span> and <b>Password: </b> <span style="color:blue;">Demo_admin1</span></span>
+	</blockquote>
+</div>
+<?php if (!Zend_Auth::getInstance()->hasIdentity()){ ?>
+
+<?php } else { ?>
+<h2
+	style="color: rgba(100, 100, 0, 0.5); font-size: 40px; margin-top: 2px; margin-bottom: 3px; margin-left: 20px;">
+	   <?php echo $this->currentweek; ?>/<?php echo $this->totalweeks?><small>
+		weeks </small>| <span
+		style="font-family: sans-serif; font-size: 14px;"><span
+		style="color: blue"> Calendar :</span> <span
+		style="font-size: 12px; color: black">no information available for
+			today;</span></span>
+</h2>
+<?php } ?>
+<hr style="margin-top: 5px;">
+
+
+<div class="jumbotron masthead">
+	<!-- Place somewhere in the <body> of your page -->
+	<div id="mainslider" class="flexslider" style="width: 100%">
+		<ul class="slides">
+			<li><img src="assets/img/slides/flexslider/img1.jpg" alt="" />
+				<div class="flex-caption primary">
+					<h2>Total Connectivity</h2>
+					<h4 style="font-size: 18px;">Makes the job of school administration a whole lot easier</h4>
+				</div></li>
+			<li><img src="assets/img/slides/flexslider/img2.jpg" alt="" />
+				<div class="flex-caption warning">
+					<h2>Tailored to your needs</h2>
+					<h4 style="font-size: 18px;">Has been specifically designed to meet your specific needs and more</h4>
+				</div></li>
+			<li><img src="assets/img/slides/flexslider/img3.jpg" alt="" />
+				<div class="flex-caption success">
+					<h2>Monitoring Enhanced</h2>
+					<h4 style="font-size: 18px;">We provide monitoring tools that allow for monitoring of instructors and students to ensure efficiency in delivery and high standards of performance</h4>
+				</div></li>
+			<li><img src="assets/img/slides/flexslider/img4.jpg" alt="" />
+				<div class="flex-caption primary">
+					<h2>Lot of features</h2>
+					<h4 style="font-size: 18px;">Academic Reporting, Accounting and Billings, Student Performance Monitoring, Instructors' Performance Monitoring and Attendance Monitoring</h4>
+				</div></li>
+		</ul>
+	</div>
+</div>
+
+<!--/span-->
+
+<!--/row-->
+
+			<h4>Quick Facts</h4>
+				<?php if ($this->useCambridge) { ?>
+					<img class="img-polaroid" src="/img/camlogo.png" alt="" width="250" />
+				<?php } ?>
+				<dl>
+					<dd>Total no. of students : <strong><?php echo $this->studentno;?></strong></dd>
+					<?php if (isset($this->axCount)) {?>
+					<dd>
+						<abbr title="Total Class Assessments in Term <?php echo $this->term;?> of <?php echo $this->year;?>">TCAS :</abbr>
+						{<?php echo $this->term;?>/<?php echo $this->year ?>} : <strong><?php echo $this->axCount?></strong>
+					</dd>
+					<dd>Average Assess. Per Student : <?php echo number_format(($this->axCount/$this->studentno),2);?>
+					<?php } ?>
+				</dl>
+
+				<?php if (Zend_Auth::getInstance()->hasIdentity()){ if (Zend_Auth::getInstance()->getIdentity()->role == 100) {?>
+					<button class="btn btn-link btn-small" onclick="$.fn.printStatement();"><i class="icon-print"></i> Statement of Accounts (PDF)</button>
+				<?php }} ?>
+<!--/row-->
+
+<!-- =========================================== -->
+
+<script type="text/javascript">
+<!--
+$(function() {
+
+   	 $.qData = "";
+
+       $('#searchCauseList').typeahead({
+    	   // source can be a function
+   	    source: function (query,process) {
+      	     $.ajax({
+        	       url : '/search/search-index',
+        	       type : 'POST',
+        	       data : 'query=' + query,
+        	       dataType : 'JSON',
+        	       async : false,
+        	       success : function(data){
+       	    	     process(data);
+        	       }
+          	     });
+   	   	    },
+   	   	    minLength : 3,
+   	   	    items : 8,
+   	   	    updater : function (item){
+   	   	   	    //item = selected item
+   	   	   	    //do your stuff
+   	   	   	    //$.showMessage(item);
+   	   	   	    //return item;
+   	   	    },
+
+        });
+
+		$.fn.printStatement = function(){
+			$.loadModal('http://<?php echo $this->pdfhost; ?>/buildpdf?url=http://<?php echo $this->host; ?>/accountstatements?&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=11&grade=0&cid=0','Statement of Accounts',1);
+		};
+
+		$.fn.changeSlide = function (number){
+			$('.carousel').carousel(number);
+		};
+
+		$('.carousel').carousel('cycle');
+
+    });
+
+    //-->
+    </script>
+<?php } ?>
+

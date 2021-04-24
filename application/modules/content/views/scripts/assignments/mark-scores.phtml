@@ -1,0 +1,95 @@
+   <?php
+    // setting the controller and action name as title segments:
+
+    $this->headTitle('Course - Create')
+    	 ->headTitle('MVC Application');
+
+    // setting a separator string for segments:
+    $this->headTitle()->setSeparator(' - ');
+
+	//LOADING OF VIEW SPECIFIC JAVASCRIPT FILES
+   // $this->jQuery()->addJavascriptFile('/js/ui_js/assignment.js');
+
+  ?>
+
+   <?php
+     if( !$this->locked) {?>
+     <div class="widget">
+                    <div class="title"><img src="/images/icons/dark/money2.png" alt="" class="titleIcon" />
+                    	<h6>Entering assignment marks for the following period for assignment no <label title="<?php echo $this->grade;?>" id="assigninfo"><?php echo $this->assignmentid; ?></label> </h6>
+                    	<div class="num"><a id="" href="/home" class="blueNum">Return Home</a></div>
+                    </div>
+                    <div class="wInvoice">
+                        <ul>
+                            <li style="width: 19.2%"><h4 class="green" id="year"><?php echo $this->year; ?></h4><span>Academic Year</span></li>
+                            <li style="width: 19.2%"><h4 class="blue" id="term"><?php echo $this->term; ?></h4><span>Term Period</span></li>
+                            <li style="width: 19.2%"><h4 class="grey"><?php echo $this->coursename; ?></h4><span>Subject/Course</span></li>
+                            <li style="width: 19.2%"><h4 class="red" id="gc"><?php echo $this->gradename; ?></h4><span>Grade</span></li>
+                             <li style="width: 19.2%"><h4 id="lbl_maxmarkinfo" class="red" id="gc"><?php echo $this->maxmark; ?></h4><span>Maximum Mark</span></li>
+                        </ul>
+                    </div>
+      </div>
+
+  <div class="widget">
+		<div class="title">
+			<img src="/images/icons/dark/full2.png" alt="" class="titleIcon" />
+			<h6>Eligible students
+			</h6>
+
+		</div>
+		<table cellpadding="0" cellspacing="0" border="0" id="tb_studentmarks"
+			class="display dTable">
+			<thead>
+				<tr>
+					<th width = 30>AID</th>
+					<th width = 100>Student No</th>
+					<th>Fullname</th>
+					<th width = 150 >Mark</th>
+					<th width = 100 > Exempted </th>
+				</tr>
+			</thead>
+			<tbody>
+       <?php
+        	$list1 = array();
+        	$list2 = array();
+
+	    	foreach ($this->studentsInGrade as $key => $student) {
+ 				$list1[$student["cl_GPSN_ID"]] = $student["Fullname"];
+       		}
+
+       		foreach ($this->scoreslist as $key => $assignmentmark) {
+       			$list2[$assignmentmark->cl_studentid] = $assignmentmark->cl_LastName;
+       		}
+
+       		//Zend_Debug::dump(array_diff_key($list1, $list2));
+       	    $newStudents = array_diff_key($list1, $list2);
+
+       	    //Zend_Debug::dump($newStudents);
+
+       	    foreach ($newStudents as $key => $value) { ?>
+	       	    	 <tr id="<?php echo $key ?>">
+						<td id="assign_id"><?php echo $this->cl_assignmentid ?></td>
+						<td><?php echo $key ?></td>
+						<td><strong style="color : red"><?php echo $value ?></strong> *(new enrolment)</td>
+						<td class="markrow">0</td>
+						<td class="exemptrow">
+						   <?php if ($this->cl_exempt)
+									echo 'Yes';
+								else
+									echo 'No'; ?>
+						</td>
+					</tr>
+       	   <?php  }	?>
+       	          <?php  echo $this->partialLoop('partials/_mark-scores-row.phtml', $this->scoreslist); ?>
+
+     </tbody>
+		</table>
+		       	   <?php if (count($newStudents) > 1) { ?>
+       	   		<script type="text/javascript">
+ 			      alert("<?php echo 'New Student added to class' ?>")
+       	   		</script>
+       	   <?php } ?>
+	</div>
+<?php } else {?>
+    <p style="padding: 20px; text-align: center;">Records for this class has been locked because it has been printed; for editting please contact administration</p>
+<?php } ?>

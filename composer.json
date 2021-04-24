@@ -1,0 +1,13 @@
+{
+    "name": "prexition/greports",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Edzordzinam E Dagadu",
+            "email": "developer@edzordzinam.me"
+        }
+    ],
+    "require": {
+        "bombayworks/zendframework1": "1.*"
+    }
+}

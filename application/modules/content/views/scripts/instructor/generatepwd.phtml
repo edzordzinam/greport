@@ -1,0 +1,28 @@
+<div class="alert alert-block alert-white">
+	<h4>STOP: Security Threat! Insecure login password</h4>
+	Your password has been found to be insecure. It does not meet our
+	defined criteria of - at least one uppercase letter; at least one digit
+	and must be a minimum of 6 characters. Also your <b>password</b> cannot be the same as your <b>username</b><br>
+	<hr style="margin-top: 2px; margin-bottom: 2px;">
+
+	<h5>REASON:</h5>
+	<pre>Either change your password to the suggested one below or to one specified by you.</pre>
+
+	<hr>
+	<h5>Suggessted Password : <a href="" id="ld" style="color: blue;" onclick="$.fn.ldPass();return false;"><?php echo Content_Model_Instructors::generatePassword(8);?></a>
+	<small>Refreshing this page will generate a new suggessted password for you!</small>
+	</h5> 
+	<?php echo $this->form;?>
+</div>
+
+<script type="text/javascript">
+<!--
+$(function (){
+	ValidateAjax.initialize("frm_updatepass", "/validateform");
+	$.fn.ldPass = function(){
+		$('#newpwd').val($('#ld').text());
+		$('#matchpwd').val($('#newpwd').val());
+	};
+});
+//-->
+</script>

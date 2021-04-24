@@ -1,0 +1,53 @@
+<!--mpdf
+<htmlpageheader name="myheader">
+<table width="100%">
+<tr>
+<td width="50%" style="color:#0000BB; border:none;"><img src="<?php echo Content_Model_School::getSchoolLogo();?>" alt="<?php echo Content_Model_School::getSchoolLogo();?>" height="50px;"/></td>
+<td width="50%"><h2>ADMISSION FEES <?php echo date('jS, M Y',strtotime($this->accountdate));?><h2></td>
+</tr>
+</table>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 5px; ">
+<table width="100%">
+<tr>
+	<td width="30%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="35%" style=" font-size: 9pt; border:none; text-align:center;">Admission Bill</td>
+	<td width="35%" style=" font-size: 9pt; text-align: right;  border:none;">Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+<style>
+<!--
+   table {
+   	font-size: 12px;
+   }
+
+	table thead tr th {
+		border: 0.1em solid black;
+		text-align: center;
+	}
+
+	table tbody tr td{
+		border-bottom: 0.1em solid black;
+    	border-left: 0.1em solid black;
+   		text-align: center;
+}
+-->
+</style>
+
+
+<p align="justify"><strong>Please Note the following:</strong><br><br>
+Fees must be paid into <strong>Cal Bank, Account Name: Bethelinter Academy Lower Primary Section and
+Account Number 161014585722 </strong> before school re-opens on _ _ _ _ _ _ _ _ 20__ .
+<br><br>
+Please Cheques are not accepted. All purchases of other school items should be made during registration, (ie, School Uniforms)
+
+Thank you
+</p>

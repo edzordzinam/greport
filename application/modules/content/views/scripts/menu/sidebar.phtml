@@ -1,0 +1,28 @@
+           <?php if (!$this->mobile && !isset($this->navmenu)) { ?>
+            <ul class="nav nav-list bs-docs-sidenav affix" id="sidebarmenu">
+                      <li id="home"><a href="/home"><i class="icon-chevron-right"></i> <span class="icon-home"></span> Home</a></li>
+                      <?php if ($this->items)
+                            foreach ($this->items as $item) {?>
+                              <li id="<?php echo $item->route?>"><a href="<?php echo "/".$item->route?>"><i class="icon-chevron-right"></i> <span class="<?php echo $item->icon_class?>"></span>  <?php echo $item->title?></a></li>
+                      <?php } ?>
+            </ul>
+            <?php } else if ($this->navmenu == 'yes') {?>
+                      <li id="home"><a href="/home"><i class="icon-home"></i> Home</a></li>
+                      <?php if ($this->items)
+                            foreach ($this->items as $item) {?>
+                              <li id="<?php echo $item->route?>"><a href="<?php echo "/".$item->route?>"><i class="<?php echo $item->icon_class?>"></i> <?php echo $item->title?></a></li>
+                      <?php } ?>
+            <?php } else {?>
+                      <?php if ($this->items)
+                            foreach ($this->items as $item) {?>
+                              <li id="<?php echo $item->route?>"><a href="<?php echo "/".$item->route?>"><?php echo $item->title?></a></li>
+                      <?php } ?>
+                      <li><a href="/logout?mobile=true">Sign-out</a></li>
+            <?php } ?>
+
+
+<!--          <li class=""><a href=""><i class="icon-chevron-right"></i> <span class="icon-th-large"></span> Grid system</a></li>
+              <li class=""><a href=""><i class="icon-chevron-right"></i> <span class="icon-print"></span> Fluid grid system</a></li>
+              <li class=""><a href=""><i class="icon-chevron-right"></i> <span class="icon-leaf"></span> Layouts</a></li>
+              <li class=""><a href=""><i class="icon-chevron-right"></i> <span class="icon-globe"></span> Responsive design</a></li>
+ -->

@@ -1,0 +1,43 @@
+		<table id="asstable" cellpadding="0" cellspacing="0" width="100%" class="display">
+				<thead>
+					<tr>
+						<td>Assignment List</td>
+						<td>Subject</td>
+						<td>Class</td>
+						<td>Date Assigned</td>
+						<td>Max.</td>
+						<td></td>
+					</tr>
+				</thead>
+<tbody id="assignfiltered" >
+<?php
+if ($this->assignments != null){
+   if ($this->allowmarks){
+     echo $this->partialLoop('partials/_assignments-row.phtml',  $this->assignments);  ?>
+</tbody>
+			   <tfoot>
+					<tr>
+						<td>Assignment List</td>
+						<td>Subject</td>
+						<td>Class</td>
+						<td>Date Assigned</td>
+						<td>Max.</td>
+						<td></td>
+					</tr>
+				</tfoot>
+				</table>
+   <?php }
+   else
+   	 echo $this->partialLoop('partials/_assignments-row-nomarks.phtml',  $this->assignments);
+}
+else
+	echo "<p style=\"padding: 20px; text-align: center;\">No assignments found in the specified filters</p>";
+
+   ?>
+
+   <script type="text/javascript">
+if ($('#asstable').length  > 0) {
+	$('#asstable').tableScroll({height:370});
+}
+</script>
+

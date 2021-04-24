@@ -1,0 +1,23 @@
+             	<!-- My tasks table widget -->
+  <?php
+		if ($this->courses != null) {
+	?>
+                    <div class="title"><img src="/images/icons/dark/timer.png" alt="" class="titleIcon" /><h6>LIST OF COURSES</h6><div class="num"><a href="/course/list" class="blueNum">Edit</a></div></div>
+                    <div style="max-height: 250px; min-height : 250px; overflow: auto;" >
+                    <table cellpadding="0" cellspacing="0" width="100%" class="sTable taskWidget"
+                       >
+                        <thead>
+                            <tr>
+                                <td width=20>Code</td>
+                                <td  >Course name</td>
+                                <td >Grades</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+								<?php echo $this->partialLoop('partials/_coursepanel-row.phtml', $this->courses)?>
+                        </tbody>
+                    </table>
+                    </div>
+    <?php } else {?>
+     <p style="padding: 20px; text-align: center;">You are not allowed view of any subjects and classes for examination purposes</p>
+   <?php }?>

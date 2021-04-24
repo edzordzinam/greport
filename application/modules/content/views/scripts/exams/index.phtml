@@ -1,0 +1,54 @@
+<ul id="myTab" class="nav nav-pills">
+	<li class="active"><a href="#examsummary" data-toggle="tab">Summary</a></li>
+	<li><a id="em" href="#examinations" data-toggle="tab">Examinations</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade in active" id="examsummary"></div>
+	<div class="tab-pane fade in" id="examinations"></div>
+	<div class="tab-pane fade in" id="ungraded"></div>
+	<div class="tab-pane fade in" id="zerograded"></div>
+</div>
+         <div id="context-menu">
+              <ul class="dropdown-menu" role="menu">
+                <li class="nav-header">EXAMINATION OPTIONS</li>
+               <!--  <li><a tabindex="-1" href="#" onclick="$.fn.newAssessment(); return false;"><i class="icon-info-sign"></i> New Assessment</a></li>-->
+                <li><a tabindex="-1" href="#" onclick="$('#em').click(); return false;"><i class="icon-info-sign"></i> Exams marks</a></li>
+                <li class="nav-header">SYSTEM OPTIONS</li>
+                <li><a tabindex="-1" href="#"><i class="icon-info-sign"></i> Messages</a></li>
+                <li><a tabindex="-1" href="#" onclick="window.location.reload(true);"><i class="icon-refresh"></i> Reload Page</a></li>
+                <li><a tabindex="-1" href="/logout"><i class="icon-lock"></i> Log out</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="#" onclick='$.loadModal("/index/about","About Us",1); return false;'> About G-Reports</a></li>
+              </ul>
+          </div>
+   <!-- SCRIPT SECTION -->
+<script type="text/javascript">
+      $(function(){
+
+    	    $('a[href="#examsummary"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/exams/examsummary',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#examsummary').html(data);
+    	        	    });
+    	    });
+
+    	    $('a[href="#examinations"]').on('click', function (e) {
+    	        $.post(
+    	        	    '/exams/enter-marks',
+    	        	    {
+
+    	        	    },
+    	        	    function (data){
+    	        	        $('#examinations').html(data);
+    	        	    });
+    	    });
+
+
+    		$('a[href="#examsummary"]').click();
+      });
+
+</script>

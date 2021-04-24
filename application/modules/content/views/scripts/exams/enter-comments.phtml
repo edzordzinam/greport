@@ -1,0 +1,96 @@
+   <?php
+
+    $this->jQuery()->addJavascriptFile('/js/ui_js/comments.js');
+
+  ?>
+	    <?php
+     if( !$this->locked) {?>
+<div class="widget">
+	<div class="title">
+		<img src="/images/icons/dark/money2.png" alt="" class="titleIcon" />
+		<h6>Entering Subject Comments for the following periods</h6>
+		<div class="num">
+			<a id="" href="/instructor/enter-comments" class="blueNum">Go back</a>
+		</div>
+	</div>
+	<div class="wInvoice">
+		<ul>
+			<li style="width: 24%"><h4 class="green" id="year"><?php echo $this->year; ?></h4>
+				<span>Academic Year</span></li>
+			<li style="width: 24%"><h4 class="blue" id="term"><?php echo $this->term; ?></h4>
+				<span>Term Period</span></li>
+			<li style="width: 24%"><h4 class="grey"><?php echo $this->coursename; ?></h4>
+				<span>Subject/Course</span></li>
+			<li style="width: 24%"><h4 class="red" id="gc"><?php echo $this->gradename; ?></h4>
+				<span>Grade</span></li>
+		</ul>
+	</div>
+</div>
+
+<div style="width : 40% !important; float: right;">
+	<div class="widget" id="">
+		<div class="title">
+			<img src="/images/icons/dark/full2.png" alt="" class="titleIcon" />
+			<h6>Subject specific comments</h6>
+		</div>
+		<form class="form">
+			<fieldset>
+				<div class="formRow">
+					<label>COMMENTS FOR : </label> <label id="lbl_name"
+						style="font-size: 14px; font-weight: bold; padding-left: 50px; color: blue;"></label>
+				</div>
+			</fieldset>
+			<fieldset style="padding: 10px;">
+
+					<div class="loginControl">
+						<textarea id="comment" maxlength="400" wrap="hard"
+							style="width: 95%; font-size: 14px; min-height : 100px;  max-height: 100px; max-width: 95%">
+						</textarea>
+
+					<div class="loginControl"
+						style="padding-top: 8px; padding-bottom: 8px;">
+						<input type="button" value="update comment" onclick="$.fn.updateComment();" class="dblueB logMeIn"/>
+						<div class="clear"></div>
+					</div>
+					 <input type="hidden" id="lbl_info" />
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+
+<div style="width : 58% !important; float: left">
+	<div class="widget" id="examstable">
+		<div class="title">
+			<img src="/images/icons/dark/full2.png" alt="" class="titleIcon" />
+			<h6>Eligible students list</h6>
+		</div>
+		<table cellpadding="0" cellspacing="0" border="0"
+			id="tb_studentcomments" class="display dTable">
+			<thead>
+				<tr>
+					<th width=30>CC</th>
+					<th width=30>GC</th>
+					<th width=80>Student No</th>
+					<th width=150>First name</th>
+					<th width=150>Last name</th>
+					<th width=50>Mark</th>
+				</tr>
+			</thead>
+			<tbody>
+	       <?php echo $this->partialLoop('partials/_commentspanel-row.phtml', $this->students); ?>
+	     </tbody>
+		</table>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	  // $('#tb_studentexammarks').unblock();
+	</script>
+
+		<?php } else {?>
+    <p style="padding: 20px; text-align: center;">Records for this class has been locked because it has been printed; for editting please contact administration</p>
+<?php } ?>

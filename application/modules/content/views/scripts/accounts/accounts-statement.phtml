@@ -1,0 +1,110 @@
+<!--mpdf
+<htmlpageheader name="myheader">
+<table width="100%">
+<tr>
+<td width="50%" style="color:#0000BB; border:none;"><img src="<?php echo Content_Model_School::getSchoolLogo();?>" alt="<?php echo Content_Model_School::getSchoolLogo();?>" height="50px;"/></td>
+<td width="50%"><h2>STATEMENT OF ACCOUNTS AS AT <?php echo date('jS, M Y',strtotime($this->accountdate));?><h2></td>
+</tr>
+</table>
+</htmlpageheader>
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 5px; ">
+<table width="100%">
+<tr>
+	<td width="30%" style=" font-size: 9pt; border:none;">Page {PAGENO} of {nb}</td>
+	<td width="35%" style=" font-size: 9pt; border:none; text-align:center;">Statement of Accounts</td>
+	<td width="35%" style=" font-size: 9pt; text-align: right;  border:none;">Term <?php echo $this->term?> of <?php echo $this->year ?></span></td>
+</tr>
+</table>
+</div>
+</htmlpagefooter>
+
+<sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+<style>
+<!--
+   table {
+   	font-size: 12px;
+   }
+
+	table thead tr th {
+		border: 0.1em solid black;
+		text-align: center;
+	}
+
+	table tbody tr td{
+		border-bottom: 0.1em solid black;
+    	border-left: 0.1em solid black;
+   		text-align: center;
+}
+-->
+</style>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+	<thead>
+		<tr>
+			<th width="250">Student</th>
+			<th width="100">Class</th>
+			<th colspan="2">Opening</th>
+			<th colspan="2">Charges</th>
+			<th>Payments</th>
+			<th colspan="2">Closing </th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>Arrears</th>
+			<th>Credit</th>
+			<th>Fees</th>
+			<th>Discounts</th>
+			<th></th>
+			<th>Arrears</th>
+			<th>Credit</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php $totalBal = 0; $sumCD = 0; $sumCC = $sumOC = 0; $sumOD = 0; $sumTPD = 0; $sumTPY = 0; $sumDS = 0;
+		 foreach ($this->statements as $statement) {
+			$sumOD += ($statement->openingbalance > 0) ? $statement->openingbalance : 0;
+			$sumOC += ($statement->openingbalance < 0) ? abs($statement->openingbalance) : 0;
+			$sumTPY += $statement->termpayable;
+			$sumDS += $statement->discount;
+			$sumTPD +=$statement->totalpaid;
+
+			?>
+			<tr>
+				<td align="left"><?php echo $statement->fullname?></td>
+				<td><?php echo $this->getGradeName($statement->grade);?></td>
+				<td style="color: maroon"><?php echo ($statement->openingbalance > 0) ? number_format($statement->openingbalance,0) : '-'?></td>
+				<td style="color: blue"><?php echo ($statement->openingbalance < 0) ? "(".number_format(abs($statement->openingbalance),0).")" : '-'?></td>
+				<td><?php echo number_format($statement->termpayable,0)?></td>
+				<td><?php echo ($statement->discount > 0 ) ? "(".number_format($statement->discount,0).")" : '-';?></td>
+				<td><?php echo ($statement->totalpaid > 0) ? "(".number_format($statement->totalpaid,0).")" : '-';?></td>
+				<td style="color: maroon">
+						<?php
+							//$bal = $statement->termpayable + $statement->openingbalance - $statement->discount - $statement->totalpaid;
+							$bal = $statement->closingbalance;
+							$totalBal += $bal;
+							$sumCD += ($bal > 0) ? $bal : 0;
+							$sumCC += ($bal < 0) ? $bal : 0;
+							echo ($bal > 0) ?  number_format($bal,0) : '-'; ?></td>
+				<td style="border-right:0.1em solid black; color: blue"><?php echo ($bal < 0) ?  "(".number_format(abs($bal),0).")": '-'?></td>
+			</tr>
+		<?php } ?>
+		<tr>
+			<td colspan="2">GRAND TOTAL (GH&cent;)</td>
+			<td style="font-size: 14px;"><?php echo number_format($sumOD,2); ?></td>
+			<td style="font-size: 14px;">(<?php echo number_format($sumOC,2)?>)</td>
+			<td style="font-size: 14px;"><?php echo number_format($sumTPY,2)?></td>
+			<td style="font-size: 14px;">(<?php echo number_format($sumDS,2)?>)</td>
+			<td style="font-size: 14px;">(<?php echo number_format($sumTPD,2)?>)</td>
+			<td style="font-size: 14px;"><?php echo number_format($sumCD,2)?></td>
+			<td style="font-size: 14px; border-right:0.1em solid black;">(<?php echo number_format(abs($sumCC),2)?>)</td>
+		</tr>
+		<tr><td colspan="7"  align="right"  style="font-size: 14px; border-right:0.1em solid black;">CLOSING BALANCE (GH&cent;)</td>
+			<td colspan="2"  style="font-weight:bold; font-size: 14px;border-right:0.1em solid black;color:blue;"><?php echo number_format(abs($totalBal),2);?></td>
+		</tr>
+	</tbody>
+</table>

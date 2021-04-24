@@ -1,0 +1,53 @@
+<ul class="team pull-right">
+	<li><span class="crt" style="background-color: green">&cent;</span> <span
+		class="strong" style="font-size: 24px;" id="exptotal"><?php echo Content_Model_Transactions::daysReceipts(date('Y-m-d',time()));?></span>
+		<span class="muted"
+		style="top: 5px;
+	position: relative;
+	font-weight: bold;">Today's Receipts</span></li>
+	<li><span class="crt" style="background-color: maroon">&cent;</span> <span
+		class="strong" style="font-size: 24px;" id="exptotal"><?php echo Content_Model_Transactions::monthReceipts(date('m',time()));?></span>
+		<span class="muted"
+		style="top: 5px;
+	position: relative;
+	font-weight: bold;">Monthly Receipts</span></li>
+</ul>
+
+<h4 class="formSep">Collection of School Fees</h4>
+<div id="studentdebtors"></div>
+<script type="text/javascript">
+<!--
+$(function(){
+	$.post(
+    	    '/studentdebtors',
+    	    {
+    	    },
+    	    function (data){
+    	        $('#studentdebtors').html(data);
+    	 });
+
+	$.fn.payfees = function (sid, sname, grade){
+		$.loadModal('/payfees?studentid='+sid+'&gradelevel='+grade+'&update=true','Fee Payments',1);
+	};
+
+	$.fn.printReceipt = function (receiptid){
+		$.loadModal('/index/makepdf?url=http://<?php echo $this->host; ?>/printreceipt?receiptid='+receiptid+'&tm=<?php echo $this->term?>&yr=<?php echo $this->year;?>&i=0&t=RP&grade=0&cid=0&check=500','Transaction Receipt',1);
+	};
+
+	$.fn.offerDiscount = function (sid, sname, grade){
+	    $.post(
+    		    '/offerdiscount',
+    		    {
+	    		    studentname : sname,
+	    		    studentid : sid,
+	    		    gradelevel : grade,
+	    		    update : true,
+    		    },
+    		    function (data){
+    		        $('#studentdebtors').html(data);
+    		    });
+	};
+
+})
+//-->
+</script>

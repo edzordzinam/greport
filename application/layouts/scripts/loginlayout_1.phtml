@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="lpage" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<title><?php echo Content_Model_School::getSchoolName()?> welcomes you</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="We provide an innovative academic reporting generation system">
+<meta name="keywords"
+	content="school, students, read, reporting, performance, academic, sms, &, contact, student, online, results, billing, administration, development, & sms, provide, & sms reporting, sms reporting, online &, system, management, process, reports, ghana, monitor, tracking, services, parents, read school,">
+<meta name="author"
+	content="<?php echo Content_Model_School::getSchoolName()?>">
+
+     <?php
+					echo $this->headTitle ();
+					$this->headLink ()->exchangeArray ( array () );
+					$this->headLink ()->appendStylesheet ( '/min/g=login.css' );
+					echo $this->headLink ();
+					echo $this->jQuery ();
+					?>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="/js/html5.js"></script>
+    <![endif]-->
+
+<!-- Le fav and touch icons -->
+<link rel="icon" type="image/png" href="/favicon.png">
+
+
+<!-- <link rel="shortcut icon" href="/ico/favicon.ico"> -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+
+<body background="/img/bg_noise.png" class="shadow boxed"
+	style="background-color: rgba(0, 0, 0, 0.01);
+	padding-top: 42px !important;
+	max-width: 1000px;
+	margin: 0 auto;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);">
+
+	<!-- Navbar ================================================== -->
+	<div class="navbar navbar-fixed-top"
+		style="max-width: 1000px;
+	margin-left: -500px;
+	left: 50%;">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#" id="schoolname" name="top"></a>
+				<ul class="nav">
+					<li><a href="#"><label id="lbl_ajaxprogress"></label></a></li>
+				</ul>
+
+				<div class="nav-collapse collapse">
+					<ul class="nav pull-right">
+						<li><a href="#"><label id="lbl_ajaxprogress"></label></a></li>
+						<li class="divider-vertical"></li>
+
+						<form id="validate" class="navbar-form pull-left">
+							<div class="input-prepend">
+								<span class="add-on"><i class="icon-user"></i></span> <input
+									class="input-medium" type="text" placeholder="Username"
+									class="input-medium" required id="uid" name="username">
+							</div>
+							<div class="input-prepend input-append">
+								<span class="add-on"><i class="fa fa-lock"></i></span> <input
+									class="input-medium" type="password" id="pwd" name="password"
+									placeholder="Password" required
+									title='a password is required to sign-in' />
+								<button type="submit" class="btn btn-default btn-info">
+									Sign-in <i class="fa fa-unlock icon-white"></i>
+								</button>
+							</div>
+						</form>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid"
+		style="padding: 0px !important;
+	margin: 0px;">
+		<div class="row-fluid">
+			<div id="ajax-modal" class="modal hide fade" tabindex="-1"
+				style="min-width: 600px;
+	top: 30px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 id="modal-title" style="text-transform: capitalize;">Please
+						provide title</h4>
+				</div>
+				<div class="modal-body"></div>
+
+				<div id="sysalert"></div>
+
+			</div>
+			               	<?php echo $this->layout()->content; ?>
+
+		</div>
+		<!--/row-->
+
+
+	</div>
+	<!-- /container-fluid -->
+	<footer style="margin: 0px;
+	color: white;">
+		<section class="widgets">
+			<article>
+				<h3>
+					<span>Contact Us</span>
+				</h3>
+				<address>
+					Accra - Nana Krom Curve, Ghana;<br> Kumasi - Kentikronu, Ghana;<br>
+					<abbr title="Phone">P:</abbr> (+233)-024-346-3320 <br> <abbr
+						title="Phone">P:</abbr> (+233)-024-635-9711 <br> <abbr
+						title="Email">E:</abbr> <a href="mailto:info@greports.com">info@greports.com</a><br>
+					<abbr title="Email">E:</abbr> <a href="mailto:info@greports.com">support@greports.com</a><br>
+					<!-- <abbr title="Website">W:</abbr> <a href="www.greports.com">www.greports.com</a> -->
+				</address>
+			</article>
+			<article class="widget_photos">
+				<h3>
+					<span>Services</span>
+				</h3>
+
+				<li><a href="#">Network Management</a></li>
+				<li><a href="#">Web Applications Development</a></li>
+				<li><a href="#">Database Analysis & Design</a></li>
+
+			</article>
+			<article class="widget_photos">
+				<h3>
+					<span>Work</span>
+				</h3>
+				<li><a href="#">School Management Systems</a></li>
+				<li><a href="#">Hotspot Systems</a></li>
+				<li><a href="#">Firewall Setup and Administration</a></li>
+			</article>
+			<article class="widget_newsletter">
+				<h3>
+					<span>Contact us for a quote (coming soon)</span>
+				</h3>
+				<p>Put your e-mail and click on the envelope button.</p>
+				<form action="newsletter-signup.php" method="post"
+					class="newsletter-subscribe-form">
+					<p>
+						<input name="MAIL" id="news_email" placeholder="Your e-mail"
+							style="border: none;
+	border-radius: 0px;">
+						<button type="submit" name="subscribe" id="subscribe" value="1">
+							<img src="images/mail.png" alt="Subscribe">
+						</button>
+					</p>
+				</form>
+			</article>
+		</section>
+
+	</footer>
+	</div>
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/min/g=login.js"></script>
+
+	<script type="text/javascript">
+         $(function() {
+          	//default form initialization
+          	$('#validate').ajaxForm({
+          		//options of ajaxForm
+
+          		url : '/auth',
+          		data : {}, //data to be submitted along with the form variables json formatted
+          		clearForm : null, // form to be cleared if submit is successfull,
+
+          		dataType : 'json',  // json, xml, or script
+          		type : 'POST', // type of ajax call GET or POST
+
+          		replaceTarget : true,
+          		target : '#response',   //target is only rendered when the dataType has been specified.
+
+          		//callback function to be invoked on error.
+          		error : function (){
+          		},
+
+          		beforeSubmit : function (arr, $form, options){
+          			// return false; to cancel submit action
+          			 arr[1].value = $.MD5(arr[1].value);
+          		},
+
+          		success : function (data){
+          		    if (data.success == 1){
+          		    	window.location.replace(data.url);
+          		    }
+          		    else if (data.success == -1) {
+          		    	$.showMessage('Your account has been deactivated, contact admin.');
+          		    }
+          		    else if (data.success == 2){
+          		    	window.location.replace(data.url);
+          		    }
+          		    else{
+          		    	$.showMessage('Username or Password invalid', 'error');
+          		    }
+          		},
+
+              });
+
+     		// expose the form when it's clicked or cursor is focused
+     		var form = $(".expose").bind("click keydown", function() {
+
+     			$(this).expose({
+
+     				// when exposing is done, change form's background color
+     				onLoad: function() {
+     					//form.css({backgroundColor: '#c7f8ff'});
+     				},
+
+     				// when "unexposed", return to original background color
+     				onClose: function() {
+     					//form.css({backgroundColor: null});
+     				}
+
+     			});
+     		});
+     		var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
+
+     		$.showMessage = function (msg, type, layout ){
+     			$.pnotify({
+     			    title: 'System Alert',
+     			    text: msg,
+     			    type: type,
+     			    icon: 'picon picon-network-wireless',
+      			    closer_hover: false,
+    			    sticker_hover: false,
+    			    history : false,
+    			    delay: 50000,
+    			    addclass: "stack-bottomright",
+    				stack: stack_bottomright
+     			});
+     		}; /**/
+
+     		/*$.showMessage = function (msg, type, layout ) {
+		    	layout = (typeof layout === "undefined") ? "center" : layout;
+		    	type = (typeof type === "undefined") ? "information" : type;
+
+			  	var n = noty({
+			  		text: msg,
+			  		type: type,
+			  	    dismissQueue: true,
+			  		layout: layout,
+			  		theme: 'default',
+			  		modal : false,
+			  		timeout : 1000,
+			  		force : false,
+			  		closeWith : ['button'],
+			  		animation: {
+			  		    open: {height: 'toggle'},
+			  		    close: {height: 'toggle'},
+			  		    easing: 'swing',
+			  		    speed: 5000 // opening & closing animation speed
+			  		  },
+
+			  	 		 buttons: [
+				  			  {
+					  			  addClass: 'btn btn-success btn-mini', text: 'Ok', onClick: function($noty) {
+				  			           $noty.close();
+				  			  }},
+				  			 ],
+			  		  callback: {
+				  		    onShow: function() {},
+				  		    afterShow: function() {},
+				  		    onClose: function() {},
+				  		    afterClose: function() {}
+				  		  },
+			  	});
+			  };*/
+
+			  $.resizeElementHeight = function (element) {
+				  var height = 0;
+				  var body = window.document.body;
+				  if (window.innerHeight) {
+				      height = window.innerHeight;
+				  } else if (body.parentElement.clientHeight) {
+				      height = body.parentElement.clientHeight;
+				  } else if (body && body.clientHeight) {
+				      height = body.clientHeight;
+				  }
+				  element.style.height = ((height - element.offsetTop) + "px");
+				};
+
+				$(document).ajaxError(
+						function(event, request, settings) {
+						if (request.readyState == 0){
+							$('#lbl_ajaxprogress').unblock();
+							$('#sysalert').html('<div class="alert alert-block alert-error fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Connection to server failed. Please check your internet/network connection and try again</p></div>');
+						}
+						if (request.readyState == 4 && request.status == 401 /*Unauthorized Request*/  ) {
+				   			window.location = '/';
+						}else
+							if (request.readyState == 4 && request.status == 406 /*Unauthorized Request*/  ) {
+								$.showMessage('Update failed, Data incomplete','error');
+						}
+						else if (request.readyState == 4 && request.status == 501){
+							$('#sysalert').html('<div class="alert alert-block alert-info fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><h4 class="alert-heading">System Alert!</h4><p>Configuration of your institution is not yet complete. Sorry for any inconvenience caused. Please contact support for more information</p></div>');
+						}
+			});
+
+			$(document).ajaxSuccess(
+					function (event, request, settings){
+					   if (request.readyState == 4 && request.status == 202 /*Accepted Request*/) {
+							$.showMessage('Data successfully updated','information');
+						};
+					});
+
+
+			$(document).ajaxStart(function(){
+				$("#sysalert").html('');
+				$('#lbl_ajaxprogress').block(
+						{
+							message : ' <img src="/img/loaders/cloader2.gif" />Processing',
+							css : {width : '150px', border:'1px silver #aaa', }
+						 }
+						);
+			});
+
+			$(document).ajaxStop(function(){
+				$('#lbl_ajaxprogress').unblock();
+			});
+
+			  var $modal = $('#ajax-modal');
+			  var $modalbody = $('#ajax-modal .modal-body');
+			  $.loadModal = function(url, title, data){
+				    GlobalModalManager.loading();
+				    $('#modal-title').html(title);
+				    $modalbody.load(url,
+						 {
+				          data : data,
+					     }, function(){
+				      $modal.modal();
+				    });
+			  }
+
+			$('#schoolname').append("<?php echo $this->schoolname; ?>");
+	});
+      </script>
+</body>
+</html>
